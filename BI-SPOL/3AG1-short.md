@@ -1,17 +1,21 @@
+---
+tags: [otázka, kurz/AG1, otázka/3, hotovo]
+---
+
 # 3 — Základy teorie grafů a grafové algoritmy (zkrácená verze)
 
 ## 1. Základní pojmy
 
-- **Neorient. graf:** $G = (V, E)$, $E \subseteq \binom{V}{2}$. Značíme $n = |V|$, $m = |E|$.
-- **Orient. graf:** $E$ obsahuje uspořádané dvojice $(u, v)$.
-- **Sled** délky $k$: $v_0, e_1, v_1, \dots, e_k, v_k$, $e_i = \{v_{i-1}, v_i\}$.
-- **Cesta:** sled bez opakování vrcholů.
-- **Vzdálenost $d(u,v)$:** délka nejkratší $u$-$v$-cesty (nebo $+\infty$).
-- **Stupeň $\deg(v)$:** počet hran obsahujících $v$. **List:** $\deg = 1$.
-- **Princip sudosti:** $\sum_v \deg(v) = 2|E|$.
-- **Podgraf**, **indukovaný podgraf $G[V']$**, **klika** (každé 2 vrcholy sousední).
+- **[[Graf|Neorient. graf]]:** $G = (V, E)$, $E \subseteq \binom{V}{2}$. Značíme $n = |V|$, $m = |E|$.
+- **[[Orientovaný-graf|Orient. graf]]:** $E$ obsahuje uspořádané dvojice $(u, v)$.
+- **[[Sled]]** délky $k$: $v_0, e_1, v_1, \dots, e_k, v_k$, $e_i = \{v_{i-1}, v_i\}$.
+- **[[Cesta]]:** sled bez opakování vrcholů.
+- **[[Vzdálenost]] $d(u,v)$:** délka nejkratší $u$-$v$-cesty (nebo $+\infty$).
+- **[[Stupeň-vrcholu|Stupeň]] $\deg(v)$:** počet hran obsahujících $v$. **[[List]]:** $\deg = 1$.
+- **[[Princip-sudosti|Princip sudosti]]:** $\sum_v \deg(v) = 2|E|$.
+- **[[Podgraf]]**, **[[Podgraf|indukovaný podgraf]] $G[V']$**, **[[Klika|klika]]** (každé 2 vrcholy sousední).
 - **Třídy:** $K_n$ (úplný), $K_{n_1, n_2}$ (úplný bipartitní), $P_n$ (cesta), $C_n$ (kružnice).
-- **Strom:** souvislý a acyklický. **Les:** acyklický.
+- **[[Strom]]:** souvislý a acyklický. **[[Les]]:** acyklický.
 
 **Charakterizace stromů (ekvivalence):**
 1. $G$ je strom.
@@ -19,11 +23,11 @@
 3. $G$ souvislý a vynecháním libovolné hrany se rozpadne.
 4. $G$ souvislý a $|E| = |V| - 1$.
 
-**Reprezentace:** matice sousednosti $O(n^2)$, seznam sousedů $O(n+m)$.
+**Reprezentace:** [[Matice-sousednosti|matice sousednosti]] $O(n^2)$, [[Seznam-sousedů|seznam sousedů]] $O(n+m)$.
 
 ---
 
-## 2. BFS (procházení do šířky)
+## 2. [[BFS]] (procházení do šířky)
 
 **Vstup:** $G$, vrchol $s$. **Výstup:** pole $D[v] = d(s, v)$, předchůdci $P[v]$.
 
@@ -40,10 +44,10 @@
 
 ---
 
-## 3. Souvislé komponenty
+## 3. [[Souvislá-komponenta|Souvislé komponenty]]
 
-- **Souvislý graf:** $\forall u, v\ \exists\ u$-$v$-cesta.
-- **Souvislá komponenta:** maximální (v inkluzi) souvislý indukovaný podgraf. Třídy ekvivalence relace „existuje cesta".
+- **[[Souvislost|Souvislý graf]]:** $\forall u, v\ \exists\ u$-$v$-cesta.
+- **[[Souvislá-komponenta|Souvislá komponenta]]:** maximální (v inkluzi) souvislý indukovaný podgraf. Třídy ekvivalence relace „existuje cesta".
 - $G$ souvislý $\iff$ má jednu komponentu.
 
 **Algoritmus BFS_graf:** procházej vrcholy; z každého dosud nenalezeného spusť BFS. Každý běh najde jednu komponentu. Složitost $O(|V| + |E|)$.
@@ -54,15 +58,15 @@
 
 ---
 
-## 4. Topologické uspořádání (TU)
+## 4. [[Topologické-uspořádání|Topologické uspořádání]] (TU)
 
 **Definice:** Seřazení vrcholů $v_1, \dots, v_n$ orient. grafu tak, že $\forall (v_i, v_j) \in E: i < j$.
 
-- **DAG** = orient. acyklický graf. **TU existuje $\iff$ graf je DAG.**
+- **[[DAG]]** = orient. acyklický graf. **TU existuje $\iff$ graf je DAG.**
 - **Zdroj** = vrchol bez vstupních hran. **Stok** = bez výstupních.
 - **Věta:** Každý DAG má alespoň jeden zdroj a alespoň jeden stok.
 
-**Algoritmus TopSort:** spočti vstupní stupně, zdroje vlož do fronty; opakovaně vyjmi vrchol, vypiš ho, sniž vstupní stupně následníkům a zařaď ty, jimž klesl na 0. Pokud na konci zbývají nezpracované vrcholy → graf obsahuje cyklus.
+**Algoritmus [[TopSort]]:** spočti vstupní stupně, zdroje vlož do fronty; opakovaně vyjmi vrchol, vypiš ho, sniž vstupní stupně následníkům a zařaď ty, jimž klesl na 0. Pokud na konci zbývají nezpracované vrcholy → graf obsahuje cyklus.
 
 **Složitost:** $O(|V| + |E|)$.
 
@@ -83,22 +87,22 @@
 
 ---
 
-## 6. Minimální kostra (MST)
+## 6. [[Minimální-kostra|Minimální kostra]] (MST)
 
-- **Kostra** souvislého $G$: souvislý podgraf, který je stromem na $V$ (má $n - 1$ hran).
+- **[[Kostra]]** souvislého $G$: souvislý podgraf, který je stromem na $V$ (má $n - 1$ hran).
 - **MST:** kostra s minimálním součtem vah.
 
 **Elementární řez** určený $A, B = V \setminus A$ = množina hran s jedním koncem v $A$ a druhým v $B$.
 
 **Lemma o řezech (unikátní váhy):** Nejlehčí hrana v každém elementárním řezu leží v každé MST. → Při unikátních vahách je MST jediná.
 
-### Jarník (Prim)
+### [[Jarník]] (Prim)
 **Idea:** Začni stromem o 1 vrcholu, opakovaně přidej nejlehčí hranu vedoucí ven ze stromu. Hladový algoritmus.
 
-**Složitost:** naivně $O(|V| \cdot |E|)$; s binární haldou (klíč = váha nejlehčí hrany k vrcholu) $O(|E| \log |V|)$.
+**Složitost:** naivně $O(|V| \cdot |E|)$; s [[Binární-halda|binární haldou]] (klíč = váha nejlehčí hrany k vrcholu) $O(|E| \log |V|)$.
 
-### Kruskal
-**Idea:** Seřaď hrany podle vah. Procházej je od nejlehčí; přidávej, pokud koncové vrcholy leží v různých komponentách (jinak by vznikl cyklus). Komponenty udržuj ve struktuře **Union-Find**.
+### [[Kruskal]]
+**Idea:** Seřaď hrany podle vah. Procházej je od nejlehčí; přidávej, pokud koncové vrcholy leží v různých komponentách (jinak by vznikl cyklus). Komponenty udržuj ve struktuře **[[Union-Find]]**.
 
 **Union-Find** (operace `Init`, `Find`, `Union`) — s reprezentací keříky (každý strom orient. do kořene, slučujeme připojením mělčího pod hlubší) má `Find` i `Union` v $O(\log n)$, hloubka keříku $\le \log n$.
 
@@ -110,9 +114,9 @@
 
 | Algoritmus | Předpoklad | Výběr otev. vrcholu | Složitost |
 |---|---|---|---|
-| BFS | bez vah | fronta | $O(n + m)$ |
-| Dijkstra | $\ell \ge 0$ | min. halda (min $h$) | $O(m \log n)$ |
-| Bellman-Ford | bez záporných cyklů | obyč. fronta (FIFO) | $O(n \cdot m)$ |
+| [[BFS]] | bez vah | fronta | $O(n + m)$ |
+| [[Dijkstra]] | $\ell \ge 0$ | min. halda (min $h$) | $O(m \log n)$ |
+| [[Bellman-Ford]] | bez záporných cyklů | obyč. fronta (FIFO) | $O(n \cdot m)$ |
 
 (*$n = \lvert V \rvert$, $m = \lvert E \rvert$*)
 

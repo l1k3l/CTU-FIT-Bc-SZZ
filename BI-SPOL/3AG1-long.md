@@ -1,3 +1,7 @@
+---
+tags: [otázka, kurz/AG1, otázka/3, hotovo]
+---
+
 # Základy teorie grafů a grafové algoritmy
 
 > **Otázka SZZ:** Základní pojmy teorie grafů. Grafové algoritmy: procházení grafu do šířky, určení souvislých komponent, topologické uspořádání, vzdálenosti v grafech, konstrukce minimální kostry a nejkratších cest v ohodnoceném grafu.
@@ -9,7 +13,7 @@ Zdroje: BI-AG1 přednášky 1, 2, 3, 11, 12 (Knop, Opler, Valla, FIT ČVUT).
 ## 1. Základní pojmy teorie grafů
 
 ### 1.1 Neorientovaný graf
-**Neorientovaný graf** je uspořádaná dvojice $G = (V, E)$, kde
+**[[Graf|Neorientovaný graf]]** je uspořádaná dvojice $G = (V, E)$, kde
 - $V$ je neprázdná konečná množina **vrcholů**,
 - $E$ je množina **hran**; hrana je dvouprvková podmnožina $V$, značíme $\{u, v\}$.
 
@@ -18,37 +22,37 @@ Značení: $V(G)$, $E(G)$, $n = |V(G)|$, $m = |E(G)|$. Množinu všech možných
 Pokud $e = \{u, v\} \in E$, pak $u, v$ jsou **koncové vrcholy** hrany $e$, $u$ je **sousedem** $v$ a $u, v$ jsou **incidentní** s $e$.
 
 ### 1.2 Orientovaný graf
-**Orientovaný graf** $G = (V, E)$, kde $E$ je množina **orientovaných hran** — uspořádaných dvojic $(u, v)$. Říkáme, že $u$ je předchůdce $v$ a $v$ je následník $u$. Orientovaná hrana $(u, u)$ je **smyčka**.
+**[[Orientovaný-graf|Orientovaný graf]]** $G = (V, E)$, kde $E$ je množina **orientovaných hran** — uspořádaných dvojic $(u, v)$. Říkáme, že $u$ je předchůdce $v$ a $v$ je následník $u$. Orientovaná hrana $(u, u)$ je **smyčka**.
 
 ### 1.3 Sled, cesta, vzdálenost
-- **Sled** délky $k$: sekvence $v_0, e_1, v_1, e_2, \dots, e_k, v_k$ taková, že $e_i = \{v_{i-1}, v_i\} \in E$.
-- **Cesta**: sled, ve kterém se neopakují vrcholy (a tedy ani hrany).
+- **[[Sled]]** délky $k$: sekvence $v_0, e_1, v_1, e_2, \dots, e_k, v_k$ taková, že $e_i = \{v_{i-1}, v_i\} \in E$.
+- **[[Cesta]]**: sled, ve kterém se neopakují vrcholy (a tedy ani hrany).
 - **$s$-$t$-cesta**: cesta s počátečním vrcholem $s$ a koncovým $t$ (povolujeme $s=t$, pak má cesta nulovou délku).
 - **Délka cesty** = počet hran v ní.
-- **Vzdálenost** $d(s,t)$ = délka nejkratší $s$-$t$-cesty (nebo $+\infty$, neexistuje-li).
+- **[[Vzdálenost]]** $d(s,t)$ = délka nejkratší $s$-$t$-cesty (nebo $+\infty$, neexistuje-li).
 
 ### 1.4 Důležité třídy grafů
-- **Úplný graf $K_n$ (klika):** graf na $n$ vrcholech, kde $E = \binom{V}{2}$.
+- **Úplný graf $K_n$ ([[Klika|klika]]):** graf na $n$ vrcholech, kde $E = \binom{V}{2}$.
 - **Úplný bipartitní graf $K_{n_1, n_2}$:** vrcholy rozdělené do partit $A, B$ velikostí $n_1, n_2$; hrany jdou mezi všemi dvojicemi z $A \times B$ ($|E| = n_1 \cdot n_2$).
 - **Cesta $P_n$:** graf $(\{1,\dots,n\}, \{\{i,i+1\}\})$.
 - **Kružnice $C_n$:** $P_n$ doplněná o hranu $\{n, 1\}$, $n \ge 3$.
 - **Doplněk $\overline{G}$ grafu $G = (V, E)$:** $(V, \binom{V}{2} \setminus E)$.
 
 ### 1.5 Stupně vrcholů
-- $\deg_G(v)$ = **stupeň** vrcholu $v$ = počet hran obsahujících $v$.
+- $\deg_G(v)$ = **[[Stupeň-vrcholu|stupeň]]** vrcholu $v$ = počet hran obsahujících $v$.
 - $N_G(v)$ = **(otevřené) okolí** $v$ = množina jeho sousedů.
 - $N_G[v] = N_G(v) \cup \{v\}$ = **uzavřené okolí**.
 - $r$-**regulární** graf: každý vrchol má stupeň $r$.
 - **Izolovaný vrchol:** vrchol stupně 0.
 
-**Věta (princip sudosti):** $\displaystyle\sum_{v \in V} \deg_G(v) = 2|E|$.
+**Věta ([[Princip-sudosti|princip sudosti]]):** $\displaystyle\sum_{v \in V} \deg_G(v) = 2|E|$.
 
 **Důsledky:** V každém grafu je počet vrcholů lichého stupně sudý. Každý regulární graf lichého stupně má sudý počet vrcholů.
 
 ### 1.6 Podgraf, indukovaný podgraf, klika
-- **Podgraf $H$** grafu $G$: $V(H) \subseteq V(G)$ a $E(H) \subseteq E(G)$.
-- **Indukovaný podgraf $G[V']$**: $V(H) = V' \subseteq V(G)$ a $E(H) = E(G) \cap \binom{V'}{2}$.
-- **Klika v $G$**: podmnožina vrcholů, z nichž každé dva jsou sousední.
+- **[[Podgraf]]** $H$ grafu $G$: $V(H) \subseteq V(G)$ a $E(H) \subseteq E(G)$.
+- **[[Podgraf|Indukovaný podgraf]]** $G[V']$: $V(H) = V' \subseteq V(G)$ a $E(H) = E(G) \cap \binom{V'}{2}$.
+- **[[Klika]]** v $G$: podmnožina vrcholů, z nichž každé dva jsou sousední.
 
 ### 1.7 Izomorfismus
 **Izomorfismus** $f: V(G) \to V(H)$: bijekce taková, že $\{u, v\} \in E(G) \iff \{f(u), f(v)\} \in E(H)$. Grafy jsou pak **izomorfní** ($G \simeq H$). Obecný problém izomorfismu je výpočetně obtížný.
@@ -56,9 +60,9 @@ Pokud $e = \{u, v\} \in E$, pak $u, v$ jsou **koncové vrcholy** hrany $e$, $u$ 
 **Automorfismus** = izomorfismus s grafem samotným; ukazuje symetrii grafu.
 
 ### 1.8 Stromy a lesy
-- **Strom:** souvislý graf bez kružnic (acyklický).
-- **Les:** graf bez kružnic.
-- **List:** vrchol stupně 1.
+- **[[Strom]]:** souvislý graf bez kružnic (acyklický).
+- **[[Les]]:** graf bez kružnic.
+- **[[List]]:** vrchol stupně 1.
 
 **Věta (o existenci listů):** Každý strom s alespoň 2 vrcholy obsahuje alespoň 2 listy.
 
@@ -71,12 +75,12 @@ Pokud $e = \{u, v\} \in E$, pak $u, v$ jsou **koncové vrcholy** hrany $e$, $u$ 
 4. $G$ je souvislý a $|E| = |V| - 1$.
 
 ### 1.9 Reprezentace v paměti
-- **Matice sousednosti** $A_G$: čtvercová matice $n \times n$, $a_{ij} = 1$ pokud $\{v_i, v_j\} \in E$, jinak 0. Paměť: $O(n^2)$.
-- **Seznam sousedů (resp. následníků):** pro každý vrchol uchováváme seznam jeho sousedů. Paměť: $O(n + m)$.
+- **[[Matice-sousednosti|Matice sousednosti]]** $A_G$: čtvercová matice $n \times n$, $a_{ij} = 1$ pokud $\{v_i, v_j\} \in E$, jinak 0. Paměť: $O(n^2)$.
+- **[[Seznam-sousedů|Seznam sousedů]]** (resp. následníků): pro každý vrchol uchováváme seznam jeho sousedů. Paměť: $O(n + m)$.
 
 ---
 
-## 2. Procházení grafu do šířky (BFS)
+## 2. Procházení grafu do šířky ([[BFS]])
 
 ### 2.1 Specifikace
 **Vstup:** Neorientovaný graf $G = (V, E)$ a vrchol $s \in V$.
@@ -130,10 +134,10 @@ Každý vrchol je vložen do $Q$ nejvýše jednou; vnější cyklus má $\le |V|
 ## 3. Určení souvislých komponent
 
 ### 3.1 Souvislost
-**Graf $G$ je souvislý**, jestliže pro každé dva jeho vrcholy $u, v$ existuje $u$-$v$-cesta. Jinak je **nesouvislý**.
+**Graf $G$ je [[Souvislost|souvislý]]**, jestliže pro každé dva jeho vrcholy $u, v$ existuje $u$-$v$-cesta. Jinak je **nesouvislý**.
 
 ### 3.2 Souvislá komponenta
-**Indukovaný podgraf $H$ grafu $G$ je souvislou komponentou**, pokud
+**Indukovaný podgraf $H$ grafu $G$ je [[Souvislá-komponenta|souvislou komponentou]]**, pokud
 - je souvislý a
 - neexistuje žádný souvislý podgraf $F \neq H$ takový, že $H \subseteq F$.
 
@@ -176,11 +180,11 @@ Slabou souvislost testujeme BFS na symetrizaci. Silnou lze naivně řešit spuš
 Závislosti mezi moduly tvoří orientovaný graf — chceme moduly seřadit tak, aby závislosti šly „zleva doprava".
 
 ### 4.2 Definice
-**Topologické uspořádání (TU)** orientovaného grafu $G = (V, E)$ je takové seřazení vrcholů $v_1, \dots, v_n$, že pro každou orientovanou hranu $(v_i, v_j) \in E$ platí $i < j$.
+**[[Topologické-uspořádání|Topologické uspořádání]] (TU)** orientovaného grafu $G = (V, E)$ je takové seřazení vrcholů $v_1, \dots, v_n$, že pro každou orientovanou hranu $(v_i, v_j) \in E$ platí $i < j$.
 
 **Pozorování:** Pokud graf obsahuje **cyklus** (orientovanou kružnici), nelze topologicky uspořádat.
 
-**Definice (DAG):** Orientovaný graf je **acyklický** (Directed Acyclic Graph), pokud neobsahuje orientovanou kružnici jako podgraf.
+**Definice ([[DAG]]):** Orientovaný graf je **acyklický** (Directed Acyclic Graph), pokud neobsahuje orientovanou kružnici jako podgraf.
 
 ### 4.3 Zdroj a stok
 - **Zdroj:** vrchol bez vstupních hran.
@@ -212,7 +216,7 @@ Algoritmus TopSort(orientovaný G):
 **Idea:** Průběžně počítej vstupní stupně, zdroje zařazuj do fronty, vyjímej z fronty a snižuj vstupní stupně následníků; když i ten klesne na 0, zařaď.
 
 ### 4.5 Správnost a složitost
-**Věta:** TopSort buď vrátí korektní TU acyklického grafu, nebo detekuje cyklus.
+**Věta:** [[TopSort]] buď vrátí korektní TU acyklického grafu, nebo detekuje cyklus.
 
 **Věta:** Časová i paměťová složitost je $O(|V| + |E|)$ při reprezentaci polem následníků.
 
@@ -245,20 +249,20 @@ Vzdálenost = délka nejkratší cesty (počet hran). Hledáme algoritmem **BFS*
 ## 6. Minimální kostra (MST)
 
 ### 6.1 Kostra grafu
-Nechť $G = (V, E)$ je souvislý graf. Podgraf $K$ je **kostrou** $G$, pokud $V(K) = V$ a $K$ je strom.
+Nechť $G = (V, E)$ je souvislý graf. Podgraf $K$ je **[[Kostra|kostrou]]** $G$, pokud $V(K) = V$ a $K$ je strom.
 
 - Kostra má $|V| - 1$ hran (z charakterizace stromů).
 - Nesouvislé grafy nemají kostru; každá souvislá komponenta kostru má.
 
 ### 6.2 Minimální kostra
-Pro **hranově ohodnocený** souvislý graf $G$ s váhovou funkcí $w: E \to \mathbb{R}$ je **minimální kostra** taková kostra, která má mezi všemi kostrami **nejmenší součet vah hran** $w(K) = \sum_{e \in K} w(e)$.
+Pro **hranově ohodnocený** souvislý graf $G$ s váhovou funkcí $w: E \to \mathbb{R}$ je **[[Minimální-kostra|minimální kostra]]** taková kostra, která má mezi všemi kostrami **nejmenší součet vah hran** $w(K) = \sum_{e \in K} w(e)$.
 
 ### 6.3 Najít libovolnou kostru — modifikace BFS
 Hrany do předchůdců (pole $P$ z BFS) tvoří kostru. Spustíme BFS, vrátíme $\{\{P[v], v\} : v \neq s\}$. Časová složitost: $O(|V| + |E|)$.
 
 **Věta:** Hrany do předchůdců v BFS na souvislém grafu tvoří kostru.
 
-### 6.4 Jarníkův (Primův) algoritmus
+### 6.4 [[Jarník|Jarníkův (Primův) algoritmus]]
 
 **Idea:** Hladově (greedy). Začneme stromem o 1 vrcholu. Opakovaně přidáme **nejlehčí hranu**, která vede mezi dosud vytvořeným stromem a zbytkem grafu.
 
@@ -286,7 +290,7 @@ Algoritmus MinKostraJarník(G = (V, E), w: E → ℝ)
 
 ### 6.6 Implementace přes binární haldu
 
-Vrcholy uchováváme v minimové binární haldě, klíčem je „vzdálenost od stromu":
+Vrcholy uchováváme v minimové [[Binární-halda|binární haldě]], klíčem je „vzdálenost od stromu":
 - `HeapExtractMin` → vrchol $u$ s minimálním $d$, přidáme ho do $T$.
 - Pro sousedy $v$ z $u$ použijeme `HeapDecreaseKey`, pokud nová hrana zlepší jejich $d$.
 
@@ -294,7 +298,7 @@ Vrcholy uchováváme v minimové binární haldě, klíčem je „vzdálenost od
 
 *Důkaz:* $|V|$-krát `ExtractMin` = $O(|V| \log |V|)$, plus nejvýše $|E|$-krát `DecreaseKey` = $O(|E| \log |V|)$.
 
-### 6.7 Kruskalův algoritmus
+### 6.7 [[Kruskal|Kruskalův algoritmus]]
 
 **Idea:** Také hladově. Seřaď hrany podle vah od nejlehčí. Procházej je v tomto pořadí; každou přidej, pokud nevytvoří cyklus (tedy její koncové vrcholy leží v různých komponentách aktuálního lesa).
 
@@ -312,7 +316,7 @@ Algoritmus MinKostraKruskal(G = (V, E), w: E → ℝ)
 (10) Vrať T
 ```
 
-### 6.8 Struktura Union-Find
+### 6.8 Struktura [[Union-Find]]
 Reprezentuje rozklad množiny $X$. Operace:
 - `Init(X)` — každý prvek ve vlastní množině.
 - `Find(u)` — identifikátor množiny obsahující $u$.
@@ -339,7 +343,7 @@ S keříky $\Rightarrow O(m \log n + n + m \log n + n \log n) = O(m \log n) = O(
 
 ## 7. Nejkratší cesty v ohodnoceném grafu
 
-### 7.1 Dijkstrův algoritmus
+### 7.1 [[Dijkstra|Dijkstrův algoritmus]]
 
 **Vstup:** Orientovaný graf $G = (V, E)$ s **kladnými** délkami $\ell: E \to \mathbb{R}^+$ a počáteční vrchol $v_0$.
 
@@ -420,7 +424,7 @@ Algoritmus Relaxace(G, ℓ: E → ℝ, v₀)
 
 Vlastnosti O, D, V platí pro **jakoukoli** strategii výběru otevřeného vrchol.
 
-### 7.6 Bellmanův-Fordův algoritmus
+### 7.6 [[Bellman-Ford|Bellmanův-Fordův algoritmus]]
 
 **Vstup:** Orientovaný graf s **libovolnými** délkami hran, **bez záporných cyklů**.
 
