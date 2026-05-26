@@ -11,11 +11,12 @@ Turn this repo into an interconnected Zettelkasten of exam-prep materials. Each 
 
 ```
 SZZ/
-  AAG/                          source PDFs only
-  AG1/                          source PDFs only
-  DBS/                          source PDFs only
-  DML/                          source PDFs only
-  …other course folders…        source PDFs only
+  materials/                    source PDFs only — GITIGNORED (kept locally)
+    AAG/
+    AG1/
+    DBS/
+    DML/
+    …other course folders…
 
   BI-SPOL/                      ALL shared-course question summaries (flat)
     1AAG-long.md
@@ -124,7 +125,7 @@ The existing CLAUDE.md already specifies long/short conventions. This spec adds:
 
 ## Workflow for adding a new question
 
-1. Read lecture PDFs in the relevant course folder (source of truth).
+1. Read lecture PDFs in `materials/<COURSE>/` (source of truth).
 2. Draft `[N][course]-long.md` directly in `BI-SPOL/` or `BI-UI/`.
 3. For each major term: check `Pojmy/`. If a note exists → link/embed. If not → create one (or stub it).
 4. **If a term is already defined in `Pojmy/` but this course defines it differently — stop and ask the user before writing.**
@@ -138,7 +139,7 @@ Vault is a git repo. Commit after:
 - Each batch of concept-note additions.
 - Structural changes (template edits, CLAUDE.md updates).
 
-`.gitignore` excludes `.obsidian/workspace*.json`, `.DS_Store`, `.trash/`. Keep `.obsidian/` config tracked so plugin/template configuration follows the repo.
+`.gitignore` excludes `.obsidian/workspace*.json`, `.DS_Store`, `.trash/`, and `materials/` (lecture PDFs and textbooks). Keep `.obsidian/` config tracked so plugin/template configuration follows the repo.
 
 ## Obsidian plugin set
 

@@ -7,7 +7,8 @@ Full design rationale: [`docs/superpowers/specs/2026-05-26-zettelkasten-vault-de
 ## Folder layout
 
 ```
-AAG/, AG1/, DBS/, DML/, …    source PDFs only (course handouts)
+materials/                   source PDFs only — gitignored, kept locally
+  AAG/, AG1/, DBS/, DML/, …  one subfolder per course
 BI-SPOL/                     ALL shared-course question summaries (flat — no per-course subfolders)
 BI-UI/                       ALL specialization question summaries (flat)
 Pojmy/                       cross-course canonical concept notes (flat)
@@ -15,6 +16,8 @@ MOC/                         maps of content — demand-driven, do NOT pre-creat
 Šablony/                     Obsidian Templater templates
 docs/superpowers/specs/      design specs
 ```
+
+`materials/` is **gitignored** — lecture PDFs and textbooks live there locally but are not committed.
 
 Per-question summary files live **directly** in `BI-SPOL/` or `BI-UI/` — not in per-course subfolders. Ask the user which one a new question belongs to if unclear.
 
@@ -101,7 +104,7 @@ Create only when ≥5 related notes need gathering. Never pre-create empty MOCs.
 
 ## Workflow when adding a new question
 
-1. Read the relevant course PDFs.
+1. Read the relevant course PDFs in `materials/<COURSE>/`.
 2. Draft `[N][course]-long.md` in `BI-SPOL/` or `BI-UI/`.
 3. For each major term: check `Pojmy/`. If a note exists → link/embed. If not → create one (or stub).
 4. **If `Pojmy/` already defines a term but the current course defines it differently — stop and ask the user.**
@@ -117,7 +120,7 @@ This vault is a git repository. Commit:
 
 Commit messages: short Czech or English imperative ("Add 3AG1 long+short", "Pojmy: Graf, Strom, Funkce"). One logical change per commit.
 
-`.gitignore` excludes `.obsidian/workspace*.json`, `.DS_Store`, `.trash/` — Obsidian config itself is tracked.
+`.gitignore` excludes `.obsidian/workspace*.json`, `.DS_Store`, `.trash/`, and `materials/` (course PDFs). Obsidian config itself is tracked.
 
 ## Language
 

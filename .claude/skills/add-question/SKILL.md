@@ -17,7 +17,7 @@ If the user didn't specify whether the course is BI-SPOL or BI-UI, ask. Don't gu
 
 ## Workflow
 
-1. **Read source PDFs** in the matching course folder (`AG1/`, `AAG/`, …). These are the source of truth — do not rely on prior knowledge if the lecture content differs.
+1. **Read source PDFs** in `materials/<COURSE>/` (e.g. `materials/AG1/`, `materials/AAG/`). These are the source of truth — do not rely on prior knowledge if the lecture content differs. Note: `materials/` is gitignored.
 
 2. **Skim `Pojmy/`** for existing concept notes that map to terms in the question. Note which terms have canonical definitions and which don't.
 

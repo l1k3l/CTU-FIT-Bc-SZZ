@@ -15,7 +15,7 @@ If the term is ambiguous (means multiple things across courses), ask the user wh
 
 ## Workflow
 
-1. **Cross-PDF research.** Grep / read across course PDFs for the term. Collect:
+1. **Cross-PDF research.** Grep / read across course PDFs in `materials/` for the term. Collect:
    - The most rigorous definition (usually DML if a math term, lecture 1–2 of the owning course otherwise).
    - Any course-specific simplifications or extensions.
    - Related terms (those that will become wikilinks).
