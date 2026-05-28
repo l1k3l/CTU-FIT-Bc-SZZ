@@ -33,9 +33,8 @@ BG je **víceznačná**, pokud existuje věta se dvěma různými derivačními 
 ## Normální formy
 
 - **[[Chomského-NF|Chomského NF]]** (ChNF): pravidla $A \to BC$, $A \to a$, případně $S \to \varepsilon$.
-- **Greibachové NF (GNF):** $A \to a\alpha$, $a \in \Sigma$, $\alpha \in N^*$.
 
-Každý CFL má gramatiku v ChNF i v GNF.
+Každý CFL má gramatiku v ChNF.
 
 ## Uzavřenost CFL
 

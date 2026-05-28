@@ -42,8 +42,6 @@ Pravidla mají tvar $A \to BC$, $A \to a$, $S \to \varepsilon$ (jen pokud $\vare
 
 **Převod:** dlouhá pravidla $A \to X_1\dots X_k$ ($k > 2$) rozsekni pomocnými neterminály $Y_{X_2\dots X_k}, Y_{X_3\dots X_k}, \dots$; každý terminál ve smíšeném pravidle nahraď neterminálem $a'$ s pravidlem $a' \to a$.
 
-**GNF (Greibachové):** $A \to a\alpha$, $a \in \Sigma$, $\alpha \in N^*$. Každý CFL má gramatiku v GNF; délka derivace = $|w|$. (V BI-AAG zmíněna jen okrajově.)
-
 ---
 
 ## 4. [[Zásobníkový-automat|Zásobníkový automat]] (ZA, PDA)

@@ -143,17 +143,6 @@ Předpoklad: vlastní BG bez jednoduchých pravidel.
 $S \to aAB \mid BA$, $A \to BBB \mid a$, $B \to AS \mid b$ se převede na ChNF:
 $$\{ S \to a'Y_{AB} \mid BA,\ A \to BY_{BB} \mid a,\ B \to AS \mid b,\ Y_{AB} \to AB,\ Y_{BB} \to BB,\ a' \to a \}.$$
 
-### 3.5 Greibachové normální forma
-Pro úplnost (v BI-AAG explicitně neuvedena, ale standardní téma).
-
-**Definice:** BG je v **Greibachové NF (GNF)**, jestliže každé pravidlo má tvar
-$$A \to a\alpha, \qquad a \in \Sigma,\ \alpha \in N^*$$
-(plus volitelně $S \to \varepsilon$).
-
-**Věta:** Každý bezkontextový jazyk lze generovat gramatikou v GNF.
-
-**Důsledek:** Délka derivace věty $w$ je přesně $|w|$ (každé pravidlo vyprodukuje jeden terminál na začátku). GNF je užitečná pro důkazy a top-down syntaktickou analýzu bez levé rekurze.
-
 ---
 
 ## 4. Zásobníkový automat (ZA, PDA)
@@ -290,7 +279,7 @@ Klasická konstrukce (mimo BI-AAG) zavádí pro každou trojici $[q, A, p]$ nete
 ### 7.2 Deterministická analýza
 Pro praktické překladače chceme **deterministický** ZA — pak rozklad běží v lineárním čase. Toho lze dosáhnout pro vlastní podtřídu CFL = **DCFL**.
 
-- **LL($k$) gramatiky:** lze deterministicky analyzovat shora dolů s $k$ symboly lookaheadu. Vyžadují **bezlevě rekurzivní** gramatiky; typicky se kombinují s formou blízkou GNF. Příkladem speciální podtřídy je **$s$-gramatika** (každé pravidlo začíná unikátním terminálem) — odpovídá LL(1).
+- **LL($k$) gramatiky:** lze deterministicky analyzovat shora dolů s $k$ symboly lookaheadu. Vyžadují **bezlevě rekurzivní** gramatiky. Příkladem speciální podtřídy je **$s$-gramatika** (každé pravidlo začíná unikátním terminálem) — odpovídá LL(1).
 - **LR($k$) gramatiky:** deterministická analýza zdola nahoru. LR(1) přesně pokrývá celou DCFL (Knuth). Praktické podtřídy: **SLR**, **LALR** (Yacc/Bison), **LR(1)**.
 
 Podrobně se LL/LR analyzuje v BI-PJP (top-down) a NI-SYP (bottom-up).
@@ -348,7 +337,7 @@ Naproti tomu **DCFL** je uzavřena na doplněk, ale ne na sjednocení ani průni
 ## 9. Co je potřeba na zkoušku znát
 
 ### Definice
-BG (čtveřice), derivace, levá/pravá derivace, větná forma, věta, $L(G)$, derivační strom, výsledek (yield), víceznačnost, rozklad; zbytečné / nedostupné / $\varepsilon$-pravidlo / jednoduché pravidlo; **vlastní gramatika**; **Chomského NF** (a krátce Greibachové NF); ZA (sedmice), konfigurace, přechod, $L(R)$ vs. $L_\varepsilon(R)$; deterministický ZA; DCFL.
+BG (čtveřice), derivace, levá/pravá derivace, větná forma, věta, $L(G)$, derivační strom, výsledek (yield), víceznačnost, rozklad; zbytečné / nedostupné / $\varepsilon$-pravidlo / jednoduché pravidlo; **vlastní gramatika**; **Chomského NF**; ZA (sedmice), konfigurace, přechod, $L(R)$ vs. $L_\varepsilon(R)$; deterministický ZA; DCFL.
 
 ### Věty (s důkazovou skicou)
 - **Ekvivalence dvou modů přijímání** ZA (konstrukce s novým dnem a vyprazdňovacím stavem).
