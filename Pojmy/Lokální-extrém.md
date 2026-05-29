@@ -1,6 +1,6 @@
 ---
-aliases: [lokální extrém, lokální extrémy, lokálního extrému, lokální maximum, lokální minimum, ostré lokální maximum, ostré lokální minimum, globální extrém, globální maximum, globální minimum, stacionární bod, extrém, extrémy, local extremum]
-tags: [definice, kurz/MA1]
+aliases: [lokální extrém, lokální extrémy, lokálního extrému, lokální maximum, lokální minimum, ostré lokální maximum, ostré lokální minimum, globální extrém, globální maximum, globální minimum, stacionární bod, kritický bod, sedlový bod, extrém, extrémy, local extremum, saddle point]
+tags: [definice, kurz/MA1, kurz/MA2]
 ---
 
 # Lokální extrém
@@ -28,8 +28,19 @@ Má-li $f$ v bodě $a$ lokální extrém, pak **buď $f'(a) = 0$, nebo [[Derivac
 
 **Globální maximum/minimum** $f$ na množině $M$ je $\max_M f$ / $\min_M f$. Spojitá funkce na **uzavřeném intervalu** $\langle a,b\rangle$ globální extrémy vždy nabývá, a to jen v krajních bodech nebo v bodech, kde $f'=0$ nebo neexistuje.
 
+## Více proměnných (MA2)
+
+Definice je stejná pro $f:D_f\to\mathbb{R}$, $D_f\subset\mathbb{R}^n$ (okolí $U_a\subset\mathbb{R}^n$). Pojmy:
+- **stacionární bod:** $\nabla f(a)=\theta^T$; **kritický bod:** stacionární nebo neexistuje [[Gradient|gradient]]; **sedlový bod:** stacionární bod, kde extrém nenastává.
+- **Nutná podmínka I:** extrém $\Rightarrow$ každá [[Parciální-derivace|parciální derivace]] je $0$ nebo neexistuje (tj. $\nabla f(a)=\theta^T$).
+- **Nutná podmínka II:** spojité druhé parciální derivace + lok. min. (resp. max.) $\Rightarrow$ [[Hessova-matice]] $\nabla^2 f(a)$ je PSD (resp. NSD).
+- **Postačující podmínka:** $\nabla f(a)=\theta^T$ a $\nabla^2 f(a)$ **PD** $\Rightarrow$ ostré min., **ND** $\Rightarrow$ ostré max., **ID** $\Rightarrow$ sedlo. PSD/NSD nerozhoduje. (Viz [[Kvadratická-forma|definitnost]].)
+
 ## Související
 
 - [[Derivace]]
 - [[Konvexní-funkce]]
 - [[Spojitost]]
+- [[Gradient]]
+- [[Hessova-matice]]
+- [[Kvadratická-forma]]
