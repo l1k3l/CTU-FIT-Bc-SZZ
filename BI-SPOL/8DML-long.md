@@ -232,7 +232,7 @@ Speciálně **lze krátit** beze změny modula, právě když $\gcd(m, c) = 1$.
 
 ### 5.2 Malá Fermatova věta
 
-**Věta (Malá Fermatova, MFV):** Buď $p$ prvočíslo a $a \in \mathbb{N}$ není násobkem $p$ (tj. $\gcd(a, p) = 1$). Pak
+**Věta (**[[Malá-Fermatova-věta|Malá Fermatova]]**, MFV):** Buď $p$ prvočíslo a $a \in \mathbb{N}$ není násobkem $p$ (tj. $\gcd(a, p) = 1$). Pak
 $$a^{p-1} \equiv 1 \pmod p.$$
 
 **Důkaz.** Uvažme čísla $a, 2a, 3a, \dots, (p-1)a$.

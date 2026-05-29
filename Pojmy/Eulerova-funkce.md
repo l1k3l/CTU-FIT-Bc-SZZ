@@ -40,7 +40,7 @@ $$\varphi(m) = m \left(1 - \frac{1}{p_1}\right)\left(1 - \frac{1}{p_2}\right) \c
 **Věta:** Nechť $m \in \mathbb{N}$, $m \geq 2$, a $a \in \mathbb{N}$ je nesoudělné s $m$. Pak
 $$a^{\varphi(m)} \equiv 1 \pmod m.$$
 
-Tato věta zobecňuje [[Malou Fermatovu větu]] — pro prvočíselné $m$ je $\varphi(m) = m - 1$.
+Tato věta zobecňuje **[[Malá-Fermatova-věta|Malou Fermatovu větu]]** — pro prvočíselné $m$ je $\varphi(m) = m - 1$.
 
 **Důsledek (inverze):** Pokud $\gcd(a, m) = 1$, pak $a^{\varphi(m) - 1}$ je multiplikativní inverzí $a$ modulo $m$ (protože $a \cdot a^{\varphi(m) - 1} = a^{\varphi(m)} \equiv 1$).
 
