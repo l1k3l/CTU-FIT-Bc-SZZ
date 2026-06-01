@@ -1,6 +1,6 @@
 ---
-aliases: [slovník, slovníku, slovníkem, slovníky, slovníků, slovníkům, mapa, asociativní pole]
-tags: [definice, datová-struktura, kurz/AG1]
+aliases: [slovník, slovníku, slovníkem, slovníky, slovníků, slovníkům, mapa, mapy, asociativní pole, tabulka, tabulky, tabulce, tabulku, tabulkou, tabulek]
+tags: [definice, datová-struktura, kurz/AG1, kurz/PA2]
 ---
 
 # Slovník
@@ -19,6 +19,10 @@ Klíče jsou **unikátní** a $\mathcal{U}$ je **univerzum** všech možných kl
 - **Vyvážený [[BVS]]** (např. [[AVL-strom]]) — $O(\log n)$ na operaci.
 - **[[Hešovací-tabulka]]** — $O(1)$ amortizovaně v průměrném případě.
 
+## Použití v PA2 (tabulka / mapa)
+V BI-PA2 jsou **tabulka = mapa = slovník** synonyma pro **asociativní** strukturu klíč → hodnota: kontejner hodnot typu `Value`, kde prvek je identifikován **klíčem** typu `Key`. Operace: `set(k,v)` (nastav), `get(k)` (získej), `erase(k)`, `contains(k)`. Implementace a složitosti jsou stejné jako u [[Množina|množiny]] (mapa = množina s netriviálním typem hodnoty). V STL: `std::map` (strom, $O(\log n)$), `std::unordered_map` (hešování, průměrně $O(1)$).
+
 ## Související
+- [[Množina]]
 - [[Hešovací-tabulka]]
 - [[BVS]]
