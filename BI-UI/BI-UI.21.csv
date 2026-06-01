@@ -1,0 +1,27 @@
+﻿Číslo TO BI;CZ verze TO;Předmět
+BI-UI.21-1;Lineární zobrazení: definice a vlastnosti (hodnost, jádro, defekt, injektivita, surjektivita), matice lineárního zobrazení.;BI-LA2.21
+BI-UI.21-2;Skalární součin a norma vektoru: definice, vlastnosti a příklady.;BI-LA2.21
+BI-UI.21-3;Ortogonalita a ortogonální báze: definice a vlastnosti.;BI-LA2.21
+BI-UI.21-4;LU rozklad matic, řešení soustavy lineárních rovnic pomocí LU rozkladu.;BI-LA2.21
+BI-UI.21-5;QR rozklad: výpočet a využití při výpočtu odhadu metodou nejmenších čtverců.;BI-LA2.21
+BI-UI.21-6;Výpočet vlastních čísel, mocninná metoda, QR algoritmus.;BI-LA2.21
+BI-UI.21-7;SVD rozklad: definice, vlastnosti, výpočet.;BI-LA2.21
+BI-UI.21-8;Rozhodovací stromy, náhodné lesy, AdaBoost.;BI-ML1.21
+BI-UI.21-9;Metrika - definice a příklady. Metoda nejbližších sousedů pro klasifikaci i regresi. Aglomerativní hierarchické shlukování.;BI-ML1.21
+BI-UI.21-10;Lineární regrese – metoda nejmenších čtverců, geometrická interpretace, problém kolinearity.;BI-ML1.21
+BI-UI.21-11;Hřebenová regrese, očekávaná chyba modelu a její rozklad.;BI-ML1.21
+BI-UI.21-12;Logistická regrese – sestavení modelu pro binární klasifikaci, trénování jako MLE odhad.;BI-ML1.21
+BI-UI.21-13;Evaluace modelů – testovací chyba a její odhad, křížová validace, vyhodnocovací metriky regrese a klasifikace.;BI-ML1.21
+BI-UI.21-14;Nesupervizované učení – základní prinicipy, algoritmus k-means, DBSCAN.;BI-ML1.21
+BI-UI.21-15;Jádrová regrese – lineární model bázových funkcí, jádrový trik.;BI-ML2.21
+BI-UI.21-16;Metoda podpůrných vektorů (SVM) pro klasifikaci.;BI-ML2.21
+BI-UI.21-17;Redukce dimenzionality - analýza hlavních komponent (PCA), lokálně lineární vnoření.;BI-ML2.21
+BI-UI.21-18;Generativní modely - naivní Bayes, lineární diskriminační analýza.;BI-ML2.21
+BI-UI.21-19;Neuronové sítě - perceptron, aktivační funkce, trénování hlubokých neuronových sítí.;BI-ML2.21
+BI-UI.21-20;Posilované učení.;BI-ML2.21
+BI-UI.21-21;Stavový prostor a neinformované prohledávání, stromová expanze, náhodné prohledávání, prohledávání do hloubky a do šířky.;BI-ZUM.21
+BI-UI.21-22;Heuristické prohledávání stavového prostoru, heuristiky pro odhad ceny cesty, hladové prohledávání, algoritmus A*.;BI-ZUM.21
+BI-UI.21-23;Principy lokálního prohledávání, metody typu hill-climbing. Problém lokálního minima a metody jeho zmírnění (tabu search, simulované žíhání).;BI-ZUM.21
+BI-UI.21-24;Genetický algoritmus a genetické programování. Genetické operátory (selekce, křížení, mutace). Evoluční programování a optimalizace, evoluční strategie.;BI-ZUM.21
+BI-UI.21-25;Hry v normální formě. Analýza akčních profilů: Paretovo optimum, Nashovo equilibrium.;BI-ZUM.21
+BI-UI.21-26;Prohledávání herního stromu: Algoritmus Minimax, alfa-beta prořezávání a heuristiky.;BI-ZUM.21
