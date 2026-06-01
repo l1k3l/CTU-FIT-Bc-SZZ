@@ -6,9 +6,9 @@ tags: [otázka, kurz/PA1, otázka/19, todo]
 
 > **Otázka SZZ:** Datové typy v programovacích jazycích. Staticky a dynamicky alokované proměnné, spojové seznamy. Modulární programování, procedury a funkce, vstupní a výstupní parametry. Překladač, linker, debugger.
 
-Zdroje: BI-PA1 přednášky `l01-alg`, `l02-var`, `l05-func`, `l07-ptr_struct`, `l08-ptr`, `l11-link` (Balík, Trávníček, Vagner, Vogel, FIT ČVUT). Jazyk příkladů: C (překládané kompilátorem C++).
+Zdroje: BI-PA1 přednášky `l01-alg`, `l02-var`, `l05-func`, `l07-ptr_struct`, `l08-ptr`, `l11-link`, `l13-adt` (Balík, Trávníček, Vagner, Vogel, FIT ČVUT). Jazyk příkladů: C (překládané kompilátorem C++).
 
-> ⚠️ **Modulární programování, linker a debugger** nejsou v dostupných slidech BI-PA1 (patří do přednášky 13 „Moduly, ADT", jejíž PDF v materiálech chybí). Tyto části jsou zpracovány ze standardní znalosti; při studiu ověř proti slidům přednášky 13.
+> ⚠️ **Debugger** není v žádných slidech BI-PA1 — tato část je zpracována ze standardní znalosti. Vše ostatní (vč. modulárního programování, preprocesoru a linkeru z přednášky 13 „Moduly, ADT") vychází ze slidů.
 
 ---
 
@@ -122,13 +122,18 @@ TELEMENT * createElement ( int val, TELEMENT * next ) {
 ## 3. Modulární programování, procedury a funkce, vstupní a výstupní parametry
 
 ### 3.1 Modulární programování
-> Tato podsekce není ve slidech BI-PA1 (přednáška 13 „Moduly, ADT"). Standardní obsah:
+Složitější programy se rozdělují do více **zdrojových souborů — modulů**. **Modul** je část programu poskytující určitou funkcionalitu zbytku programu (obvykle skupinu souvisejících úkolů — zpracování vstupu, výpočty s komplexními čísly, GUI). Moduly se chovají jako **černé krabičky** oddělené dobře definovaným **rozhraním (interface)**. Modul má dvě části:
+- **specifikace** — seznam zdrojů, které modul poskytuje (datové typy, funkce, proměnné; v C++ třídy);
+- **implementace** — vlastní realizace nabízených zdrojů.
 
-**Modulární programování** rozkládá program na **moduly** (překladové jednotky) s jasně odděleným **rozhraním** a **implementací**. V C/C++ je modul typicky dvojice souborů:
-- **hlavičkový soubor `.h`** — *rozhraní*: deklarace funkcí, typů a konstant, které modul nabízí ostatním;
-- **zdrojový soubor `.c`** — *implementace*: definice (těla) funkcí.
+Podpora modularity: Pascal — *jednotky* (units), Java — *třídy a balíčky*, **C/C++** — **hlavičkové soubory `.h`** + **implementační soubory `.c`/`.cpp`**.
 
-Ostatní moduly `#include`ují jen `.h`. Každý `.c` se překládá **odděleně** (separate compilation) do objektového souboru; **linker** je spojí. Princip **information hiding** (skrytí implementace, „black box") snižuje provázanost, umožňuje znovupoužití a nezávislý překlad/testování modulů. (Souvisí s abstraktními datovými typy — ADT.)
+- **Hlavičkový soubor `.h` (rozhraní):** prototypy funkcí, specifikace datových typů, deklarace `extern` sdílených proměnných. Užívá ho **kompilátor** (ví, které funkce/typy jsou použitelné) i **programátor** (ví, jak modul použít). **Neslouží** pro definice funkcí ani proměnných — definice v hlavičce vede k chybě **linkeru** (vícenásobně definovaný symbol).
+- **Implementační soubor `.c`/`.cpp`:** definice funkcí a proměnných; `#include`uje vlastní `.h` (udrží konzistenci deklarací s implementací a načte definice typů).
+
+**Sdílení mezi moduly:** funkce a typy se sdílejí přes `.h`. Sdílení **globálních proměnných** je možné (`extern` deklarace v `.h`, jediná definice + inicializace v jednom `.c`), ale **nedoporučuje se** — opodstatněné je jen pro sdílené konstanty (předpočítané tabulky).
+
+> Přednáška 13 staví moduly na **abstraktních datových typech (ADT)** — typ je dán množinou hodnot a operací **nezávisle na implementaci** (modul pro komplexní čísla, zásobník, frontu). To je princip **information hiding**: rozhraní zůstává stejné, implementaci lze vyměnit.
 
 ### 3.2 Procedury a funkce
 **Funkce** je podprogram řešící dílčí problém. Definice = **hlavička** + **tělo**:
@@ -159,7 +164,7 @@ Příkladem výstupního parametru je i `scanf("%d", &x)`. Více hodnot lze vrá
 
 ## 4. Překladač, linker, debugger
 
-> Slidy BI-PA1 popisují jen rozdíl interpret/překladač; **linker a debugger v nich nejsou** — doplněno ze standardní znalosti.
+> Slidy `l01` popisují rozdíl interpret/překladač, přednáška `l13` preprocesor a sestavení modulů (linker). **Debugger v žádných slidech není** — doplněn ze standardní znalosti.
 
 ### 4.1 Programovací jazyky
 Jsou to **formální jazyky** popsané přesnou **gramatikou** (často **BNF — Backus-Naurova forma**); rozlišujeme **syntaxi** (jak se program zapisuje) a **sémantiku** (význam). Vysokoúrovňové jazyky (C, C++, Java, Pascal) jsou srozumitelné člověku, ale **nelze je přímo spustit** — musí být přeloženy do strojového kódu. Imperativní (procedurální) jazyk = sekvence příkazů zpracovávaných shora dolů; program se skládá z **deklarací** a **příkazů**.
@@ -168,22 +173,40 @@ Jsou to **formální jazyky** popsané přesnou **gramatikou** (často **BNF —
 - **Interpretace:** zdroj se přeloží do interní formy, kterou **interpret za běhu provádí** spolu se vstupními daty.
 - **Kompilace:** **překladač (compiler)** přeloží zdrojový kód do **strojového kódu**, který se pak spouští přímo nad vstupními daty.
 
-### 4.3 Sestavovací pipeline (standardní doplnění)
-1. **Preprocesor** — zpracuje `#include`, `#define`, makra → čistý zdrojový text.
-2. **Překladač (compiler)** — přeloží každou překladovou jednotku do **objektového souboru** (`.o`); zde vznikají **syntaktické a typové chyby** (compile-time).
-3. **Linker (sestavovací program)** — spojí objektové soubory a knihovny do spustitelného souboru; **rozlišuje symboly** (přiřazuje volání funkcí jejich definicím v jiných modulech), hlásí **nedefinované / vícenásobně definované symboly** (link-time chyby).
-   - **Statické linkování** — kód knihovny se vloží do výsledného souboru.
-   - **Dynamické linkování** — knihovna (`.dll`, `.so`) se připojí až za běhu.
-4. **Běh (run-time)** — zde se projeví logické chyby a chyby jako přístup mimo pole či dereference `nullptr` (C neprovádí běhové kontroly).
+### 4.3 Preprocesor
+**Preprocesor** je **první fáze kompilace** modulu; jeho direktivy začínají `#`. Slouží pro:
+- **vkládání hlavičkových souborů** — `#include <stdio.h>` (systémové) / `#include "complex.h"` (vlastní); může být vnořené;
+- **makra** — `#define M_PI 3.14159`; makra s parametry `#define MAX(x,y) ((x)>(y)?(x):(y))` (parametry i celou substituci uzavírat do závorek, jinak chybný výsledek); ruší se `#undef`; substituce se neprovádí v řetězcích a komentářích; standardní makra `__DATE__`, `__TIME__`, `__FILE__`;
+- **podmíněný překlad** — `#ifdef WIN32 … #else … #endif`; vynechaný text kompilátor vůbec nezpracuje (užitečné pro různé platformy/API a ladicí výstupy).
 
-### 4.4 Debugger
+### 4.4 Překlad modulů a linker
+Program z více modulů je třeba zkompilovat a **pospojovat** (link, build task). Typy souborů:
+
+| Přípona | Význam |
+|---|---|
+| `.c`/`.cpp` | zdrojový soubor — definice funkcí |
+| `.h` | hlavičkový soubor — deklarace, datové typy |
+| `.o`/`.obj` | **objektový soubor** — strojový kód s **neřešenými referencemi** mezi moduly |
+| `.a`/`.lib` | knihovna objektových souborů |
+| `.so`/`.dll` | sdílená knihovna |
+| `.exe` / bez přípony | **spustitelný soubor** |
+
+Objektový soubor **importuje symboly** (např. volá funkci ze standardní knihovny) a **exportuje symboly** (např. funkci, která je v něm definována). **Linker (sestavovací program, task builder)** spojí objektové soubory a knihovny do spustitelného souboru a přitom **vyřeší reference** mezi nimi; chybějící nebo vícenásobně definovaný symbol hlásí jako chybu (link-time).
+
+Sestavení řídí buď **IDE** (projekt = seznam modulů + volby pro kompilaci a sestavení; zná závislosti pro rekompilaci změněných modulů), nebo utilita **`make`** podle ručně psaného souboru **`Makefile`**.
+
+**Fáze:** preprocesor → kompilátor (každý modul → `.o`, compile-time chyby) → linker (`.o` + knihovny → spustitelný soubor) → běh (run-time; C neprovádí běhové kontroly, např. přístup mimo pole).
+
+### 4.5 Debugger
+> Debugger není v žádných slidech BI-PA1 — standardní doplnění.
+
 **Debugger (ladicí program)** umožňuje řízené spouštění programu kvůli hledání chyb:
 - **breakpointy** (zastavení na zvoleném řádku),
 - **krokování** (step into/over/out),
 - **sledování proměnných** (watch) a obsahu paměti, zásobníku volání (call stack),
 - inspekci hodnot a vyhodnocování výrazů za běhu.
 
-### 4.5 Specifika jazyka C
+### 4.6 Specifika jazyka C
 C (Ritchie, 1972; normy C89/C99/C11/C23) je vysokoúrovňový jazyk umožňující i nízkoúrovňové operace (ukazatele, adresy), je portabilní a generuje efektivní kód; nevýhodou je, že **veškerá kontrola leží na programátorovi** (žádné běhové kontroly indexů ani platnosti ukazatelů). V BI-PA1 se píše v C, ale překládá kompilátorem C++ (důslednější kontrola), proto se objevují `nullptr`, `bool`.
 
 ---
@@ -195,10 +218,10 @@ C (Ritchie, 1972; normy C89/C99/C11/C23) je vysokoúrovňový jazyk umožňujíc
 - Statická vs. automatická vs. dynamická alokace; segmenty paměti (`.data`/`.bss`/halda/zásobník).
 - Ukazatel, reference `&`, dereference `*`, `nullptr`; `malloc`/`free`.
 - Spojový seznam (uzel = data + ukazatel na následníka); varianty (jednosměrný/obousměrný/kruhový/se zarážkou).
-- Modul, rozhraní (`.h`) vs. implementace (`.c`), oddělený překlad, information hiding.
+- Modul (specifikace + implementace), rozhraní (`.h`) vs. implementace (`.c`/`.cpp`), oddělený překlad, information hiding (ADT).
 - Funkce vs. procedura; deklarace (prototyp) vs. definice; formální vs. skutečné parametry.
 - Vstupní (by value) vs. výstupní (přes ukazatel) parametry.
-- Překladač, linker (rozlišení symbolů), debugger.
+- Preprocesor (`#include`, `#define`/makra, podmíněný překlad); překladač; linker (objektové soubory, import/export symbolů, rozlišení referencí); debugger.
 
 ### Klíčové vztahy a složitosti
 - Spojový seznam: vložení na začátek $O(1)$, na konec $O(n)$ (resp. $O(1)$ s ukazatelem na konec), hledání $O(n)$.

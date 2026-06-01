@@ -27,7 +27,7 @@ Zásobník je mělký → velká data na haldu. `malloc`/`free`, **bez GC**. Chy
 - vs. pole: roste po prvku, vkládá $O(1)$ na známé místo; nemá index $O(1)$, režie ukazatelů.
 
 ## 3. Moduly, funkce, parametry
-- **Modulární programování:** rozhraní `.h` (deklarace) × implementace `.c` (definice); **oddělený překlad** + linker; **information hiding**.
+- **Modulární programování:** modul = černá krabička = **specifikace + implementace**; rozhraní `.h` (prototypy, typy, `extern`) × `.c`/`.cpp` (definice); **oddělený překlad** + linker; **information hiding** (ADT).
 - **Funkce** vrací hodnotu (`return`); **procedura** = `void` funkce. Deklarace (prototyp) × definice (tělo).
 - **Parametry:** formální (lokální proměnné) ← skutečné. **V C zásadně vstupní (by value)** — kopie, změna se neprojeví.
 - **Výstupní parametr:** přes **ukazatel** — volající dá `&x`, funkce zapíše `*p = …` (např. `scanf("%d",&x)`); nebo vrátit **strukturu**.
@@ -35,8 +35,9 @@ Zásobník je mělký → velká data na haldu. `malloc`/`free`, **bez GC**. Chy
 ## 4. Překladač, linker, debugger
 - Jazyky = **formální** (gramatika, **BNF**); syntaxe × sémantika. Vysokoúrovňové nutno přeložit.
 - **Interpret:** provádí interní formu za běhu. **Překladač (compiler):** zdroj → strojový kód.
-- **Pipeline:** preprocesor → překladač (`.o`, compile-time chyby) → **linker** (spojí `.o`+knihovny, **rozlišení symbolů**, statické/dynamické linkování, link-time chyby) → běh (run-time).
-- **Debugger:** breakpointy, krokování, watch proměnných, call stack.
+- **Preprocesor** (1. fáze, direktivy `#`): `#include`, makra `#define`, podmíněný překlad `#ifdef`.
+- **Pipeline:** preprocesor → překladač (modul → `.o` s neřešenými referencemi) → **linker** (spojí `.o` + knihovny `.a`/`.so`, **rozliší symboly** import/export, hlásí chybějící/vícenásobný symbol) → běh.
+- **Debugger** (není ve slidech): breakpointy, krokování, watch proměnných, call stack.
 
 ---
 
