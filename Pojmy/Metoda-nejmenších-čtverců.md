@@ -1,5 +1,5 @@
 ---
-aliases: [metoda nejmenších čtverců, metodou nejmenších čtverců, metody nejmenších čtverců, nejmenší čtverce, MNČ, OLS, normální rovnice, lineární regrese, ortogonální projekce]
+aliases: [metoda nejmenších čtverců, metodou nejmenších čtverců, metody nejmenších čtverců, nejmenší čtverce, MNČ, OLS, normální rovnice, ortogonální projekce]
 tags: [definice, kurz/LA2]
 ---
 
@@ -32,6 +32,7 @@ Plyne z $\operatorname{proj}_{\operatorname{Im}A}b = \hat{Q}\hat{Q}^T b$ a $Ax =
 
 ## Související
 
+- [[Lineární-regrese]] (statistické/ML použití MNČ)
 - [[QR-rozklad]]
 - [[Soustava-lineárních-rovnic]]
 - [[Ortogonální-báze]]

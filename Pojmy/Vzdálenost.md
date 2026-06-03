@@ -22,6 +22,7 @@ Při **záporném cyklu** není nejkratší sled definován. Pro libovolná ohod
 
 ## Související
 
+- [[Metrika]] — obecná vzdálenostní funkce na množině (metrický prostor); jiný význam než grafová vzdálenost zde.
 - [[Cesta]], [[Sled]]
 - [[BFS]] (neohodnocený graf)
 - [[Dijkstra]] ($\ell \ge 0$)

@@ -26,7 +26,7 @@ $\bar X_n$ je nestranný a konzistentní odhad $\mu$ ($\mathbb{E}\bar X_n = \mu$
 ## Metody konstrukce
 
 - **metoda momentů** — položíme výběrové momenty rovny teoretickým a vyřešíme pro $\theta$;
-- **metoda maximální věrohodnosti (MLE)** — maximalizujeme věrohodnostní funkci $L(\theta; x) = \prod_i f_\theta(x_i)$.
+- **[[Maximální-věrohodnost|metoda maximální věrohodnosti]] (MLE)** — maximalizujeme věrohodnostní funkci $L(\theta; x) = \prod_i f_\theta(x_i)$.
 
 ## Související
 
