@@ -39,7 +39,7 @@ $$(Qx)^T(Qy) = x^T y.$$
 
 *Důkaz.* $(Qx)^T(Qy) = x^T Q^T Q y = x^T E y = x^T y.$ $\square$
 
-Odtud plyne, že ortogonální matice **zachovává ortogonalitu**: $x \perp y \Rightarrow Qx \perp Qy$. (Pro pouhé matice s ON sloupci to neplatí — protipříklad $R = \begin{psmallmatrix}2&2\\-1&4\end{psmallmatrix}$ zobrazí kolmé $(1,-1),(1,1)$ na nekolmé vektory.)
+Odtud plyne, že ortogonální matice **zachovává ortogonalitu**: $x \perp y \Rightarrow Qx \perp Qy$. (Totéž platí i pro matici s ortonormálními sloupci — důkaz potřebuje jen $Q^TQ = E_n$. Naopak pro matici s pouze **ortogonálními** (neznormovanými) sloupci to neplatí — protipříklad $R = \begin{psmallmatrix}2&2\\-1&4\end{psmallmatrix}$ má kolmé sloupce, ale kolmé vektory $(1,-1),(1,1)$ zobrazí na nekolmé.)
 
 **Tvrzení (zachování eukleidovské [[Norma|normy]]).** Je-li $Q$ ortogonální, pak $\|Qx\|_2 = \|x\|_2$ pro každé $x$.
 
