@@ -37,7 +37,7 @@ Full design rationale: [`docs/superpowers/specs/2026-05-26-zettelkasten-vault-de
 ```
 BI-SPOL/        shared exam-question summaries (flat) + BI-SPOL.21.csv spec
 BI-UI/          AI-specialization summaries (flat)    + BI-UI.21.csv spec
-Pojmy/          cross-course canonical concept notes (134 notes)
+Pojmy/          cross-course canonical concept notes (212 notes)
 MOC/            maps of content — created on demand, not pre-seeded
 Šablony/        Obsidian Templater templates (long / short / concept)
 docs/           design specs
@@ -73,39 +73,40 @@ Example: question 3 (`BI-AG1`) → `BI-SPOL/3AG1-long.md` + `BI-SPOL/3AG1-short.
 
 ### BI-SPOL — shared questions (30)
 
-| #     | Course   | Topic |
-|-------|----------|-------|
-| 1–2   | BI-AAG   | Automaty a gramatiky |
-| 3–4   | BI-AG1   | Algoritmy a grafy 1 |
-| 5–6   | BI-DBS   | Databázové systémy |
-| 7–8   | BI-DML   | Diskrétní matematika a logika |
-| 9–10  | BI-KAB   | Kryptografie a bezpečnost |
-| 11–12 | BI-LA1   | Lineární algebra 1 |
-| 13–14 | BI-MA1   | Matematická analýza 1 |
-| 15–16 | BI-MA2   | Matematická analýza 2 |
-| 17–18 | BI-OSY   | Operační systémy |
-| 19    | BI-PA1   | Programování a algoritmizace 1 |
-| 20–21 | BI-PA1 + BI-AG1 | Složitost, řazení, rozděl-a-panuj, dynamické programování |
-| 22–23 | BI-PA2   | Programování a algoritmizace 2 |
-| 24–25 | BI-PSI   | Počítačové sítě |
-| 26–27 | BI-PST   | Pravděpodobnost a statistika |
-| 28–30 | BI-SAP   | Struktura a architektura počítačů |
+| #     | Course   | Topic | Status |
+|-------|----------|-------|--------|
+| 1–2   | BI-AAG   | Automaty a gramatiky | ✅ |
+| 3–4   | BI-AG1   | Algoritmy a grafy 1 | ✅ |
+| 5–6   | BI-DBS   | Databázové systémy | ✅ |
+| 7–8   | BI-DML   | Diskrétní matematika a logika | ✅ |
+| 9–10  | BI-KAB   | Kryptografie a bezpečnost | ✅ |
+| 11–12 | BI-LA1   | Lineární algebra 1 | ✅ |
+| 13–14 | BI-MA1   | Matematická analýza 1 | ✅ |
+| 15–16 | BI-MA2   | Matematická analýza 2 | ✅ |
+| 17–18 | BI-OSY   | Operační systémy | ✅ |
+| 19    | BI-PA1   | Programování a algoritmizace 1 | ✅ |
+| 20–21 | BI-PA1 + BI-AG1 | Složitost, řazení, rozděl-a-panuj, dynamické programování | ✅ |
+| 22–23 | BI-PA2   | Programování a algoritmizace 2 | ✅ |
+| 24–25 | BI-PSI   | Počítačové sítě | ✅ |
+| 26–27 | BI-PST   | Pravděpodobnost a statistika | ✅ |
+| 28–30 | BI-SAP   | Struktura a architektura počítačů | ⬜ |
 
 ### BI-UI — AI specialization (26)
 
-| #     | Course   | Topic |
-|-------|----------|-------|
-| 1–7   | BI-LA2   | Lineární algebra 2 |
-| 8–14  | BI-ML1   | Strojové učení 1 |
-| 15–20 | BI-ML2   | Strojové učení 2 |
-| 21–26 | BI-ZUM   | Základy umělé inteligence |
+| #     | Course   | Topic | Status |
+|-------|----------|-------|--------|
+| 1–7   | BI-LA2   | Lineární algebra 2 | ✅ |
+| 8–14  | BI-ML1   | Strojové učení 1 | ✅ |
+| 15–20 | BI-ML2   | Strojové učení 2 | ✅ |
+| 21–26 | BI-ZUM   | Základy umělé inteligence | ⬜ |
 
 ## Progress
 
-- **BI-SPOL:** questions **1–21** drafted (long + short). Remaining: **22–30**
-  (BI-PA2, BI-PSI, BI-PST, BI-SAP).
-- **BI-UI:** spec captured; question summaries not yet drafted.
-- **Pojmy:** 134 canonical concept notes.
+- **BI-SPOL:** questions **1–27** drafted (long + short). Remaining: **28–30**
+  (BI-SAP).
+- **BI-UI:** questions **1–20** drafted (long + short). Remaining: **21–26**
+  (BI-ZUM).
+- **Pojmy:** 212 canonical concept notes.
 
 ## Concept notes (`Pojmy/`)
 
