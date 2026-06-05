@@ -4,11 +4,15 @@ tags: [komise, strategie, otázka]
 
 # Zkušební komise (SZZ léto 2026) — analýza otázek
 
-Analýza historie otázek (`question_history1.csv`, `question_history2.csv`) protkaná se složením **mé komise** (`komise.txt`) a oficiálním zadáním otázek ([[BI-SPOL.21]] 1–30, [[BI-UI.21]] 1–26).
+Analýza historie otázek (`question_history1.csv`, `question_history2.csv`) **a studentských zkušeností z FIT Wiki** (`zkusenosti/`, léto 2021 – zima 2026; 132 zkušeností, 91 komisí — parser `parse_zkusenosti.py` → `zkusenosti_parsed.json`) protkaná se složením **mé komise** (`komise.txt`) a oficiálním zadáním otázek ([[BI-SPOL.21]] 1–30, [[BI-UI.21]] 1–26).
 
 Cíl: zúžit, **na co se nejvíc soustředit**, podle toho, kdo mě zkouší a co historicky vyžadují.
 
 > **Metodika.** Z obou CSV jsem vytáhl všechny řádky, kde zkoušející = člen mé komise (včetně variant zápisu jména „Příjmení Jméno“ / „Jméno Příjmení“). Každou historickou otázku jsem namapoval na číslo oficiální otázky. „Petr" jako jméno (Špaček, Klán, Fišer…) jsem odfiltroval — beru jen **Petr Ivo**.
+>
+> **Wiki zkušenosti jsou primární zdroj.** CSV s poznámkami zjevně vznikla *z* těchto wiki stránek (např. Dedeciovo doptávání „intercept, ε, proč E=0" je doslovný citát ze zkušenosti z léta 2025). Wiki navíc nese **složení celé komise** (5 lidí) a **plné vyprávění** — to CSV ztratilo. Wiki proto umožňuje hledat **komise podobné té mojí** (viz [Příloha: validace složením komise](#příloha-validace-z-wiki-složení-komisí)).
+>
+> **⚠️ Členství v komisi ≠ kdo zkouší.** Každého studenta zkouší jen ~2 z 5 členů (jednu SPOL + jednu oborovou otázku). Příklad: léto 2024 `9-BI-ZI` měla Iva Petra v komisi, ale matematiku/ML reálně zkoušel **Vašata** → o Petrově *stylu zkoušení* v celé wiki **není jediný záznam** (jediná UI komise s Petrem zůstala nevyplněná). Petrova sekce níže je tedy maximum, co data dovolí.
 
 ---
 
@@ -49,7 +53,7 @@ Cíl: zúžit, **na co se nejvíc soustředit**, podle toho, kdo mě zkouší a 
 
 ## Jak jsou přísní / vstřícní (podle zkušeností studentů)
 
-> ⚠️ **Malý vzorek, anekdoty.** Komentáře jsou jen z poznámkového sloupce `question_history1.csv` (`question_history2.csv` poznámky nemá). Dedecius má 4 záznamy, ostatní 1–2, **Holeňa žádný**. Známky jsou navíc zkreslené — detailní poznámku spíš napíše ten, komu to vyšlo. Ber jako orientaci, ne jako jistotu.
+> ⚠️ **Malý vzorek, anekdoty.** Doplněno o plná vyprávění z wiki (`zkusenosti/`). Dedecius je doložen nejbohatěji (6+ nedávných UI zkušeností 2024/2025), **Holeňa nově doložen** (dřív „bez dat", viz níže). Známky jsou zkreslené — detailní poznámku spíš napíše ten, komu to vyšlo. Ber jako orientaci, ne jako jistotu.
 
 | Zkoušející | Dojem | Známky (z dat) | Styl |
 |---|---|---|---|
@@ -57,7 +61,7 @@ Cíl: zúžit, **na co se nejvíc soustředit**, podle toho, kdo mě zkouší a 
 | **Daňhel** | 🙂 **vstřícný, ale precizní** | (bez dat) | Aktivně pomáhá a navádí (odkazuje na cvika), ale chce **přesný** mechanismus |
 | **Dedecius** | 🙂 **férový, ale hodně doptává** | A, A, A | Dává áčka, zato **vrší statistické doplňující otázky** do hloubky |
 | **Petr** | 😐 **precizní, jde po chybách** | A, A, A, **D** | Mostly A, ale jedna chyba v definici → vytáhne ji a může to srazit |
-| **Holeňa** | ❓ **bez dat** | — | Žádná studentská poznámka; jako předseda spíš moderuje |
+| **Holeňa** | 🙂 **vstřícný, moderuje** | (A v komisích) | Na UI komisích 2024/2025 **zkoušení deleguje** na doménové kolegy a moderuje; student: „byl zlatej, celou dobu se na mě usmíval" |
 
 **Hunka — nejmírnější z komise.** Doslovný citát studentky:
 
@@ -71,14 +75,14 @@ Dostala **B** prakticky bez přípravy. → U DBS stačí solidní základ, nave
 
 **Petr — nejpřísnější na přesnost.** Tři **A**, ale i jedno **D**: student *„sepsal všechny definice, avšak hned tu první pokazil… pracně se ze mě snažil vydolovat to, co chtěl"* + doptal na PD/ND, co nenapsal. U jiného (A) odhalil chybu v definici RSS. → **Chyby si najde a jde po nich**; výhoda je, že nechá opravit. Piš definice **přesně**.
 
-**Holeňa — neznámá.** V datech jediné dva věcné záznamy, **nula** poznámek k povaze. Jako **předseda** typicky vede průběh a doptává napříč AI/ML — připrav se spíš na šíři než na konkrétní „styl".
+**Holeňa — nově doložen (vstřícný, deleguje).** Na nedávných **UI komisích** (léto 2024 `21-BI-UI.21`, léto 2025 `3-BI-UI.21`) byl přítomen, ale **zkoušení nechával na doménových kolezích** (Friedjungová, Starosta, Šestáková) a sám **moderoval**. Studentka: *„Holeňa byl zlatej a celou dobu se na mě usmíval."* → Jako předseda spíš vede průběh; vlastní „styl zkoušení" stále neznámý, ale atmosféra příjemná. Připrav se na **šíři** AI/ML, ne na konkrétní styl.
 
 ---
 
 ## 1. prof. Holeňa — předseda (všechny AI/ML kurzy)
 
 **Doména:** veškeré AI/ML → [[8ML1-long|ML1 (8–14)]], [[15ML2-long|ML2 (15–20)]], ZUM (21–26).
-**Historie:** jen 2 záznamy (málo dat), ale jako **předseda** může sáhnout kamkoli do AI/ML.
+**Historie:** 2 věcné záznamy v CSV (málo dat) + **doložená přítomnost na BI-UI komisích 2024 a 2025** (kde ale zkoušení deleguje — viz „Jak jsou přísní" výše). Jako **předseda** může sáhnout kamkoli do AI/ML.
 
 | Rok | Kurz | Otázka | → č. |
 |---|---|---|---|
@@ -117,6 +121,12 @@ Dostala **B** prakticky bez přípravy. → U DBS stačí solidní základ, nave
 
 **Závěr:** **PST 26 a 27 musím umět na jedničku** — to je jeho chleba. K tomu počítej s tím, že u statistických ML otázek (10, 12, 14, 18) bude **doptávat na statistické pozadí** (náhodný výběr, rozdělení, střední hodnota ε, nestrannost odhadů).
 
+> **Z wiki (léto 2024/2025, BI-UI komise) — silné potvrzení:**
+> - **PST je jeho jistá „vysílací" otázka.** Studentka: *„PST jsem si fakt vytáhnout nechtěla, ale tušila jsem, že ho tam Dedecius vyšle"* — a poslal. Pokud je v komisi, počítej s PST/statistickým ML.
+> - **Může být i předseda a *přesto* zkouší.** V léto 2025 `1-BI-UI.21` byl předseda a sám zkoušel lineární regresi — „předseda nezkouší" tedy **neplatí**.
+> - Doložené doptávání u lin. regrese (opakovaně, napříč lety): *intercept, ε jako náhodná veličina, proč E[ε]=0, z jakého rozdělení je ε (normální), geometrický význam interceptu, odvození w z normální rovnice, PSD Hessovy matice RSS.*
+> - Atmosféra přátelská, vtipkuje; dává hodně áček.
+
 ---
 
 ## 3. Ing. Daňhel — číslicové obvody / SAP
@@ -142,6 +152,10 @@ Dostala **B** prakticky bez přípravy. → U DBS stačí solidní základ, nave
 - ISA (zásobníková vs GPR/středačová), von Neumann × Harvard, **mechanismus přerušení** (otázka 29),
 - **zápis −4 ve 4 bitech** ve všech reprezentacích + FP modul/mantisa (otázka 30),
 - minimalizaci pomocí **map (Karnaugh)** a automaty Mealy/Moore (otázka 28).
+
+> **Z wiki — potvrzení i nuance:**
+> - **Vstřícnost potvrzena.** Student dostal přesně otázku 30 (−4 ve 4 bitech, modul/mantisa), vše vypsal → Daňhel: *„nevím na co se ptát, otázka vám očividně sedla"* a jen se doptal, kde nemohl přečíst. **Strategie „vypiš na potítko úplně všechno" ho odzbrojí.**
+> - **⚠️ Pozor — kdo zkouší SAP na UI komisích:** na nedávných BI-UI komisích (léto 2025) SAP reálně zkoušel **Kohlík/Novotný**, ne Daňhel. V *mé* komisi je ale Daňhel, takže SAP zkoušet bude on. Kohlíkovo doptávání ale ukazuje obsah otázky 29: *paměťová hierarchie, cache, proč se dnes používá 2+ adresové ISA → kvůli paralelizaci* (zásobníková/střadačová se paralelizuje špatně).
 
 ---
 
@@ -227,3 +241,22 @@ Tyto společné předměty žádný člen komise neučí **a v celé historii an
 5. **DBS 5, 6** (Hunka) — ACID, SQL, ER→relační.
 6. **ZUM 21–26** (Holeňa, bez historie, ale jeho doména).
 7. **MA1 13,14 + DML 7,8 + KAB-9** (Petr jako matematik) — limity/derivace, výroková logika + teorie čísel, RSA. Nižší priorita, ale jeho doména.
+
+---
+
+## Příloha: validace z wiki (složení komisí)
+
+Wiki nese **celé složení komise** u každého studenta, takže lze najít komise podobné té mojí. **24 komisí** v archivu obsahuje ≥1 člena mé komise. Moji přesnou pětici (Holeňa + Dedecius + Daňhel + Hunka + Petr) nemá žádná; **nejblíž je trojice z léta 2022**. Nejrelevantnější (stejná specializace **BI-UI**, příp. starší **ZI** = předchůdce UI):
+
+| Relevance | Sezóna | Komise | Moji členové | Co přidává |
+|---|---|---|---|---|
+| 🥇 nejvyšší | **léto 2025** | 4× `BI-UI.21` | **Dedecius** (3 studenti) + **Holeňa** (2) | Stejná specializace, rok zpět, plná vyprávění — viz Dedecius/Holeňa výše |
+| 🥈 | **léto 2024** | `21-BI-UI.21`, `25-BI-UI.21` | **Holeňa**, **Dedecius** | UI; Holeňa moderuje, Dedecius zkouší metriku/kNN |
+| 🥉 | **léto 2022** | `17-BI-ZI` | **Holeňa + Dedecius + Daňhel** | Tři z mých pěti v jedné komisi (stará ZI spec) |
+| ⚪ | 2021–2023 | `13-BI-ZI`, `8-BI-ZI`, `6-ZI`, `3-BI-ZI`, `5-WSI-PG` | Dedecius, Daňhel, Petr (jen členství) | Behaviorální potvrzení; Daňhel SAP-30 doslovně |
+| ⚪ | 2021–2025 | `4/8-…`, `10/14-BIT`, `10-BI-MI`, `9-BI-SI` | Hunka | DBS/benevolence „gigachad" |
+
+**Klíčové závěry z validace:**
+- **Dedecius i Holeňa jsou na BI-UI komisích aktivní a aktuální** (2024, 2025) → moje vážení priorit (Dedecius PST/ML, Holeňa šíře AI) sedí na realitu poslední dva roky.
+- **Petr:** přítomen v komisích, ale **nikde nezkouší** (viz ⚠️ v metodice) → behaviorální data nelze získat, drž se obsahové přípravy.
+- Reprodukce: `python3 parse_zkusenosti.py` (digest jen relevantních komisí → `zkusenosti_digest_relevant.txt`; vše → `zkusenosti_parsed.json`).
