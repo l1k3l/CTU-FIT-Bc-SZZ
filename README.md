@@ -37,7 +37,7 @@ Full design rationale: [`docs/superpowers/specs/2026-05-26-zettelkasten-vault-de
 ```
 BI-SPOL/        shared exam-question summaries (flat) + BI-SPOL.21.csv spec
 BI-UI/          AI-specialization summaries (flat)    + BI-UI.21.csv spec
-Pojmy/          cross-course canonical concept notes (212 notes)
+Pojmy/          cross-course canonical concept notes (228 notes)
 MOC/            maps of content — created on demand, not pre-seeded
 Šablony/        Obsidian Templater templates (long / short / concept)
 docs/           design specs
@@ -89,7 +89,7 @@ Example: question 3 (`BI-AG1`) → `BI-SPOL/3AG1-long.md` + `BI-SPOL/3AG1-short.
 | 22–23 | BI-PA2   | Programování a algoritmizace 2 | ✅ |
 | 24–25 | BI-PSI   | Počítačové sítě | ✅ |
 | 26–27 | BI-PST   | Pravděpodobnost a statistika | ✅ |
-| 28–30 | BI-SAP   | Struktura a architektura počítačů | ⬜ |
+| 28–30 | BI-SAP   | Struktura a architektura počítačů | ✅ |
 
 ### BI-UI — AI specialization (26)
 
@@ -102,11 +102,10 @@ Example: question 3 (`BI-AG1`) → `BI-SPOL/3AG1-long.md` + `BI-SPOL/3AG1-short.
 
 ## Progress
 
-- **BI-SPOL:** questions **1–27** drafted (long + short). Remaining: **28–30**
-  (BI-SAP).
+- **BI-SPOL:** questions **1–30** drafted (long + short) — complete. ✅
 - **BI-UI:** questions **1–20** drafted (long + short). Remaining: **21–26**
   (BI-ZUM).
-- **Pojmy:** 212 canonical concept notes.
+- **Pojmy:** 228 canonical concept notes.
 
 ## Concept notes (`Pojmy/`)
 
