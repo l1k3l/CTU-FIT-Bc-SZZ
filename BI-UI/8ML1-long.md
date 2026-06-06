@@ -1,4 +1,10 @@
 ---
+studyplan: true
+etapa: "4 · ML1 / ML2 — Dedecius + Holeňa"
+qid: "8ML1"
+examiner: "Dedecius/Holeňa"
+topic: "Rozhodovací stromy, náhodné lesy, AdaBoost"
+readiness: nezačato
 tags: [otázka, kurz/ML1, otázka/8, todo]
 ---
 

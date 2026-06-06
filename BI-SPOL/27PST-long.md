@@ -1,5 +1,16 @@
 ---
-tags: [otázka, kurz/PST, otázka/27, hotovo]
+studyplan: true
+etapa: 2 · PST — Dedecius + Petr
+qid: 27PST
+examiner: Dedecius + Petr
+topic: "Mat. statistika: náhodný výběr, bodové/intervalové odhady, testování hypotéz"
+readiness: nezačato
+hot: true
+tags:
+  - otázka
+  - kurz/PST
+  - otázka/27
+  - hotovo
 ---
 
 # Základy matematické statistiky

@@ -1,4 +1,10 @@
 ---
+studyplan: true
+etapa: "4 · ML1 / ML2 — Dedecius + Holeňa"
+qid: "9ML1"
+examiner: "Dedecius/Holeňa"
+topic: "Metrika, k-NN (klasifikace/regrese), aglomerativní hierarchické shlukování"
+readiness: nezačato
 tags: [otázka, kurz/ML1, otázka/9, todo]
 ---
 

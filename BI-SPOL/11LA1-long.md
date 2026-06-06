@@ -1,4 +1,10 @@
 ---
+studyplan: true
+etapa: "3 · LA1 / MA2 / LA2 — Petr"
+qid: "11LA1"
+examiner: "Petr"
+topic: "Soustavy lin. rovnic, Frobeniova věta, Gaussova eliminace"
+readiness: nezačato
 tags: [otázka, kurz/LA1, otázka/11, todo]
 ---
 

@@ -1,5 +1,15 @@
 ---
-tags: [otázka, kurz/SAP, otázka/30, hotovo]
+studyplan: true
+etapa: 1 · SAP — Daňhel
+qid: 30SAP
+examiner: Daňhel
+topic: Kódy se znaménkem, aritmetické operace, pohyblivá řádová čárka
+readiness: nezačato
+tags:
+  - otázka
+  - kurz/SAP
+  - otázka/30
+  - hotovo
 ---
 
 # Kódy čísel se znaménkem, aritmetické operace, pohyblivá řádová čárka

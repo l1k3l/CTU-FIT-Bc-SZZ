@@ -1,4 +1,10 @@
 ---
+studyplan: true
+etapa: "7 · MA1 / DML / KAB — Petr"
+qid: "14MA1"
+examiner: "Petr"
+topic: "Diferenciální počet: derivace, monotonie, konvexita, lok. extrémy, asymptoty"
+readiness: nezačato
 tags: [otázka, kurz/MA1, otázka/14, todo]
 ---
 

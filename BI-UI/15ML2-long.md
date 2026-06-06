@@ -1,4 +1,11 @@
 ---
+studyplan: true
+etapa: "4 · ML1 / ML2 — Dedecius + Holeňa"
+qid: "15ML2"
+examiner: "Holeňa"
+topic: "Jádrová regrese: lineární model bázových funkcí, jádrový trik"
+readiness: nezačato
+hot: true
 tags: [otázka, kurz/ML2, otázka/15, todo]
 ---
 

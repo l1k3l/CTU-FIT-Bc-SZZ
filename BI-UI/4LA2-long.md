@@ -1,4 +1,10 @@
 ---
+studyplan: true
+etapa: "3 · LA1 / MA2 / LA2 — Petr"
+qid: "4LA2"
+examiner: "Petr"
+topic: "LU rozklad, řešení soustav pomocí LU"
+readiness: nezačato
 tags: [otázka, kurz/LA2, otázka/4, todo]
 ---
 

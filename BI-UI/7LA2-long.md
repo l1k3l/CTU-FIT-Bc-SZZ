@@ -1,4 +1,10 @@
 ---
+studyplan: true
+etapa: "3 · LA1 / MA2 / LA2 — Petr"
+qid: "7LA2"
+examiner: "Petr"
+topic: "SVD rozklad: definice, vlastnosti, výpočet"
+readiness: nezačato
 tags: [otázka, kurz/LA2, otázka/7, todo]
 ---
 

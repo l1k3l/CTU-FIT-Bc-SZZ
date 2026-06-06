@@ -1,4 +1,10 @@
 ---
+studyplan: true
+etapa: "4 · ML1 / ML2 — Dedecius + Holeňa"
+qid: "11ML1"
+examiner: "Dedecius/Holeňa"
+topic: "Hřebenová (ridge) regrese, rozklad očekávané chyby (bias–variance)"
+readiness: nezačato
 tags: [otázka, kurz/ML1, otázka/11, todo]
 ---
 

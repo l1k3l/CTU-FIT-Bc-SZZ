@@ -1,5 +1,15 @@
 ---
-tags: [otázka, kurz/DML, otázka/8, todo]
+studyplan: true
+etapa: 7 · MA1 / DML / KAB — Petr
+qid: 8DML
+examiner: Petr
+topic: "Teorie čísel: dělitelnost, REA, prvočísla, modulární aritmetika, Fermat/Euler, CRT"
+readiness: in progress
+tags:
+  - otázka
+  - kurz/DML
+  - otázka/8
+  - todo
 ---
 
 # Základy teorie čísel

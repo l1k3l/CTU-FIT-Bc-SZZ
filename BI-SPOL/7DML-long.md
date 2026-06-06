@@ -1,5 +1,15 @@
 ---
-tags: [otázka, kurz/DML, otázka/7, todo]
+studyplan: true
+etapa: 7 · MA1 / DML / KAB — Petr
+qid: 7DML
+examiner: Petr
+topic: "Výroková logika: splnitelnost, ekvivalence, CNF/DNF, úplné normální tvary"
+readiness: in progress
+tags:
+  - otázka
+  - kurz/DML
+  - otázka/7
+  - todo
 ---
 
 # Výroková logika

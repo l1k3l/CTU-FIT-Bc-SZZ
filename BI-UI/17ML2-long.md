@@ -1,4 +1,10 @@
 ---
+studyplan: true
+etapa: "4 · ML1 / ML2 — Dedecius + Holeňa"
+qid: "17ML2"
+examiner: "Dedecius/Holeňa"
+topic: "Redukce dimenzionality: PCA, lokálně lineární vnoření (LLE)"
+readiness: nezačato
 tags: [otázka, kurz/ML2, otázka/17, todo]
 ---
 

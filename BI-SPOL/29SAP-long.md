@@ -1,5 +1,15 @@
 ---
-tags: [otázka, kurz/SAP, otázka/29, hotovo]
+studyplan: true
+etapa: 1 · SAP — Daňhel
+qid: 29SAP
+examiner: Daňhel
+topic: Architektura počítače, instrukční cyklus, ISA, paměťová hierarchie, cache
+readiness: nezačato
+tags:
+  - otázka
+  - kurz/SAP
+  - otázka/29
+  - hotovo
 ---
 
 # Architektura počítače, instrukční cyklus, ISA, paměti a cache

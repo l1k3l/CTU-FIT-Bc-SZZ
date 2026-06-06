@@ -1,4 +1,10 @@
 ---
+studyplan: true
+etapa: "3 · LA1 / MA2 / LA2 — Petr"
+qid: "5LA2"
+examiner: "Petr"
+topic: "QR rozklad, odhad metodou nejmenších čtverců"
+readiness: nezačato
 tags: [otázka, kurz/LA2, otázka/5, todo]
 ---
 

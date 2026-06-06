@@ -1,4 +1,10 @@
 ---
+studyplan: true
+etapa: "4 · ML1 / ML2 — Dedecius + Holeňa"
+qid: "19ML2"
+examiner: "Dedecius/Holeňa"
+topic: "Neuronové sítě: perceptron, aktivační funkce, trénování DNN"
+readiness: nezačato
 tags: [otázka, kurz/ML2, otázka/19, todo]
 ---
 

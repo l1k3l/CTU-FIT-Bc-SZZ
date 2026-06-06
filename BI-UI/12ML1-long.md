@@ -1,4 +1,10 @@
 ---
+studyplan: true
+etapa: "4 · ML1 / ML2 — Dedecius + Holeňa"
+qid: "12ML1"
+examiner: "Dedecius"
+topic: "Logistická regrese, binární klasifikace, trénování jako MLE"
+readiness: nezačato
 tags: [otázka, kurz/ML1, otázka/12, todo]
 ---
 

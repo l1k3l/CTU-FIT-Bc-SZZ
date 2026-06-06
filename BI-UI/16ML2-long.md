@@ -1,4 +1,11 @@
 ---
+studyplan: true
+etapa: "4 · ML1 / ML2 — Dedecius + Holeňa"
+qid: "16ML2"
+examiner: "Holeňa"
+topic: "Metoda podpůrných vektorů (SVM) pro klasifikaci"
+readiness: nezačato
+hot: true
 tags: [otázka, kurz/ML2, otázka/16, todo]
 ---
 

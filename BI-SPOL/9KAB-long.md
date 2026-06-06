@@ -1,4 +1,10 @@
 ---
+studyplan: true
+etapa: "7 · MA1 / DML / KAB — Petr"
+qid: "9KAB"
+examiner: "Petr"
+topic: "Asymetrické kryptosystémy: RSA, Diffie–Hellman, RSA podpis, hash, certifikáty"
+readiness: nezačato
 tags: [otázka, kurz/KAB, otázka/9, todo]
 ---
 

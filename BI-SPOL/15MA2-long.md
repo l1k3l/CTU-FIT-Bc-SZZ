@@ -1,4 +1,10 @@
 ---
+studyplan: true
+etapa: "3 · LA1 / MA2 / LA2 — Petr"
+qid: "15MA2"
+examiner: "Petr"
+topic: "Integrální počet, číselné řady a kritéria konvergence"
+readiness: nezačato
 tags: [otázka, kurz/MA2, otázka/15, todo]
 ---
 

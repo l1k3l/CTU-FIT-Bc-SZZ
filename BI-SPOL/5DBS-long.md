@@ -1,4 +1,10 @@
 ---
+studyplan: true
+etapa: "5 · DBS — Hunka"
+qid: "5DBS"
+examiner: "Hunka"
+topic: "Relační DB, relační algebra, SQL (SELECT/DDL/DML/DCL/TCL), integritní omezení, ER→relační"
+readiness: nezačato
 tags: [otázka, kurz/DBS, otázka/5, todo]
 ---
 

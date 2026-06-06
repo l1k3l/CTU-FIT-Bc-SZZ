@@ -1,4 +1,10 @@
 ---
+studyplan: true
+etapa: "3 · LA1 / MA2 / LA2 — Petr"
+qid: "3LA2"
+examiner: "Petr"
+topic: "Ortogonalita a ortogonální báze"
+readiness: nezačato
 tags: [otázka, kurz/LA2, otázka/3, todo]
 ---
 

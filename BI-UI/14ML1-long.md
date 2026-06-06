@@ -1,4 +1,10 @@
 ---
+studyplan: true
+etapa: "4 · ML1 / ML2 — Dedecius + Holeňa"
+qid: "14ML1"
+examiner: "Dedecius"
+topic: "Nesupervizované učení: k-means, DBSCAN"
+readiness: nezačato
 tags: [otázka, kurz/ML1, otázka/14, todo]
 ---
 

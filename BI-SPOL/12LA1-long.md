@@ -1,4 +1,11 @@
 ---
+studyplan: true
+etapa: "3 · LA1 / MA2 / LA2 — Petr"
+qid: "12LA1"
+examiner: "Petr"
+topic: "Matice: součin, inverze, vlastní čísla, diagonalizace"
+readiness: nezačato
+hot: true
 tags: [otázka, kurz/LA1, otázka/12, todo]
 ---
 

@@ -1,4 +1,10 @@
 ---
+studyplan: true
+etapa: "4 · ML1 / ML2 — Dedecius + Holeňa"
+qid: "20ML2"
+examiner: "Dedecius/Holeňa"
+topic: "Posilované učení (reinforcement learning)"
+readiness: nezačato
 tags: [otázka, kurz/ML2, otázka/20, todo]
 ---
 

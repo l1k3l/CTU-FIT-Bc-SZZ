@@ -1,4 +1,10 @@
 ---
+studyplan: true
+etapa: "3 · LA1 / MA2 / LA2 — Petr"
+qid: "1LA2"
+examiner: "Petr"
+topic: "Lineární zobrazení: hodnost, jádro, defekt, injektivita/surjektivita, matice"
+readiness: nezačato
 tags: [otázka, kurz/LA2, otázka/1, todo]
 ---
 

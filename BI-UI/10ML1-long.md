@@ -1,4 +1,11 @@
 ---
+studyplan: true
+etapa: "4 · ML1 / ML2 — Dedecius + Holeňa"
+qid: "10ML1"
+examiner: "Dedecius + Petr"
+topic: "Lineární regrese: MNČ, geometrická interpretace, kolinearita"
+readiness: nezačato
+hot: true
 tags: [otázka, kurz/ML1, otázka/10, todo]
 ---
 

@@ -1,4 +1,10 @@
 ---
+studyplan: true
+etapa: "3 · LA1 / MA2 / LA2 — Petr"
+qid: "2LA2"
+examiner: "Petr"
+topic: "Skalární součin a norma vektoru"
+readiness: nezačato
 tags: [otázka, kurz/LA2, otázka/2, todo]
 ---
 

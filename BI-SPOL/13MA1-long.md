@@ -1,4 +1,10 @@
 ---
+studyplan: true
+etapa: "7 · MA1 / DML / KAB — Petr"
+qid: "13MA1"
+examiner: "Petr"
+topic: "Limita posloupnosti a funkce, výpočet limit, asymptotické chování"
+readiness: nezačato
 tags: [otázka, kurz/MA1, otázka/13, todo]
 ---
 

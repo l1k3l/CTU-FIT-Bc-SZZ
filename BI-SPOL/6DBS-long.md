@@ -1,4 +1,10 @@
 ---
+studyplan: true
+etapa: "5 · DBS — Hunka"
+qid: "6DBS"
+examiner: "Hunka"
+topic: "Transakce a jejich vlastnosti — ACID"
+readiness: nezačato
 tags: [otázka, kurz/DBS, otázka/6, todo]
 ---
 

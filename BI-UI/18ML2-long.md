@@ -1,4 +1,10 @@
 ---
+studyplan: true
+etapa: "4 · ML1 / ML2 — Dedecius + Holeňa"
+qid: "18ML2"
+examiner: "Dedecius"
+topic: "Generativní modely: naivní Bayes, lineární diskriminační analýza (LDA)"
+readiness: nezačato
 tags: [otázka, kurz/ML2, otázka/18, todo]
 ---
 

@@ -1,5 +1,15 @@
 ---
-tags: [otázka, kurz/SAP, otázka/28, hotovo]
+studyplan: true
+etapa: 1 · SAP — Daňhel
+qid: 28SAP
+examiner: Daňhel
+topic: Kombinační a sekvenční obvody (Mealy/Moore), hradla, minimalizace mapami
+readiness: nezačato
+tags:
+  - otázka
+  - kurz/SAP
+  - otázka/28
+  - hotovo
 ---
 
 # Kombinační a sekvenční logické obvody, minimalizace map

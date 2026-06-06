@@ -1,0 +1,57 @@
+filters:
+  and:
+    - studyplan == true
+formulas:
+  horka: if(hot, "🔥", "")
+  stav: if(readiness == "znám", "🟢", if(readiness == "in progress", "🟡", "⬜"))
+properties:
+  qid:
+    displayName: Otázka
+  examiner:
+    displayName: Zkoušející
+  topic:
+    displayName: Téma
+  formula.horka:
+    displayName: 🔥
+  readiness:
+    displayName: Připravenost (uprav zde)
+  formula.stav:
+    displayName: Stav
+  etapa:
+    displayName: Etapa
+views:
+  - type: table
+    name: Plán přípravy
+    groupBy:
+      property: etapa
+      direction: ASC
+    order:
+      - qid
+      - examiner
+      - topic
+      - formula.horka
+      - formula.stav
+      - readiness
+    sort:
+      - property: formula.stav
+        direction: ASC
+    columnSize:
+      note.qid: 66
+      formula.horka: 38
+      formula.stav: 74
+      note.readiness: 99
+  - type: table
+    name: Co zbývá
+    filters:
+      and:
+        - readiness != "znám"
+    groupBy:
+      property: etapa
+      direction: ASC
+    order:
+      - qid
+      - examiner
+      - topic
+      - formula.horka
+      - formula.stav
+      - readiness

@@ -1,5 +1,16 @@
 ---
-tags: [otázka, kurz/PST, otázka/26, hotovo]
+studyplan: true
+etapa: 2 · PST — Dedecius + Petr
+qid: 26PST
+examiner: Dedecius + Petr
+topic: Náhodné veličiny a vektory, rozdělení, distribuční fce, momenty, kovariance/korelace
+readiness: nezačato
+hot: true
+tags:
+  - otázka
+  - kurz/PST
+  - otázka/26
+  - hotovo
 ---
 
 # Náhodné veličiny a náhodné vektory

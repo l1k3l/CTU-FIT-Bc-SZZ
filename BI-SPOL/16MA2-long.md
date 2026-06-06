@@ -1,4 +1,10 @@
 ---
+studyplan: true
+etapa: "3 · LA1 / MA2 / LA2 — Petr"
+qid: "16MA2"
+examiner: "Petr"
+topic: "Funkce více proměnných: gradient, Hessova matice, definitnost, lok. extrémy"
+readiness: nezačato
 tags: [otázka, kurz/MA2, otázka/16, todo]
 ---
 

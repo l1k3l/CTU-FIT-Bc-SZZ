@@ -1,4 +1,11 @@
 ---
+studyplan: true
+etapa: "3 · LA1 / MA2 / LA2 — Petr"
+qid: "6LA2"
+examiner: "Petr"
+topic: "Vlastní čísla, mocninná metoda, QR algoritmus"
+readiness: nezačato
+hot: true
 tags: [otázka, kurz/LA2, otázka/6, todo]
 ---
 
