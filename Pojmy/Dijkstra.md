@@ -1,6 +1,6 @@
 ---
 aliases: [Dijkstra, Dijkstrův algoritmus, Dijkstrova algoritmu, Dijkstrově algoritmu]
-tags: [algoritmus, kurz/AG1]
+tags: [algoritmus, kurz/AG1, kurz/ZUM]
 ---
 
 # Dijkstrův algoritmus
@@ -29,6 +29,10 @@ Zobecnění [[BFS|BFS]]. Místo lineární vlny máme „budíky" $h(v)$ — odh
 ## Záporné hrany
 
 Při záporných hranách **Dijkstra selhává** — vlastnost (M) neplatí. Pro grafy bez záporných cyklů je správný algoritmus [[Bellman-Ford|Bellman-Ford]].
+
+## Použití v ZUM
+
+V [[Stavový-prostor|ohodnoceném stavovém prostoru]] $(S, A, c)$ je Dijkstra **optimální neinformované** prohledávání: k expanzi volí OPEN uzel s nejmenší dosavadní cenou cesty $g$, při nalezení levnější cesty provádí **relaxaci**. Je to „BFS respektující ceny akcí". Najde nejlevnější cestu v čase $O(|A| + |S|\log|S|)$, ale prohledává **všesměrově** (jen podle $g$), takže expanduje mnoho irelevantních stavů → motivace pro [[Heuristika|heuristiku]] a [[A-star|A*]] (Dijkstra $=$ A* s $h \equiv 0$).
 
 ## Související
 
