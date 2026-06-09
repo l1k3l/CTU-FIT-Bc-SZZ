@@ -42,3 +42,6 @@ Automat **s výstupem**: $\langle X,Y,Q,\delta,\lambda\rangle$, $\delta:X\times 
 - Minimalizace: Karnaughova mapa (Gray, cyklická sousednost) → maximální smyčky = prvoimplikanty → podstatné → dopokrytí; don't-care zvětšují skupiny.
 - Hradla: úplný systém NAND/NOR; dvojúrovňová AND-OR / NAND-NAND; hazardy → redundantní krychle.
 - **Mealy** výstup ze stavu i vstupu (hned), **Moore** jen ze stavu (o takt později, více stavů).
+- **Proč XOR často:** detektor nerovnosti/parity → sčítačka ($s=a\oplus b\oplus p$), řízený invertor, komparátor, parita.
+- **Čítač = sekvenční** (stav + zpětná vazba); dekodér/MUX/sčítačka = kombinační. Důležitý kombinační obvod v počítači = **sčítačka/ALU**.
+- NAND × NOR = kroužek na výstupu AND × OR.

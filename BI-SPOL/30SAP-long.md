@@ -54,6 +54,19 @@ $A(X)=X+K$, obvykle $K=\tfrac12 M$. Znaménko implicitní; nevýhoda — **nula 
 ### 1.5 Rozšíření znaménka (sign extension)
 Číslo má při více bitech stejnou hodnotu. Realizace = **rozkopírování nejvyššího (znaménkového) bitu** menší mřížky — bez hradel, jen vodiči. (Bez znaménka se doplňují nuly.) *Příklad:* $D(-6)$ na 4 b = 1010, na 8 b = 11111010.
 
+### 1.6 Příklad: zobraz +4 a −4 ve 4 bitech ve všech kódech
+> Oblíbené doptávání (Daňhel): „ukažte, jak vyjádříte **−4 ve 4 bitech** v jednotlivých reprezentacích". Postup: kladné číslo $4=0100_2$; záporné podle pravidla daného kódu. Aditivní s $K=\tfrac12 M=8$.
+
+| číslo | přímý | inverzní (dopl. do 1) | **doplňkový (dopl. do 2)** | aditivní ($K=8$) |
+|---|---|---|---|---|
+| **+4** | `0100` | `0100` | `0100` | `1100` (= $4+8$) |
+| **−4** | `1100` | `1011` (invert) | `1100` (invert +1) | `0100` (= $-4+8$) |
+
+- **Přímý:** znaménkový bit `1`, zbytek = $|4|=100$.
+- **Inverzní:** bitová inverze `0100`→`1011`.
+- **Doplňkový:** invert+1: `0100`→`1011`→`1100`. (Pozor: pro −4 vyjde shodou okolností stejně jako přímý; pro −1 už ne: přímý `1001` × doplňkový `1111`.)
+- **Aditivní:** přičti $K=8$.
+
 ---
 
 ## 2. Realizace aritmetických operací
@@ -80,6 +93,8 @@ V **doplňkovém kódu** se sčítá i odčítá **jediným** obvodem: $A-B=D(A)
 - Výstupy: přenos $q_n$ (carry), výpůjčka $v^*=\overline{q^*}$, přeplnění $over=q_n\oplus q_{n-1}$.
 
 Procesor pak týmž obvodem realizuje ADD/ADC/SUB/SBB (řízeno módem $m$ a vstupním přenosem); **stejná sčítačka sčítá nezáporná čísla i čísla v doplňkovém kódu** a nastaví příznaky carry i overflow — interpretaci dělá software.
+
+> **Proč právě doplňkový kód a jak by sčítačka vypadala v přímém kódu? (časté doptávání — Kubátová)** Kouzlo doplňkového kódu je, že **sčítání i odčítání zvládne jediný obvod** (sčítačka + řízené XOR + carry-in), protože znaménko je organickou součástí obrazu. V **přímém kódu** to neplatí: musí se nejdřív **porovnat znaménka** — při shodných se absolutní hodnoty **sečtou** (znaménko zůstane), při různých se **odečte menší od většího** a výsledek dostane **znaménko většího**. To vyžaduje navíc **komparátor velikostí**, podmíněnou negaci a logiku znaménka ⇒ obvod je **složitější** a pomalejší. Proto se v ALU používá doplňkový kód.
 
 ### 2.2 Realizace aritmetických posuvů
 Tři typy posuvu se liší tím, co se nasouvá na uvolněná místa:
@@ -169,3 +184,13 @@ Přímý / inverzní / doplňkový / aditivní kód — rozsah, počet nul, nega
 - Doplňkový rozdíl: $A-B=D(A)+\overline{D(B)}+1$.
 - IEEE 754 single: $A=(-1)^s(1.f)2^{g-127}$, $g=e+127$, 1/8/23 b; double 1/11/52, $K=1023$.
 - Posuvy: $A\ll k=A\cdot2^k$, $A\gg k=A:2^k$.
+
+### Typické doplňující otázky (doptávání)
+> Z reálných zkušeností (Daňhel, Kubátová, Štěpanovský, Kohlík, Fišer, Skrbek…). Otázka se často **zúží** (např. „jen kódy se znaménkem" nebo „bez posuvů a čítačů").
+- **Ukažte −4 (a +4) ve 4 bitech v každém kódu** → §1.6. **Vysvětlete pojmy modul a mantisa** → modul $M=z^n$ (§0), mantisa = část obrazu nesoucí hodnotu u plovoucí čárky (§3.1).
+- **Nakreslete 4bitovou sčítačku/odčítačku v doplňkovém kódu s detekcí overflow** → §2.0–2.1. **Jak by vypadala v přímém kódu?** → poznámka v §2.1 (komparátor + znaménková logika).
+- **Proč není paralelní (ripple-carry) sčítačka optimální a jaká je alternativa?** → propagace přenosu ⇒ zpoždění $O(n)$; alternativa **carry-lookahead** (§2.1). Stačí pojem.
+- **Sestavte 1bitovou sčítačku z polovičních** (HA→FA) → §2.1.
+- **Aritmetický posuv vpravo/vlevo o 2 v přímém i doplňkovém kódu, kdy nastane overflow / ztráta přesnosti?** → §2.2.
+- **Je čítač kombinační, nebo sekvenční?** → **sekvenční** (zbytek — dekodér, MUX, sčítačka — je kombinační), §2.5.
+- **Co je skrytá jednička, proč/jak se normalizuje, převeďte desítkové číslo do IEEE 754** → §3.2–3.5.

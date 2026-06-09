@@ -7,6 +7,15 @@
 - **aditivní** (posunutá nula): $A(X)=X+K$, $K=\tfrac12M$; nula ≠ 0 → exponent IEEE 754.
 - **rozšíření znaménka** = kopie nejvyššího bitu (jen vodiče).
 
+**−4 / +4 ve 4 bitech** (kladné $4=0100$; aditivní $K=8$):
+
+| | přímý | inverzní | doplňkový | aditivní |
+|---|---|---|---|---|
+| +4 | 0100 | 0100 | 0100 | 1100 |
+| −4 | 1100 | 1011 | 1100 | 0100 |
+
+(−4: přímý a doplňkový tu vyjdou stejně náhodou; pro −1 přímý 1001 × doplňkový 1111. **Modul** $M=z^n$, **mantisa** = hodnotová část plovoucí čárky.)
+
 ## 2. Aritmetické operace
 **Doplňkový kód:** sčítá i odčítá jeden obvod, $A-B=D(A)+\overline{D(B)}+1$, **přenos se ignoruje**.
 **Přenos ≠ přeplnění!** overflow jen při shodných znaménkách → opačné: $(+)(+)\to(-)$, $(-)(-)\to(+)$; **$over=p\oplus q$** $=\overline a\overline b s+ab\overline s$. Výpůjčka $v^*=\overline{q^*}$.
@@ -15,6 +24,7 @@
 - HA: $s=a\oplus b$, $q=ab$. FA: $s=a\oplus b\oplus p$, $q=ab+p(a\oplus b)$; $G=ab$, $P=a\oplus b$.
 - ripple-carry = kaskáda FA, zpoždění $O(n)$; **carry-lookahead** = dvouúrovňově ze vstupů.
 - sčítačka/odčítačka: **XOR(B, Odčítej)** + carry-in = Odčítej; over $=q_n\oplus q_{n-1}$.
+- **v přímém kódu** by to bylo složitější: porovnat znaménka → shodná = sečíst |·|, různá = odečíst menší od většího + znaménko většího (komparátor + znaménková logika) ⇒ proto doplňkový.
 
 **Aritmetické posuvy** ($A\ll k=\cdot2^k$, $A\gg k=:2^k$); typy: logický (nasouvá 0), cyklický (rotace), aritmetický (závisí na kódu):
 - doplňkový vpravo → **kopíruje znaménko** (1010→1101); vlevo → 0 zprava, over při nesouladu znaménka.

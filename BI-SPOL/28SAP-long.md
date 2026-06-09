@@ -4,7 +4,7 @@ etapa: 1 · SAP — Daňhel
 qid: 28SAP
 examiner: Daňhel
 topic: Kombinační a sekvenční obvody (Mealy/Moore), hradla, minimalizace mapami
-readiness: nezačato
+readiness: in progress
 tags:
   - otázka
   - kurz/SAP
@@ -110,7 +110,9 @@ Pro mnoho proměnných (mapa nepřehledná). Tabulkově: minterm­y se zapíší
 ## 3. Možnosti implementace na úrovni hradel
 
 ### 3.1 Hradla a úplný systém
-Základní hradla: **AND, OR, NOT, NAND, NOR, XOR** (značky ANSI i IEC, kde XOR = `=1`). **Úplný systém** funkcí je $\{+,\cdot,\neg\}$; úplný je i **samotný NAND**, resp. **samotný NOR** — proto se v ASIC realizuje právě jimi (nejméně tranzistorů, nejmenší plocha).
+Základní hradla: **AND, OR, NOT, NAND, NOR, XOR** (značky ANSI i IEC, kde XOR = `=1`, NAND = AND s kroužkem, NOR = OR s kroužkem na výstupu). **Úplný systém** funkcí je $\{+,\cdot,\neg\}$; úplný je i **samotný NAND**, resp. **samotný NOR** — proto se v ASIC realizuje právě jimi (nejméně tranzistorů, nejmenší plocha).
+
+> **Proč se XOR používá tak často?** XOR ($a\oplus b$) je **detektor nerovnosti / parity** — výstup 1 právě když je počet jedniček lichý. Proto je jádrem (1) **sčítačky** (součtový bit $s=a\oplus b\oplus p$, §3.3), (2) **řízeného invertoru** ve sčítačce/odčítačce (XOR operandu s řídicím signálem *Odčítej*), (3) **komparátoru** (rovnost = NOR všech XORů po bitech), (4) **generátoru a kontroly parity** a obecně **detekce/oprava chyb**. Bez XOR by tyto obvody potřebovaly více hradel.
 
 ### 3.2 Dvojúrovňová realizace
 - **AND-OR** přímo z MNDF (1. úroveň AND vytvoří P-termy, 2. úroveň OR je sečte).
@@ -178,7 +180,9 @@ kde $X$ = vstupní abeceda, $Y$ = **výstupní abeceda**, $Q$ = stavy, $\delta:X
 7. Spočítej **maximální hodinovou frekvenci** $f_{max}=1/W$, kde $W$ je nejdelší cesta (zpoždění hradel + Clock-to-Q klopného obvodu + předstih/setup).
 
 ### 5.5 Příklad — čítač M4 (Mealy vs Moore)
-Modulo-4 [[Čítač|čítač]] s povolovacím vstupem $E$ (při $E=0$ nečítá), výstup = binární kód 0…3, dva D klopné obvody (stavové proměnné $q_1q_0$). Stavový kód volíme rovný výstupu.
+**[[Čítač|Čítač]] je sekvenční obvod** (ne jen „speciální registr" — má vnitřní stav a zpětnou vazbu), takže se navrhuje právě tímto 7krokovým postupem. Týž postup dává libovolný **modulo-$N$** čítač (komise často chce **netriviální** příklad, např. **M5 s povolovacím vstupem $E$**) — jen se změní počet stavů a kódovací tabulka.
+
+Modulo-4 čítač s povolovacím vstupem $E$ (při $E=0$ nečítá), výstup = binární kód 0…3, dva D klopné obvody (stavové proměnné $q_1q_0$). Stavový kód volíme rovný výstupu.
 
 Budicí (= následující stav) a výstupní funkce:
 $$D_{q_0}=q_0\overline E+\overline{q_0}E=q_0\oplus E,\qquad D_{q_1}=\overline{q_0}q_1+q_1\overline E+q_0\overline{q_1}E=E q_0\oplus q_1$$
@@ -208,3 +212,13 @@ Kombinační vs sekvenční obvod; Booleova algebra (axiomy 1–5); literál, P-
 - Úplná sčítačka: $s=a\oplus b\oplus p$, $q=ab+ap+bp$.
 - Počet stavových proměnných: $2^{m-1}<n\le2^m$.
 - Charakteristické rovnice KO: D, RS, JK, T.
+
+### Typické doplňující otázky (doptávání)
+> Z reálných zkušeností (Kohlík, Daňhel, Kubátová, Dobiáš…).
+- **Proč se XOR tak často používá?** → §3.1 (detektor nerovnosti/parity: sčítačka, řízený invertor, komparátor, parita).
+- **Jmenujte kombinační obvod důležitý v počítači** → **sčítačka / ALU** (§3.3).
+- **Je čítač kombinační, nebo sekvenční obvod?** → **sekvenční** (má stav + zpětnou vazbu), §5.5.
+- **Navrhněte netriviální sekvenční obvod**, např. **M5 čítač s povolovacím vstupem $E$** → 7 kroků syntézy, §5.4–5.5.
+- **Rozdíl Mealy × Moore i v realizaci** (odkud se bere výstup) a **převod Mealy→Moore** → §5.2, §5.6.
+- **Rozlište značky hradel** NAND × NOR (kroužek na výstupu) → §3.1.
+- **Jak vyjádříte logickou funkci?** (z mapy SOP/POS, ÚNDF/ÚNKF) → §1.4, §2.
