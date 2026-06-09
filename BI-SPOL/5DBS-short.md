@@ -67,13 +67,13 @@ from zdroj
 
 **Pořadí vyhodnocení:** FROM → WHERE → GROUP BY → SELECT (agregace + projekce) → HAVING → ORDER BY.
 
-**Spojení:** `JOIN ON` / `USING` / `NATURAL JOIN` / `CROSS JOIN` / `LEFT|RIGHT|FULL OUTER JOIN`.
+**Spojení:** `JOIN ON` / `USING` / `NATURAL JOIN` / `CROSS JOIN` / `LEFT|RIGHT|FULL OUTER JOIN`. `USING` bezpečnější než `NATURAL` (explicitní sloupce), **ani jedno není v RA**. Outer join: chybějící sloupce druhé relace → `NULL`; `R.*`/`S.*` řídí, které sloupce zůstanou.
 
 ### NULL a 3-hodnotová logika
 NULL = UNKNOWN, není 0 ani ''. Operace s NULL = NULL. `WHERE` propustí jen TRUE. Pomůcky: `IS [NOT] NULL`, `COALESCE(v1, v2, ...)`.
 
 ### Agregace
-`COUNT`, `SUM`, `MAX`, `MIN`, `AVG`. `COUNT(*)` započítá NULL; `COUNT(A)` ne. `COUNT(∅)=0`, `SUM(∅)=NULL`.
+`COUNT`, `SUM`, `MAX`, `MIN`, `AVG`. `COUNT(*)` započítá NULL; `COUNT(A)` ne. `COUNT(∅)=0`, `SUM(∅)=NULL`. `COUNT(DISTINCT sl)`; rozsah `WHERE x BETWEEN a AND b`.
 
 `GROUP BY` — v SELECT jen seskupovací sloupce + agregace. `HAVING` filtruje **po** agregaci.
 
@@ -81,7 +81,7 @@ NULL = UNKNOWN, není 0 ani ''. Operace s NULL = NULL. `WHERE` propustí jen TRU
 - Nevztažený — sám o sobě smysl.
 - Vztažený (correlated) — odkazuje na vnější dotaz.
 
-Predikáty: `IN`, `EXISTS`, `ANY`/`SOME`, `ALL`, srovnání.
+Predikáty: `IN`, `EXISTS`, `ANY`/`SOME`, `ALL`, srovnání. U `EXISTS` nezáleží na obsahu `SELECT` poddotazu (jen ne/prázdnost); antijoin ≈ `NOT EXISTS`.
 
 **Univerzální kvantifikace** v SQL: pomocí `NOT EXISTS (... NOT ...)`.
 
@@ -168,3 +168,4 @@ drop table T cascade;
 - **Cizí klíč:** `REFERENCES T(sl) ON DELETE {NO ACTION|RESTRICT|CASCADE|SET NULL|SET DEFAULT}`. `IMMEDIATE` vs. `DEFERRED`.
 - **TCL:** `COMMIT`, `ROLLBACK`, `SAVEPOINT`. AUTOCOMMIT pozor.
 - Nedeklarativní IO → triggery / aplikace.
+- **Doptávání (Hunka, v komisi):** chce konkrétní SQL syntax, ne teorii RA — joiny a **které sloupce zůstanou ve výstupu** (outer → NULL), `CHECK`, `ON DELETE CASCADE` (ne `DROP`), k čemu pohledy, (ne)vztažené poddotazy.

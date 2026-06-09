@@ -8,11 +8,13 @@ tags: [otázka, kurz/DBS, otázka/6, todo]
 
 **[[Transakce]]** = sekvence DML+SELECT, které logicky souvisejí, vnímáno jako jeden celek měnící stav DB. Před a po transakci je DB **konzistentní**, uvnitř může být dočasně nekonzistentní.
 
-**Hranice:**
-- Konec: explicitně `COMMIT` / `ROLLBACK`, implicitně konec session, nebo `SAVEPOINT` jako značka.
-- Začátek: konec předchozí transakce / vznik session. Pozor na **AUTOCOMMIT** ON/OFF.
+**Hranice + TCL (co dělají):**
+- `COMMIT` = potvrdí změny (trvalé); `ROLLBACK` = zruší změny (stav před transakcí / před SAVEPOINT); `SAVEPOINT` = značka pro částečný ROLLBACK.
+- Konec: explicitně COMMIT/ROLLBACK, implicitně konec session. Začátek: konec předchozí / vznik session. **AUTOCOMMIT** ON = každý DML potvrzen / OFF = nutný explicitní commit.
 
-**Stavy:** Active → Partially Committed → Committed; Active → Failed → Aborted.
+**Stavy:** Active →(poslední operace) PC →(COMMIT) Committed; Active/PC →(chyba) Failed →(ROLLBACK) Aborted.
+
+> *Mimo slidy (ptají se):* `SERIAL`/sekvence se při ROLLBACK **nevrací** → díry v ID.
 
 ## 2. ACID
 

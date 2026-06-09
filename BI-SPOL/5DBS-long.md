@@ -1,11 +1,15 @@
 ---
 studyplan: true
-etapa: "5 · DBS — Hunka"
-qid: "5DBS"
-examiner: "Hunka"
-topic: "Relační DB, relační algebra, SQL (SELECT/DDL/DML/DCL/TCL), integritní omezení, ER→relační"
-readiness: nezačato
-tags: [otázka, kurz/DBS, otázka/5, todo]
+etapa: 5 · DBS — Hunka
+qid: 5DBS
+examiner: Hunka
+topic: Relační DB, relační algebra, SQL (SELECT/DDL/DML/DCL/TCL), integritní omezení, ER→relační
+readiness: in progress
+tags:
+  - otázka
+  - kurz/DBS
+  - otázka/5
+  - todo
 ---
 
 # Relační databáze, RA, SQL, integritní omezení
@@ -101,7 +105,9 @@ kde $\Theta \in \{<, >, =, \le, \ge, \ne\}$. $C$ je zřetězením $A$ a $B$ — 
 - pravé $R[t_1 \Theta t_2]\!\succ S =_{def} \{R[t_1 \Theta t_2]S\}[B]$,
 - přirozené $R \prec\ast S =_{def} \{R \ast S\}[A]$.
 
-**Antijoin** $R \overline{\prec\ast} S =_{def} R \setminus \{R \prec\ast S\}$ — n-tice $R$, které **nejsou** spojitelné s žádnou n-ticí $S$.
+Polospojení lze chápat jako **„syntaktickou zkratku"** za spojení následované projekcí (na $A$ resp. $B$); skutečná implementace bývá efektivnější než spojení + selekce.
+
+**Antijoin** $R \overline{\prec\ast} S =_{def} R \setminus \{R \prec\ast S\}$ — n-tice $R$, které **nejsou** spojitelné s žádnou n-ticí $S$. Používá se v **query executoru** — objevuje se v **prováděcích plánech** SQL dotazů při vyhodnocení klauzule **`NOT EXISTS`**.
 
 **Přejmenování** $R[A_1 \to B_1]$ — atribut $A_1$ přejmenován na $B_1$.
 
@@ -207,6 +213,8 @@ from specifikace_zdroje
 - `tab1 CROSS JOIN tab2`,
 - `tab1, tab2` (starší syntaxe ekvivalentní `CROSS JOIN`).
 
+**`USING` vs `NATURAL JOIN`:** `USING (sloupce)` je **bezpečnější** — explicitně vyjmenuje spojovací sloupce, takže nehrozí nechtěné spojení podle stejnojmenných atributů jako u `NATURAL JOIN`. **Ani jedno není v RA** (RA má jen Θ-spojení a přirozené spojení).
+
 ### 3.4 Pořadí vyhodnocení klauzulí SELECT
 
 1. **FROM** — zdroj (spojení),
@@ -239,6 +247,9 @@ Všechny datové typy mají bottom prvek **NULL** (význam „UNKNOWN", „N/A")
 - `COUNT(*)` započítává i řádky s NULL,
 - `COUNT(∅) = 0`,
 - `SUM(∅) = NULL` (ostatní agregace nad prázdnou množinou též vrátí NULL — proto `COALESCE`).
+- `agregační_funkce({ALL | DISTINCT} sloupec)` — `DISTINCT` počítá jen různé hodnoty, např. `COUNT(DISTINCT id_filmu)`.
+
+Rozsahový predikát ve `WHERE`: `sloupec BETWEEN a AND b` (inkluzivně, ekvivalent `a ≤ sloupec ≤ b`).
 
 **GROUP BY:** rozdělí řádky do skupin podle hodnot vybraných sloupců. V `SELECT` mohou figurovat **jen** seskupovací sloupce a agregační funkce.
 
@@ -253,10 +264,12 @@ Pozice: v klauzulích `WHERE`, `SELECT`, `FROM`, `HAVING`. Predikáty: `IN`, `NO
 ### 3.8 Vnější spojení (OUTER JOIN)
 Doplní řádky bez partnera v druhé relaci o **NULL** hodnoty: `LEFT [OUTER] JOIN`, `RIGHT [OUTER] JOIN`, `FULL [OUTER] JOIN`.
 
+**Které sloupce zůstanou ve výstupu** (oblíbené doptávání): výstup spojení obsahuje sloupce **obou** relací; chce-li se jen jedna strana, vybírá se `R.*` / `S.*` v `SELECT`. U `LEFT JOIN` zůstanou všechny řádky levé relace a **chybějící sloupce pravé** relace se doplní `NULL` (u `RIGHT` opačně, u `FULL` z obou stran).
+
 **Pozor:** RA pojmem semi-join označuje něco jiného (redukce na n-tice s partnerem) než SQL OUTER JOIN. SQL semi-join se obvykle realizuje pomocí `WHERE … IN (SELECT …)` nebo `EXISTS`.
 
 ### 3.9 Kvantifikace v SQL
-- **Existenční $\exists x. P(x)$:** `[NOT] EXISTS (poddotaz)` — testuje neprázdnost.
+- **Existenční $\exists x. P(x)$:** `[NOT] EXISTS (poddotaz)` — testuje neprázdnost. **U `EXISTS` nezáleží, co se vybírá v `SELECT` poddotazu** (píše se `SELECT 1` nebo `SELECT *`) — vyhodnocuje se jen (ne)prázdnost množiny výsledků.
 - **Univerzální $\forall x. P(x)$:** v SQL přímo není; pomocí $\forall x.P(x) \equiv \neg \exists x. \neg P(x)$:
   ```sql
   -- Kina, která hrají všechna představení.
@@ -492,3 +505,12 @@ IO typu „v kině se nehraje více než dvakrát týdně" nebo „jeden film se
 - TCL: `COMMIT`, `ROLLBACK`, `SAVEPOINT`.
 - Šest typů IO sloupce: `NOT NULL`, `DEFAULT`, `UNIQUE`, `PRIMARY KEY`, `REFERENCES`, `CHECK`.
 - Akce při referenční integritě: `NO ACTION`, `RESTRICT`, `CASCADE`, `SET NULL`, `SET DEFAULT`.
+
+### Typické doplňující otázky (doptávání)
+> Z reálných zkušeností. **Hunka** je v komisi a DBS zkouší prakticky — chce **konkrétní SQL syntax a chování joinů**, ne teorii RA; je benevolentní a navádí. Otázku skoro vždy **zúží**.
+- **Hunka:** „Které sloupce zůstanou ve výstupu jednotlivých joinů, zvlášť u outer join?" → §3.8, §2.3
+- **Hunka:** „Napište konkrétní `SELECT` a jeho klauzule; jak byste sestavil dotaz?" → §3.3–3.4
+- **Hunka:** „K čemu je `CHECK`? `ON DELETE CASCADE` (ne `DROP`!)? K čemu jsou pohledy?" → §4.2, §4.4, §3.15
+- **Hunka:** „Vnější spojení na příkladu; (ne)vztažené poddotazy a kde se poddotazy mohou objevit." → §3.7–3.8
+- **Borkovcová:** „Joiny jako množinové operace; `EXISTS` vs `IN`; `JOIN USING`." → §2.3, §3.11, §3.3
+- **Pavlíček/Matoušek:** „Left join v SQL *i* RA na příkladu; jak udělat left join jen přirozeným spojením." → §2.3, §3.8

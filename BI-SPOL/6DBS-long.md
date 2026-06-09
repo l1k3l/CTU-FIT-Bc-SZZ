@@ -1,11 +1,15 @@
 ---
 studyplan: true
-etapa: "5 · DBS — Hunka"
-qid: "6DBS"
-examiner: "Hunka"
-topic: "Transakce a jejich vlastnosti — ACID"
-readiness: nezačato
-tags: [otázka, kurz/DBS, otázka/6, todo]
+etapa: 5 · DBS — Hunka
+qid: 6DBS
+examiner: Hunka
+topic: Transakce a jejich vlastnosti — ACID
+readiness: in progress
+tags:
+  - otázka
+  - kurz/DBS
+  - otázka/6
+  - todo
 ---
 
 # Transakce a jejich vlastnosti — ACID
@@ -38,9 +42,24 @@ Zdroje: BI-DBS přednáška 8 (Transakce a transakční zpracování, Valenta, F
 
 ![[Transakce#Hranice transakce]]
 
+**Příkazy TCL — co přesně dělají** (přednáška 7, „Příkazy COMMIT, ROLLBACK, SAVEPOINT"):
+- `COMMIT` — **potvrzení změn**; všechny změny provedené v transakci se stanou trvalými a viditelnými ostatním.
+- `ROLLBACK` — **odvolání změn**; všechny změny provedené v transakci se zruší, databáze se vrátí do stavu před započetím transakce (resp. před `SAVEPOINT`).
+- `SAVEPOINT` — **značka uvnitř transakce**, ke které lze později vztáhnout `ROLLBACK` (`ROLLBACK TO SAVEPOINT`), aniž by se odvolala celá transakce.
+- `AUTOCOMMIT ON/OFF` — řídí chování na úrovni session: **ON** = každý DML příkaz se automaticky potvrdí (`COMMIT`); **OFF** = musí přijít explicitní `COMMIT`/`ROLLBACK`. `BEGIN TRANSACTION` zahájí transakci explicitně (funguje i při AUTOCOMMIT ON).
+
 ### 2.3 Stavový diagram transakce
 
 ![[Transakce#Stavový diagram]]
+
+**Přechody mezi stavy** (laický výklad — jak se transakce do stavu dostane):
+- **A → PC** — po provedení poslední operace transakce (poslední DML).
+- **PC → C** — po úspěšném `COMMIT` (změny trvale uloženy).
+- **A → F** — v normálním průběhu nelze pokračovat (logická chyba, porušení IO, dělení nulou, pád).
+- **PC → F** — i z částečně potvrzeného stavu lze selhat (např. při fyzickém zápisu / kontrole IO před commitem).
+- **F → AB** — po `ROLLBACK` (databáze uvedena do stavu před transakcí).
+
+> *Doplnění nad rámec slidů:* Hodnoty generované typem `SERIAL` / sekvencí (nextval) se při `ROLLBACK` **nevracejí zpět** — sekvence se nezahrnuje do transakce, takže po odvolání transakce vzniknou v posloupnosti ID „díry". Je to vlastnost autoincrementu používaného typicky pro primární klíče (ne v žádném slidu přednášky 8, ale examinátoři se na to ptají).
 
 ### 2.4 Příklady transakcí
 
@@ -94,6 +113,8 @@ IO: „student nesmí být přihlášen na dva budoucí termíny z jednoho před
 ![[Žurnál#Definice]]
 
 ![[Žurnál#K čemu slouží]]
+
+**Pozor (přednáška 8):** Informace z transakčního žurnálu se používají **pouze pro obnovu databáze po pádu**. Pro samotnou operaci `ROLLBACK` a pro zajištění **read consistency** za běhu se používají **jiné datové struktury** (v Oracle tzv. undo/rollback segmenty). Žurnál tedy implementuje Atomicity a Durability, nikoli běžný runtime rollback.
 
 ### 4.3 Obnova po pádu
 
@@ -273,3 +294,11 @@ Implementace v PostgreSQL a Oracle se liší — viz článek Laurenz Albe „Im
 - Obnova z chyby médií: archivní mód (PITR) vs. nearchivní.
 - Detekce deadlocku: graf závislostí nebo timeout.
 - Granularita zamykání: řádek vs. tabulka.
+
+### Typické doplňující otázky (doptávání)
+- **Hunka:** „Laicky vysvětlete, co v praxi transakce je a co jednotlivé stavy znamenají; jak se transakce dostane z PC do F apod." → §2.3 (přechody stavového diagramu). Hunka chce **praktický, neformální** výklad, ne formální teorii — drží se příkladu.
+- **Hunka / Prágl:** „Co se stane, když serveru vypadne proud, a jaké jsou mechanismy obnovy?" → §4 (třídy chyb, Roll Forward + Roll Back, checkpointy, žurnál).
+- **Matoušek:** „Příkazy v TCL a co dělají." → §2.2 (COMMIT / ROLLBACK / SAVEPOINT / AUTOCOMMIT).
+- **Matoušek:** „Jak se chová datový typ `SERIAL` v rámci transakcí?" → §2.3 *(doplnění nad rámec slidů: sekvence se při ROLLBACK nevrací → díry v ID)*.
+- **Matoušek:** doptal se na **stavový diagram** transakcí → §2.3.
+- **Valenta:** „Definujte transakci a ukažte jednotlivé vlastnosti ACID **na příkladu**." → §2.4 + §3 (převod peněz / přihlášení na termín).
