@@ -59,19 +59,35 @@ def clean(s):
     return s.strip()
 
 
-def _outer_paren(heading_text):
-    # greedy: capture from first '(' to last ')' so nested "Petr (Ivo)" survives
+def _examiner_list_str(heading_text):
+    """Raw examiner-list substring of a committee heading, or None.
+
+    FIT Wiki uses two heading formats across seasons:
+      paren:  '2-SI (Douša, Šoch, Krátký, Novák, Scholtzová)'
+      dash:   '9-WSI-SI - Kroha, Rybola, Mlejnek, Pernecká, Skrbek'  (2017-2019)
+    A committee list has >=3 commas (>=4 examiners); student headings like
+    'Jan Potočiar (SI)' or 'Ladislav Zemek (SI-2014)' have none and are skipped.
+    """
+    # paren format: greedy from first '(' to last ')' so "Petr (Ivo)" survives
     p = re.search(r"\((.*)\)", heading_text)
-    return p.group(1) if p else None
+    if p and p.group(1).count(",") >= 3:
+        return p.group(1)
+    # dash format: ' - ' (spaces around dash) splits committee code from list.
+    # The code's own dashes ('9-WSI-SI') have no surrounding spaces, so the
+    # examiner list is everything after the first spaced dash.
+    if " - " in heading_text:
+        cand = heading_text.split(" - ", 1)[1]
+        if cand.count(",") >= 3:
+            return cand
+    return None
 
 
 def is_committee(heading_text):
-    inside = _outer_paren(heading_text)
-    return bool(inside and inside.count(",") >= 3)
+    return _examiner_list_str(heading_text) is not None
 
 
 def committee_examiners(heading_text):
-    inside = _outer_paren(heading_text) or heading_text
+    inside = _examiner_list_str(heading_text) or heading_text
     return [x.strip() for x in inside.split(",") if x.strip()]
 
 
