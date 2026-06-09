@@ -30,7 +30,7 @@ V teorii pravděpodobnosti pracujeme s modely se **známými** parametry a predi
 **Realizace náhodného výběru** (data): $n$-tice konkrétních pozorovaných čísel $x_1, \dots, x_n$.
 
 ### 1.2 Kroky statistického uvažování
-1. **Odhad tvaru rozdělení** — volba parametrické třídy $\{F_\theta : \theta \in \Theta\}$ (z apriorní znalosti / intuice). Tvar odhadujeme **histogramem** a **empirickou distribuční funkcí** $F_n(x) = \tfrac1n\sum_{i=1}^n \mathbf{1}_{\{X_i \le x\}}$.
+1. **Odhad tvaru rozdělení** — volba parametrické třídy $\{F_\theta : \theta \in \Theta\}$ (z apriorní znalosti / intuice). Tvar odhadujeme **histogramem** a **empirickou distribuční funkcí** $F_n(x) = \tfrac1n\sum_{i=1}^n \mathbf{1}_{\{X_i \le x\}}$ — tj. podíl pozorování $\le x$. Je **po částech konstantní** se skoky velikosti $\tfrac1n$ v každé pozorované hodnotě (u shody více hodnot násobek $\tfrac1n$) a je to **konzistentní odhad** distribuční funkce $F$ ($F_n(x) \to F(x)$ ze ZVČ). Dedecius si na empirickou distribuční funkci opakovaně doptává.
 2. **Odhad parametrů** — bodový a intervalový.
 3. **Ověření modelu** — testování hypotéz (testy dobré shody, parametrické testy).
 
@@ -75,6 +75,8 @@ $$\mathbb{E}s_n^2 = \frac{1}{n-1}\bigl(n\,\mathbb{E}X_i^2 - n\,\mathbb{E}\bar X_
 ### 3.1 Princip
 **[[Interval-spolehlivosti|Interval spolehlivosti]]** (konfidenční interval): interval $(L, U)$ s mezemi danými statistikami $L = L(X)$, $U = U(X)$ takový, že
 $$P(L < \theta < U) = 1 - \alpha.$$
+
+**Rozdíl od bodového odhadu** (časté doptávání): bodový odhad vrací jedno číslo $\hat\theta_n$ a sám neříká, jak je přesný; intervalový odhad vrací **interval, který parametr pokryje s pravděpodobností $1-\alpha$**, a tím **kvantifikuje nejistotu** odhadu (čím větší $n$, tím užší interval — meze obsahují $\tfrac{1}{\sqrt n}$).
 $1-\alpha$ je **hladina spolehlivosti** (typicky $95\%$ či $99\%$). Pro **oboustranný** symetrický interval volíme $P(\theta < L) = P(U < \theta) = \alpha/2$. **Jednostranné** intervaly: horní $(L, +\infty)$ s $P(L < \theta) = 1-\alpha$, dolní $(-\infty, U)$.
 
 > Pozor na interpretaci: náhodné jsou meze $L, U$ (závisí na výběru), nikoli parametr $\theta$. Při mnoha opakováních pokrývá náhodný interval skutečné $\theta$ v podílu $1-\alpha$ případů.
@@ -194,3 +196,13 @@ Náhodný výběr (i.i.d.); statistika; bodový odhad; nestrannost; konzistence;
 
 ### Vzorce zpaměti
 $\bar X_n$, $s_n^2 = \tfrac{1}{n-1}\sum(X_i-\bar X_n)^2$; CI pro $\mu$: $\bar X_n \pm z_{\alpha/2}\tfrac{\sigma}{\sqrt n}$ (známé $\sigma^2$), $\bar X_n \pm t_{\alpha/2,n-1}\tfrac{s_n}{\sqrt n}$ (neznámé).
+
+### Typické doplňující otázky (doptávání)
+*(Komise: Dedecius + Petr — Q27 zkoušejí **oba**, těžiště je na odhadech a testech o **střední hodnotě**.)*
+- **Dedecius:** „Co je empirická distribuční funkce?" (student „vařil z vody") → §1.2.
+- **Dedecius:** „Definujte náhodný výběr a jeho realizaci. Co jsou bodové odhady a jaké známe? Definujte nestrannost a konzistenci odhadu." → §1.1, §2.1–2.2.
+- **Dedecius:** „Co je kritická hodnota normálního rozdělení?" ($z_{\alpha/2} = \Phi^{-1}(1-\alpha/2)$, $P(Z > z_{\alpha/2}) = \alpha/2$) → §5.2.
+- **Dedecius:** „Neznámý rozptyl — jak ho získáme?" (odhadne se **výběrovým rozptylem** $s_n^2$, pak $t$-rozdělení) → §5.3.
+- **Dedecius:** „V čem se liší bodové a intervalové odhady?" → §3.1.
+- **Petr:** „Konfidenční interval a test hypotézy **o střední hodnotě**; vhodné **zvolení nulové hypotézy** — uveďte příklad." → §4.1, §5.2–5.5.
+- **Dedecius / Petr:** „Role CLV v intervalových odhadech (nenormální data)." → §5.4.

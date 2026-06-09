@@ -8,6 +8,7 @@ tags: [otázka, kurz/PST, otázka/27, hotovo]
 
 - **N. výběr:** i.i.d. $X_1,\dots,X_n$ s distr. fcí $F$; **realizace** = data $x_1,\dots,x_n$.
 - **Statistika** = funkce výběru nezávislá na $\theta$.
+- **Empirická distr. fce** (Dedecius!) $F_n(x)=\tfrac1n\sum\mathbf{1}_{\{X_i\le x\}}$ — podíl pozorování $\le x$; po částech konst., skoky $\tfrac1n$; konzist. odhad $F$. (Odhad tvaru i přes histogram.)
 - Pro $\bar X_n=\tfrac1n\sum X_i$: $\mathbb{E}\bar X_n=\mu$, $\operatorname{var}\bar X_n=\sigma^2/n$.
   - **[[Zákon-velkých-čísel|ZVČ]]:** $\bar X_n\xrightarrow{P}\mu$ (konzistence).
   - **[[Centrální-limitní-věta|CLV]]:** $\tfrac{\bar X_n-\mu}{\sigma/\sqrt n}\xrightarrow{D}N(0,1)$ → přibližné intervaly/testy.
@@ -23,6 +24,7 @@ tags: [otázka, kurz/PST, otázka/27, hotovo]
 ## 3. [[Interval-spolehlivosti|Intervalové odhady]]
 
 - **Interval spolehlivosti:** $(L,U)$, $P(L<\theta<U)=1-\alpha$. Oboustranný: $P(\theta<L)=P(U<\theta)=\alpha/2$. Jednostranné $(L,\infty)$, $(-\infty,U)$.
+- **Bodový vs intervalový:** bodový = 1 číslo bez míry přesnosti; intervalový = interval pokrývající $\theta$ s pst $1-\alpha$ → kvantifikuje nejistotu (větší $n$ → užší).
 - **Postup:** pivot $H(\theta)$ se známým rozdělením → meze → osamostatni $\theta$.
 - Pomocná rozdělení (pro $N(\mu,\sigma^2)$): $\tfrac{(n-1)s_n^2}{\sigma^2}\sim\chi^2_{n-1}$, $\tfrac{\bar X_n-\mu}{s_n/\sqrt n}\sim t_{n-1}$.
 - **CI pro $\sigma^2$:** $\bigl(\tfrac{(n-1)s_n^2}{\chi^2_{\alpha/2,n-1}},\tfrac{(n-1)s_n^2}{\chi^2_{1-\alpha/2,n-1}}\bigr)$ (jen normální).

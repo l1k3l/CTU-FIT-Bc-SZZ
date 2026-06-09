@@ -24,6 +24,7 @@ $P(X>x)=1-F(x)$, $P(a<X\le b)=F(b)-F(a)$, $P(X=x)=F(x)-\lim_{y\to x^-}F(y)$ (sko
 
 - **[[Střední-hodnota]]:** $\mathbb{E}X=\sum_k x_kP(X=x_k)$ / $\int x f_X\,dx$. Linearita: $\mathbb{E}(aX+bY)=a\mathbb{E}X+b\mathbb{E}Y$. $\mathbb{E}g(X)=\sum g(x_k)P(\cdot)$ / $\int g f_X$.
 - **[[Rozptyl]]:** $\operatorname{var}X=\mathbb{E}(X-\mathbb{E}X)^2=\mathbb{E}X^2-(\mathbb{E}X)^2$; $\operatorname{var}(aX+b)=a^2\operatorname{var}X$; $\sigma=\sqrt{\operatorname{var}X}$.
+- **Transformace $Y=aX+b$** (Dedecius!): $\mathbb{E}Y=a\mathbb{E}X+b$, $\operatorname{var}Y=a^2\operatorname{var}X$, $\sigma_Y=|a|\sigma_X$; hustota $f_Y(y)=\tfrac1{|a|}f_X(\tfrac{y-b}a)$.
 - **Momenty:** $\mu_k=\mathbb{E}X^k$, centrální $\sigma_k=\mathbb{E}(X-\mu_1)^k$. Šikmost $\gamma_1=\sigma_3/\sigma^3$, špičatost $\gamma_2=\sigma_4/\sigma^4-3$.
 - **MGF:** $M_X(s)=\mathbb{E}e^{sX}$; $\mathbb{E}X^k=M^{(k)}(0)$; nezáv. $\Rightarrow M_{X+Y}=M_XM_Y$.
 - **[[Kvantil]]:** $q_\alpha=\inf\{x:F_X(x)\ge\alpha\}$; medián $q_{0.5}$.
@@ -61,7 +62,7 @@ $F_{X,Y}=F_XF_Y$; diskr. $P(X=x\cap Y=y)=P(X=x)P(Y=y)$; spoj. $f_{X,Y}=f_Xf_Y$ (
 $$\operatorname{cov}(X,Y)=\mathbb{E}[(X-\mathbb{E}X)(Y-\mathbb{E}Y)]=\mathbb{E}[XY]-\mathbb{E}X\,\mathbb{E}Y, \qquad \rho(X,Y)=\frac{\operatorname{cov}(X,Y)}{\sigma_X\sigma_Y}.$$
 - $\operatorname{cov}(X,X)=\operatorname{var}X$; $\operatorname{var}(X\pm Y)=\operatorname{var}X+\operatorname{var}Y\pm2\operatorname{cov}(X,Y)$.
 - $-1\le\rho\le1$; $\rho=\pm1\iff Y=\pm aX+b$; **nekorelované** $\iff\operatorname{cov}=0\iff\mathbb{E}XY=\mathbb{E}X\mathbb{E}Y$.
-- **Nezávislost $\Rightarrow$ nekorelovanost** (opačně NE).
+- **Nezávislost $\Rightarrow$ nekorelovanost** (opačně NE). *Příklad nekorel. ale závislých:* $X$ sym. kolem 0, $Y=X^2$ ⇒ $\operatorname{cov}=0$, ale $Y=f(X)$.
 
 ---
 
