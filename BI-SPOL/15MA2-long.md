@@ -4,7 +4,7 @@ etapa: "3 · LA1 / MA2 / LA2 — Petr"
 qid: "15MA2"
 examiner: "Petr"
 topic: "Integrální počet, číselné řady a kritéria konvergence"
-readiness: nezačato
+readiness: in progress
 tags: [otázka, kurz/MA2, otázka/15, todo]
 ---
 
@@ -107,6 +107,20 @@ $$\int_a^b fg = \big[fG\big]_a^b - \int_a^b f'G,\qquad \int_a^b f(\varphi(t))\va
 
 *Příklady.* $\int_0^1 x\,dx=[\tfrac{x^2}2]_0^1=\tfrac12$; $\int_0^\pi\sin x\,dx=[-\cos x]_0^\pi=2$; $\int_0^1\ln(1+x)\,dx=2\ln2-1$ (per partes).
 
+### Geometrický význam a výpočet plochy
+
+**Geometrický význam (Pozn. 3.3).** $\int_a^b f$ je obsah plochy mezi grafem $f$ a osou $x$ **se znaménkem** (plocha pod osou se odečítá): $\int_0^\pi\sin x=2$, $\int_0^{2\pi}\sin x=0$, $\int_\pi^{2\pi}\sin x=-2$. **Newtonova formule je most:** geometricky definovaný obsah se počítá pomocí (neurčitého integrálu →) primitivní funkce, $\int_a^b f=F(b)-F(a)$, bez limit dělení.
+
+**Obsah plochy mezi dvěma grafy (Pozorování 3.1).** Jsou-li $f,g$ spojité na $\langle a,b\rangle$ s $f\ge g$, obsah plochy ohraničené přímkami $x=a$, $x=b$ a grafy je $P=\int_a^b\big(f(x)-g(x)\big)\,dx$. *Příklad:* plocha mezi $y=x$ a $y=x^3$ na $\langle0,1\rangle$ je $\int_0^1(x-x^3)\,dx=\tfrac14$.
+
+### Zobecněný (nevlastní) Riemannův integrál
+
+Riemannův integrál je definován pro **omezené** funkce na **omezeném uzavřeném** intervalu. Pro neomezený interval či neohraničenou funkci se zavádí **zobecněný integrál** limitou (Def. 3.8):
+$$\int_a^b f := \lim_{c\to b^-}\int_a^c f\quad(b\in\mathbb{R}\cup\{+\infty\}),$$
+analogicky pro spodní mez. Existuje-li konečná limita, integrál **konverguje**. Absolutní konvergence ($\int|f|$ konverguje) opět implikuje konvergenci.
+
+*Příklady.* $\int_1^\infty\tfrac{1}{x^2}dx=\lim_{c\to\infty}[-\tfrac1x]_1^c=1$ (konverguje); $\int_0^1\tfrac1{\sqrt x}dx=\lim_{c\to0^+}[2\sqrt x]_c^1=2$; $\int_{-\infty}^\infty\tfrac{1}{1+x^2}dx=\pi$. *(Tentýž limitní mechanismus stojí za integrálním kritériem v části 5, kde se vyšetřuje $\int_1^\infty f$.)*
+
 ---
 
 ## 4. Číselné řady a kritéria konvergence
@@ -187,3 +201,18 @@ $$\sum_{n=1}^\infty a_n \text{ konverguje} \iff \int_1^\infty f(x)\,dx \text{ ko
 ### Typické výsledky
 - Geometrická řada $\tfrac{1}{1-q}$; $\sum k^\alpha$ konv. $\iff\alpha<-1$; harmonická řada diverguje.
 - $\sum_{k=1}^n\tfrac1k\sim\ln n$ (+ konstanta $\gamma$); $\ln n!\approx n\ln n-n$; $\sum k^2\sim\tfrac13 n^3$.
+
+### Typické doplňující otázky (doptávání)
+
+> Zdroj: FIT-Wiki zkušenosti + historie otázek (komise je převážně matematická — **Ivo Petr** je v komisi, váž nejvíc; témata často pod starým kódem **ZMA**). Číselné řady a Riemannův integrál jsou zdaleka nejčastější zúžení této otázky.
+
+- **Ivo Petr:** "Co si představíte pod pojmem *částečný součet řady*?" → §4 (def. $s_n=\sum_{k=0}^n a_k$, konvergence ⟺ konverguje $(s_n)$).
+- **Ivo Petr:** "Je silnější *absolutně konverguje*, nebo *konverguje*? Vymyslete řadu, která konverguje, ale ne absolutně." → §4 (abs. ⇒ obyč. konvergence, opak ne; příklad $\sum\tfrac{(-1)^k}{k}$ přes Leibnize).
+- **Ivo Petr / Křesťan:** "Integrální kritérium konvergence + odhad rychlosti růstu řady integrálem." → §5 (Věta 4.7 + integrální kritérium, sevření $\sum f(k)$ mezi $\int_1^n f$ + krajní člen).
+- **Štampach / Poul:** doptal se na **předpoklady** kritérií, "co musí být kladné/nenulové" (d'Alembert: $a_k>0$; Leibniz: monotónní $\searrow0$). → §4.
+- **Kalvoda / Legerský:** "Geometrický význam Riemannova integrálu a jak ho spočítat pomocí neurčitého integrálu." → §3 (obsah se znaménkem; Newtonova formule $\int_a^b f=F(b)-F(a)$).
+- **Legerský / Kleprlík / Bambuch:** "Aplikujte odhad na **harmonické řadě**." → §5 ($\tfrac1n+\ln n\le\sum_{k=1}^n\tfrac1k\le1+\ln n$, tedy $\sim\ln n$). *(Časté zúžení — umět přesně sestavit a interpretovat.)*
+- **Zhouf / Svobodová:** "Spočítejte konkrétní integrál" — typicky nevlastní, např. $\int_0^\infty\tfrac1{x^2}dx=1$ (pozor na $x^{-2}\Rightarrow$ primitivní $-x^{-1}$). → §3 (zobecněný integrál).
+- **Krásenský:** "Navrhněte konvergentní řadu s kladnými členy." → geometrická $\sum q^k$ ($0<q<1$) nebo $\sum\tfrac1{k^2}$ (integrální kritérium, $\alpha=-2<-1$).
+- **Zhouf (starší ZMA-syllabus):** doptával se na **vzorce pro obsah plochy, objem rotačního tělesa, délku křivky**.
+  > *Doplnění nad rámec slidů:* aktuální učebnice BI-MA2 (kap. 3.4) řeší jen **obsah plochy** ($\int_a^b(f-g)$); rotační tělesa a délka křivky v jednorozměrné kapitole **nejsou** (objem se objevuje až u vícerozměrného integrálu, kap. 10). U Petra/Kalvody na současné komisi se čeká obsah, ne rotace.

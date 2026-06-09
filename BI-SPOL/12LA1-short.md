@@ -25,13 +25,19 @@ Vlastnosti: $(A^{-1})^{-1}=A$, $(AB)^{-1} = B^{-1}A^{-1}$, $(A^T)^{-1} = (A^{-1}
 
 **Výpočet (Gauss–Jordan):** $(A \mid E) \sim (E \mid A^{-1})$. Nulový řádek vlevo ⇒ singulární. $O(n^3)$.
 
+## 3a. Determinant (pro $p_A$)
+
+$2\times2$: $ad-bc$. $3\times3$: **Sarrus** (jen $3\times3$!). Obecně: GEM na trojúhelník → $\det = \prod$ diagonály ($O(n^3)$); nebo Laplaceův rozvoj.
+
+**GEM mění $\det$:** (G1) prohození $\to\times(-1)$; (G2) $\times\alpha$ řádek $\to\times\alpha$; (G3) přičtení násobku $\to$ beze změny. Nenulovost zachována ($\det\neq0\iff$ reg.).
+
 ## 4. Vlastní čísla
 
 **[[Vlastní-číslo]]:** $\lambda \in \mathbb{C}$, $\exists x \neq \theta$: $Ax = \lambda x$. Spektrum $\sigma(A)$. Vlastní podprostor $\ker(A - \lambda E)$.
 
-**Charakteristický polynom** $p_A(\lambda) = \det(A - \lambda E)$, stupně $n$:
+**Charakteristický polynom** $p_A(\lambda) = \det(A - \lambda E)$, stupně $n$, koeficient u $\lambda^n$ je $(-1)^n$:
 $$\lambda \in \sigma(A) \iff p_A(\lambda) = 0.$$
-Nad $\mathbb{C}$ vždy $\exists$ vlastní číslo, $\sum \nu_a = n$.
+Nad $\mathbb{C}$ vždy $\exists$ vlastní číslo, $\sum \nu_a = n$. Vlastní vektor **nikdy není $\theta$**.
 
 **Násobnosti:** $\nu_a$ = násobnost kořene $p_A$; $\nu_g = \dim\ker(A-\lambda E) = n - h(A-\lambda E)$; vždy $1 \le \nu_g \le \nu_a \le n$.
 
@@ -47,7 +53,7 @@ $n$ **různých** vlastních čísel ⇒ diagonalizovatelná (vl. vektory k růz
 
 **Konstrukce:** $P = (x_1 \mid \cdots \mid x_n)$ vlastní vektory, $D = \operatorname{diag}(\lambda_1,\dots,\lambda_n)$ ve stejném pořadí.
 
-**Mocnina:** $A^k = P D^k P^{-1}$, $D^k = \operatorname{diag}(\lambda_i^k)$.
+**Mocnina:** $A^k = P D^k P^{-1}$, $D^k = \operatorname{diag}(\lambda_i^k)$. (Použití: rychlé umocňování, $e^A$, dif. rovnice — *nad rámec slidů*.)
 
 ---
 
@@ -56,5 +62,6 @@ $n$ **různých** vlastních čísel ⇒ diagonalizovatelná (vl. vektory k růz
 - **Součin** $(AB)_{ij} = \sum_k a_{ik}b_{kj}$; asociativní, $(AB)^T = B^TA^T$, **nekomutativní**.
 - **Regulární** $\iff h(A)=n \iff \det A \neq 0 \iff A^{-1}$ existuje.
 - **Inverze:** $(A\mid E) \sim (E \mid A^{-1})$; $(AB)^{-1}=B^{-1}A^{-1}$.
-- **Vlastní číslo:** $Ax=\lambda x$, $x\neq\theta$; $\lambda \iff \det(A-\lambda E)=0$. $\nu_g \le \nu_a$.
+- **Vlastní číslo:** $Ax=\lambda x$, $x\neq\theta$; $\lambda \iff \det(A-\lambda E)=0$. $\deg p_A=n$, koef. u $\lambda^n$ je $(-1)^n$. $\nu_g \le \nu_a$.
+- **Determinant:** $3\times3$ Sarrus; GEM (G1)$\times(-1)$, (G2)$\times\alpha$, (G3) beze změny.
 - **Diagonalizace:** $A=PDP^{-1}$, $P$ = vl. vektory, $D$ = vl. čísla; $\iff \nu_g=\nu_a\ \forall\lambda$; $A^k = PD^kP^{-1}$.

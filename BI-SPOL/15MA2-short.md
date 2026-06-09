@@ -23,6 +23,8 @@ $$\int_a^b f := \underline{\int}f=\overline{\int}f\in\mathbb{R}\ (\text{shoda}).
 
 **Newtonova formule:** $f$ spojitá, $F$ prim. $\Rightarrow\int_a^b f=F(b)-F(a)$ (důkaz: Lagrange na dělení). Per partes/substituce i pro $\int_a^b$.
 
+**Geom. význam:** obsah mezi grafem a osou $x$ **se znaménkem** ($\int_0^\pi\sin=2$, $\int_\pi^{2\pi}\sin=-2$). Plocha mezi grafy: $\int_a^b(f-g)$ ($f\ge g$). **Nevlastní integrál:** $\int_a^\infty f=\lim_{c\to\infty}\int_a^c f$ (např. $\int_1^\infty\tfrac1{x^2}=1$); konv. ⟺ konečná limita.
+
 ## 4. Číselné řady ([[Číselná-řada]])
 
 $\sum a_k$, částečný součet $s_n=\sum_{k=0}^n a_k$. **Konverguje** ⟺ $(s_n)$ konverg.; součet $=\lim s_n$. Geometrická $\sum q^k=\tfrac1{1-q}$ ($|q|<1$). **Abs. konv.** ($\sum|a_k|$ konv.) $\Rightarrow$ konv.

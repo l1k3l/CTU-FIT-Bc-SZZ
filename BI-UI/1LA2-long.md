@@ -269,3 +269,9 @@ Obraz $z = (1,2,4)$: $Az = {}^{\mathcal{E}_3}A^{\mathcal{E}_2}\cdot(1,2,4)^T = (
 - **Matice zobrazení:** spočti obrazy báze $\mathcal{X}$ a jejich souřadnice v $\mathcal{Y}$ → sloupce.
 - **Obraz / vzor:** $\mathbf{A}\cdot(z)_{\mathcal{X}}$ / řeš SLR $(\mathbf{A}\mid(w)_{\mathcal{Y}})$.
 - **Matice přechodu mezi nestandardními bázemi:** přes standardní bázi, ${}^{\mathcal{X}}E^{\mathcal{Y}}=({}^{\mathcal{Y}}E^{\mathcal{E}})^{-1}\,{}^{\mathcal{X}}E^{\mathcal{E}}$, počítá se GEM na dvojbloku.
+
+### Typické doplňující otázky (doptávání)
+Otázku (BI-UI 1. okruh) zkoušel v 2024 **Starosta** (komise s Holeňou, výsledek A). Otázka nebyla zúžená — student definoval všechny pojmy, ale **nestihl dodefinovat matici lineárního zobrazení**, na což se Starosta doptal. Pojmy z první části (hodnost/jádro/defekt/injektivita/surjektivita) chce slyšet definované, ale grilování míří na **matici zobrazení**:
+- **Starosta:** "Co jsou **sloupce** matice lineárního zobrazení?" → §7.1 (Def. 4.1): $i$-tý sloupec $= (Ax_i)_{\mathcal{Y}}$ — **souřadnice obrazu $i$-tého bázového vektoru** (báze $\mathcal{X}$ prostoru $P$) **vzhledem k cílové bázi** $\mathcal{Y}$ prostoru $Q$.
+- **Starosta:** "Lze z matice lineárního zobrazení něco říct o **injektivitě / surjektivitě**?" → §4.2 + §7.2: $h(A) = h({}^{\mathcal{X}}A^{\mathcal{Y}})$ (Věta 4.3), takže injektivní $\iff h(\text{matice}) = \dim P$, surjektivní $\iff h(\text{matice}) = \dim Q$. **Stačí říct: je-li matice (čtvercová) regulární, je zobrazení bijekce (izomorfismus)** — Důsledek 4.2.
+- Starosta studenta „postrkuje správným směrem" — nečeká dokonalou reprodukci, ale pochopení, že sloupce = obrazy báze v souřadnicích.

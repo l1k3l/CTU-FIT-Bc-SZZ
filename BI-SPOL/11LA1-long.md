@@ -4,7 +4,7 @@ etapa: "3 · LA1 / MA2 / LA2 — Petr"
 qid: "11LA1"
 examiner: "Petr"
 topic: "Soustavy lin. rovnic, Frobeniova věta, Gaussova eliminace"
-readiness: nezačato
+readiness: in progress
 tags: [otázka, kurz/LA1, otázka/11, todo]
 ---
 
@@ -31,7 +31,7 @@ $$\begin{aligned} a_{11}x_1 + a_{12}x_2 + \cdots + a_{1n}x_n &= b_1 \\ &\ \vdots
 
 ### 1.2 Maticový zápis
 
-Se [[Matice|maticí]] soustavy $A \in T^{m,n}$, vektorem neznámých $x = (x_1, \dots, x_n)^T$ a vektorem pravých stran $b = (b_1, \dots, b_m)^T$ zapíšeme soustavu kompaktně jako
+S [[Matice|maticí]] soustavy $A \in T^{m,n}$, vektorem neznámých $x = (x_1, \dots, x_n)^T$ a vektorem pravých stran $b = (b_1, \dots, b_m)^T$ zapíšeme soustavu kompaktně jako
 $$A x = b, \qquad \text{kde } (Ax)_i = \sum_{j=1}^n a_{ij} x_j.$$
 **Rozšířená matice soustavy** je $(A \mid b) \in T^{m,n+1}$ (svislá čára je jen grafická). Soustava $Ax = \theta$ se nazývá **přidružená homogenní soustava** k $Ax = b$; její množinu řešení značíme $S_0$.
 
@@ -113,6 +113,10 @@ Množina řešení **řešitelné** soustavy je tedy lineární varieta $S = \ti
 $$\dim S = \dim S_0 = n - h(A).$$
 Zaměření je určeno jednoznačně, takže dimenze řešení nezávisí na volbě $\tilde{x}$ ani na postupu výpočtu.
 
+**Pozor na typ objektu a operaci** (časté doptávání). Zápis $S = \tilde{x} + S_0$ je **vektor $+$ podprostor**, kde
+$$\tilde{x} + S_0 := \{\, \tilde{x} + z : z \in S_0 \,\}.$$
+Partikulární řešení $\tilde{x}$ tedy **posune** (zde: přičte se ke **každému** vektoru) celý podprostor $S_0$ od počátku. Výsledek **není** podprostor (pokud $\tilde{x} \notin S_0$, neobsahuje $\theta$), nýbrž **lineární varieta**. Vektor posunutí $\tilde{x}$ je sám prvkem variety ($\tilde{x} = \tilde{x} + \theta \in S$).
+
 ---
 
 ## 4. Gaussova eliminační metoda
@@ -128,6 +132,8 @@ Zaměření je určeno jednoznačně, takže dimenze řešení nezávisí na vol
 **Věta (vliv GEM na řešení).** Převedeme-li rozšířenou matici soustavy operacemi (G1)–(G3) na jinou, mají obě soustavy **stejnou množinu řešení** (úpravy odpovídají ekvivalentním úpravám rovnic a jsou vratné).
 
 *Důkaz (idea).* (G1) nemění $S$ z definice. (G2) plyne z distributivity a z toho, že pro $\alpha \neq 0$ je $\alpha y = \alpha z \iff y = z$. (G3) využívá platnost druhé rovnice: přičtením jejího násobku se množina řešení nezmění. $\square$
+
+**Maticový pohled (oblíbené doptávání).** Každá jednotlivá úprava (G1)–(G3) na matici $A$ se realizuje jako **vynásobení zleva regulární maticí** (tzv. elementární maticí) $P_i$. Celá GEM je tedy $PA$, kde $P = P_k \cdots P_1$ je regulární (součin regulárních). Protože násobení regulární maticí **nemění hodnost** ani řešitelnost a je vratné ($Ax=b \iff PAx = Pb$), množina řešení se zachová — to je nejčistší důkaz, **proč GEM nemění množinu řešení**.
 
 ### 4.2 Horní stupňovitý tvar (HST)
 
@@ -162,6 +168,15 @@ Po převodu $(A \mid b)$ do HST rozhodneme:
 3. **báze $S_0$:** ve **homogenní** soustavě $(A \mid \theta)$ dej postupně jednu volnou proměnnou rovnu $1$ a ostatní $0$, dopočítej vázané proměnné — dostaneš $n - h$ lineárně nezávislých vektorů;
 4. výsledek $S = \tilde{x} + \langle z_1, \dots, z_{n-h} \rangle$.
 
+### 4.6 Jiné metody řešení (regulární $A$)
+
+Je-li $A$ **regulární** ($n \times n$, $h(A) = n$), má $Ax = b$ jediné řešení a lze ho najít i bez GEM:
+
+- **přes inverzní matici:** $x = A^{-1}b$;
+- **Cramerovo pravidlo (Věta 5.45):** pro každé $i$ je
+$$x_i = \frac{\det A_i}{\det A}, \qquad A_i = (A_{:1} \mid \cdots \mid \underset{i\text{-tý sloupec}}{b} \mid \cdots \mid A_{:n}),$$
+kde $A_i$ vznikne z $A$ nahrazením $i$-tého sloupce vektorem $b$. Vyžaduje $\det A \neq 0$ (tj. regularitu). Výpočetně je ale **nevýhodné** ($n+1$ determinantů) — GEM je v praxi rychlejší.
+
 ### 4.5 Příklad
 
 Soustava nad $\mathbb{R}$ s rozšířenou maticí již v HST:
@@ -189,3 +204,18 @@ $h(A) = h(A\mid b) = 3 < 5 = n$, tedy nekonečně mnoho řešení s $5 - 3 = 2$ 
 - **GEM** — převod na HST: pivot, nulování pod pivotem, $O(n^3)$.
 - **Rozhodnutí o řešitelnosti** z HST (poslední sloupec hlavní / vedlejší).
 - **Popis řešení:** partikulární $\tilde{x}$ + báze $S_0$ ($n - h$ vektorů); pozor na pravou stranu $\theta$ při výpočtu $S_0$.
+- **Cramerovo pravidlo / $x = A^{-1}b$** — pro regulární $A$ jako alternativa ke GEM.
+
+### Související pojmy (které je nutné umět definovat)
+
+Zkoušející téměř vždy chtějí **definice všech pojmů použitých ve Frobeniově větě**. Měj připravené (řetězí se): **lineární kombinace** → **lineárně (ne)závislý soubor** → **lineární obal / generátory** → **báze** → **dimenze podprostoru** → **hodnost matice** (přes bázi řádkového prostoru). Dále **podprostor**, **horní stupňovitý tvar** a **lineární varieta**.
+
+### Typické doplňující otázky (doptávání)
+
+- **Petr (Ivo Petr):** "Soustavy lin. rovnic, metody řešení a věta o existenci a jednoznačnosti řešení" — zaměřuje na Frobenia jako větu o existenci/jednoznačnosti → §2.2, §2.3.
+- **Kalvoda:** chce Frobeniovu větu **přesně** a definici **všech** použitých pojmů (hodnost, dimenze, lin. nezávislost); zúžení často jen na GEM + popis množiny řešení → §2.2, "Související pojmy", §4.
+- **Starý:** "Co je to za objekt $S = \tilde{x} + S_0$? Co je to za operaci? Vektor $+$ podprostor" → odpověz **lineární varieta**, partikulární řešení posouvá $S_0$ (přičítá se ke každému vektoru) → §3.4.
+- **Pernecká / Černý:** definuj **bázi** a přes ni **hodnost matice**; "jak se z geometrického hlediska nazývá množina řešení?" → lineární varieta, §3.4.
+- **Zhouf:** "Jak jinak než GEMem řešíš soustavu?" → přes inverzní matici $x=A^{-1}b$, pak Cramerovo pravidlo → §4.6. Také "jak GEM mění determinant" (viz otázka 12).
+- **Legerský:** rozeber **dimenzi** podle případů $0$ / $n$ / nekonečno a **kvantifikátory**; ilustruj příkladem → §2.3.
+- **Olšák:** "Vysvětli, proč úpravy GEM nemění množinu řešení" → realizace násobením regulární maticí zleva → §4.1.

@@ -4,7 +4,7 @@ etapa: "7 · MA1 / DML / KAB — Petr"
 qid: "14MA1"
 examiner: "Petr"
 topic: "Diferenciální počet: derivace, monotonie, konvexita, lok. extrémy, asymptoty"
-readiness: nezačato
+readiness: in progress
 tags: [otázka, kurz/MA1, otázka/14, todo]
 ---
 
@@ -112,6 +112,8 @@ Pro konkávnost se nerovnosti otočí. Druhou implikaci **nelze obrátit** ($x^4
 
 *Příklad.* $f(x)=(x-1)(x-2)$ na $\langle0,2\rangle$: $f'=0$ v $\tfrac32$; porovnáním $f(0)=2$, $f(\tfrac32)=-\tfrac14$, $f(2)=0$ ⇒ globální max $2$ v $0$, globální min $-\tfrac14$ v $\tfrac32$.
 
+> *Oblíbený zkušební příklad (Starý opakovaně):* **$f(x)=x+\sin x$ — má lokální extrémy?** $f'(x)=1+\cos x\ge0$ na celém $\mathbb{R}$, přičemž $f'(x)=0$ jen v **izolovaných** bodech $x=(2k+1)\pi$. Mezi nimi $f'>0$ ⇒ $f$ je **ostře rostoucí na celém $\mathbb{R}$** ⇒ **žádné lokální extrémy** (stacionární body $(2k+1)\pi$ extrém nedávají — $f'$ tam nemění znaménko). Časté chyby: zapomenout posun $+1$ u $\cos x$; vynechat body, kde $f'$ neexistuje (zde žádné). Doplnění: $f''(x)=-\sin x$ ⇒ inflexe v $x=k\pi$.
+
 ---
 
 ## 5. Asymptoty funkce
@@ -129,6 +131,8 @@ musí existovat konečné obě limity. Pro $k=0$ jde o **vodorovnou** asymptotu 
 ### L'Hospitalovo pravidlo (nástroj pro limity asymptot a extrémů)
 
 Pro typ $\tfrac00$ nebo $\tfrac\infty\infty$ a existuje-li $\lim_a\tfrac{f'}{g'}$, platí $\lim_a\tfrac fg=\lim_a\tfrac{f'}{g'}$. Je důsledkem Rolleovy věty. ⚠️ Nutno ověřit předpoklady. *Příklad:* $\lim_{x\to+\infty}\tfrac{e^x}{x^2}=\lim\tfrac{e^x}{2x}=\lim\tfrac{e^x}{2}=+\infty$ (proto $e^x$ roste rychleji než $x^2$).
+
+*Pasti (Př. 8.10–8.11):* $\lim_{x\to+\infty}\tfrac{2x+\sin x}{x+\sin x}$ — podíl derivací $\tfrac{2+\cos x}{1+\cos x}$ **nemá limitu**, proto věta nic neříká; správně $=2$ (úprava $/x$). „Bludný kruh": $\tfrac{e^x+e^{-x}}{e^x-e^{-x}}$ se opakovaným L'Hospitalem cyklí (řeší úprava $/e^x$).
 
 ---
 
@@ -153,3 +157,12 @@ Pro typ $\tfrac00$ nebo $\tfrac\infty\infty$ a existuje-li $\lim_a\tfrac{f'}{g'}
 - **Nutná podmínka extrému** ($f'=0$ nebo neexistuje); postačující kritéria (změna znaménka $f'$; znaménko $f''$ ve stacionárním bodě).
 - Existence globálních extrémů spojité funkce na uzavřeném intervalu.
 - Vzorce pro asymptotu $k=\lim\tfrac{f(x)}x$, $q=\lim(f(x)-kx)$; L'Hospital.
+
+### Typické doplňující otázky (doptávání)
+- **Starý:** "Má $f(x)=x+\sin x$ lokální extrémy?" (opakovaně, i jako MA1 2025) — chce vidět $f'=1+\cos x\ge0$ ⇒ ostře rostoucí ⇒ bez extrémů → §4.
+- **Spěvák:** "Definice derivace **funkce** vs. derivace v bodě" (přiřazení $x\mapsto f'(x)$); a zejména **definice konvexní/konkávní funkce** (ne jen obrázek „U/∩") → §1, §3.
+- **Kalvoda:** "Geometrický význam derivace" — dolování, že $f'(a)=\operatorname{tg}\alpha$ je směrnice tečny → §1.
+- **Valdman:** "Proč 'diferencovatelná ⇒ spojitá' **není ekvivalence**?" — chce protipříklad ($|x|$ v $0$) → §1. Dále: "Kde jinde se s derivací potkáme?" (okamžitá rychlost) → §1 (motivace).
+- **Starosta / Petr:** "Pravidla pro derivaci součinu/podílu/složené funkce" + derivace z definice (např. $x^2$ v bodě $1$, $x\ln x$) → §1.
+- **Šolcová (mimo komisi):** lok. + glob. extrémy konkrétního polynomu na intervalu **+ asymptoty** → §4, §5.
+- **Pernecká:** explicitně **Lagrangeova věta o přírůstku** jako nástroj → §2.

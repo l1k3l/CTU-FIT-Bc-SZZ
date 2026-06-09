@@ -202,3 +202,11 @@ $$\boxed{\;\det A = \pm \prod_{i=1}^{n} u_{ii}.\;}$$
 - **Řešení $Ax = b$:** dopředná substituce $Ly = b$ (shora dolů) + zpětná substituce $Ux = y$ (zdola nahoru), každá $O(n^2)$.
 - **Výhoda LU vs. opakovaná GEM:** faktorizace jednou $O(n^3)$, pak každá další pravá strana jen $O(n^2)$.
 - **Pivotace** ($|\ell_{ij}|\le 1$): kvůli nulovému pivotu a numerické stabilitě (dělení malým pivotem).
+
+### Typické doplňující otázky (doptávání)
+Otázka je v BI-UI vedená jako 4. okruh a v 2025 ji zkoušel **Kleprlík** (dvakrát, hodnocení B) — pokládal „simple" otázky a studenta spíš naváděl, ale na pivotaci v řešení soustavy se studenti zasekávali.
+- **Kleprlík:** "Definice LU rozkladu." → §1.
+- **Kleprlík:** "Má **každá** matice LU rozklad?" → §1.1 (ne — protipříklad $\left(\begin{smallmatrix}0&1\\1&1\end{smallmatrix}\right)$), ale **každá čtvercová matice má LU rozklad s řádkovou pivotací** $PA = LU$ → §4 (toto chce slyšet).
+- **Kleprlík:** "Jak se LU využívá při řešení $Ax = b$?" → §3 ($LUx = b$, pak $Ly = b$ dopředně a $Ux = y$ zpětně).
+- **Kleprlík:** "Jak to funguje s pivotací, když je $PA = LU$?" (na tom byl častý *mental freeze*) → §4 závěr: $Ax = b \Rightarrow PAx = Pb \Rightarrow LUx = Pb$ — nejdřív přeházíme pravou stranu na $Pb$, pak $Ly = Pb$, $Ux = y$.
+- **Kdy se pivotace používá** → §4.1: nulový pivot a numerická stabilita (dělení malým pivotem).

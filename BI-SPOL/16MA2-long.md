@@ -4,7 +4,7 @@ etapa: "3 · LA1 / MA2 / LA2 — Petr"
 qid: "16MA2"
 examiner: "Petr"
 topic: "Funkce více proměnných: gradient, Hessova matice, definitnost, lok. extrémy"
-readiness: nezačato
+readiness: in progress
 tags: [otázka, kurz/MA2, otázka/16, todo]
 ---
 
@@ -173,3 +173,13 @@ Pak má $f$ v $a$ **ostré lokální minimum** (resp. **maximum**). Je-li $\nabl
 
 ### Pozor
 - Všechny podmínky přes gradient/Hessián jsou jen nutné, resp. postačující — protipříklady $x^2-y^2$ (sedlo), $x^2-y^4$ (PSD bez extrému), $\sqrt{x^2+y^2}$ (extrém bez gradientu).
+
+### Typické doplňující otázky (doptávání)
+
+> Zdroj: historie otázek (komise je převážně matematická — **Ivo Petr** je v komisi, váž nejvíc). Evidence k této otázce je **tenčí** než u č. 15 (funkce více proměnných se v zkušenostech objevuje řídce — silný signál jsou ale 3 nedávné záznamy 2025, jeden od Ivo Petra). Examinátoři chtějí **definice + jeden konkrétní příklad určení definitnosti** a propojení definitnost ↔ extrém.
+
+- **Ivo Petr:** zúžení na "parciální derivace, gradient, Hessova matice, **geometrický význam gradientu**, postup hledání lokálních extrémů"; pak se **doptal na metody určení, zda je matice PD/ND**. → §2 (gradient = směr největšího růstu, Důsledek 7.1), §3, §4 (tři metody: **vlastní čísla / Sylvester / úprava na čtverce**), §5 (algoritmus). *Pozn.: stačí pokazit první definici (parc. derivace) a strhne celou otázku — definice musí sedět přesně.*
+- **Bouchala:** zúžení "kvadratické formy a definitnost, **ukázat příklad vč. určení definitnosti**, vztah mezi definitností kvadr. forem a lokálními extrémy"; doptal se na **Sylvesterovo kritérium** a **nutnou podmínku k lok. extrému**. → §4 (Sylvester PD/ND), §5 (nutná I: $\nabla f=\theta^T$; nutná II: PSD/NSD; postačující: PD→min, ND→max, ID→sedlo).
+- **Spěvák:** "vyšetřování extrémů funkce více proměnných — vysvětlit parc. derivaci, gradient, Hessovu matici, kvadratické formy a vlastní určení extrému." → celá osa §2–§5; jádro je **úplný postup** od $\nabla f=\theta$ po klasifikaci podle definitnosti $\nabla^2 f$.
+- **Geometrický význam gradientu** (opakovaně) → §2: $\nabla f$ ukazuje směr **největšího růstu** $f$, $\partial_v f(a)=\langle\nabla f(a)^T\mid v\rangle$ je maximální pro $v=\nabla f(a)^T/\lVert\nabla f(a)\rVert$ (Schwarz). Žije v rovině definičního oboru (ne v grafu).
+- **Rychlá indefinitnost / PSD-NSD past** → §4: různá znaménka na diagonále $\Rightarrow$ ID; neostré rohové minory **nestačí** na PSD/NSD (protipříklad $\det M_k\ge0$, přesto ID).

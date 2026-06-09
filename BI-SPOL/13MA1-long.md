@@ -4,7 +4,7 @@ etapa: "7 · MA1 / DML / KAB — Petr"
 qid: "13MA1"
 examiner: "Petr"
 topic: "Limita posloupnosti a funkce, výpočet limit, asymptotické chování"
-readiness: nezačato
+readiness: in progress
 tags: [otázka, kurz/MA1, otázka/13, todo]
 ---
 
@@ -106,6 +106,10 @@ $$\lim_a(f+g)=\lim_a f+\lim_a g,\quad \lim_a(fg)=\lim_a f\cdot\lim_a g,\quad \li
 
 *Příklady:* $\lim_{x\to0}\tfrac{\arcsin x}{\sin x}=\lim\tfrac{1/\sqrt{1-x^2}}{\cos x}=1$; $\lim_{x\to+\infty}\tfrac{e^x}{x^2}=\lim\tfrac{e^x}{2x}=\lim\tfrac{e^x}{2}=+\infty$.
 
+**Past při zanedbání předpokladů (kap. 8.5, Př. 8.10).** Slepé použití dává špatný výsledek:
+$$\lim_{x\to+\infty}\frac{2x+\sin x}{x+\sin x}\overset{\text{l'H ?}}{=}\lim\frac{2+\cos x}{1+\cos x}=\dots\ (\text{neexistuje}),$$
+přitom správně (úpravou $/x$) $\lim\tfrac{2+\frac{\sin x}{x}}{1+\frac{\sin x}{x}}=2$. Chyba je dvojí: (1) limita podílu derivací **neexistuje** (3. předpoklad neplatí), (2) typ $\tfrac\infty\infty$ tu sice formálně je, ale věta dá závěr **jen** když $\lim\tfrac{f'}{g'}$ existuje — z neexistence se nesmí nic usoudit. Druhá past je **„bludný kruh"** (Př. 8.11): $\lim_{x\to+\infty}\tfrac{e^x+e^{-x}}{e^x-e^{-x}}\overset{\text{l'H}}{=}\lim\tfrac{e^x-e^{-x}}{e^x+e^{-x}}\overset{\text{l'H}}{=}\dots$ se cyklí — řeší úprava $/e^x$ (výsledek $1$).
+
 **Důležité limity (lze považovat za známé):**
 $$\lim_{x\to0}\frac{\sin x}{x}=1,\quad \lim_{x\to0}\frac{e^x-1}{x}=1,\quad \lim_{x\to0}\frac{\ln(1+x)}{x}=1,\quad \lim_{x\to\pm\infty}\Big(1+\tfrac1x\Big)^x=e,$$
 $$\lim_{n\to\infty}\sqrt[n]{n}=1,\quad \lim_{n\to\infty}\sqrt[n]{c}=1\ (c>0),\quad \lim_{n\to\infty}\sqrt[n]{n!}=+\infty,\quad \lim_{n\to\infty}a^n=\begin{cases}0,&|a|<1\\1,&a=1\\+\infty,&a>1\\\text{neex.},&a\le-1.\end{cases}$$
@@ -177,3 +181,10 @@ Pro posloupnosti ($b_n\neq0$): $\lim\tfrac{a_n}{b_n}>0\Rightarrow a_n=\Omega(b_n
 
 ### Důležité limity
 - $\frac{\sin x}{x}\to1$, $\frac{e^x-1}{x}\to1$, $\frac{\ln(1+x)}{x}\to1$, $(1+\tfrac1x)^x\to e$, $\sqrt[n]{n}\to1$, $a^n$ podle $|a|$.
+
+### Typické doplňující otázky (doptávání)
+- **Petr (Ivo):** "Co si představíte pod pojmem konvergence / částečný součet?" — chce intuitivní rozvedení definice, opraví nepřesné předpoklady kritérií → §1, §2. *(Pozn.: v ZMA často padá pod tuto otázku spíš řadová/integrální podotázka, ta patří k MA2.)*
+- **Kalvoda (mimo komisi, ale hot téma):** "Malé $o$ / velké $O$ pro funkce — definice a jak to v některých případech rozhodnout pomocí limity." → §4 (def. $O,o$) + vyjádření přes $\lim\tfrac fg$ (Věta 4.8).
+- **Kalvoda / Starý:** "Geometrický význam — co je to vlastně tangens / okolí?" u jednostranných limit $\tfrac1x$, $x\to0^\pm$ (Olšák: definovat levou/pravou/oboustrannou na $y=\tfrac1x$) → §2.
+- **Starý:** "Souvislost limity a spojitosti — Heineho věta." Most posloupnost↔funkce, nástroj k vyvrácení limity ($\sin x$ v $+\infty$) → §2.
+- **Valdman:** u L'Hospitala stačí "vím, že existuje", ale **ověř předpoklady** — viz past $\tfrac{2x+\sin x}{x+\sin x}$ → §3.

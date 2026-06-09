@@ -4,7 +4,7 @@ etapa: "3 · LA1 / MA2 / LA2 — Petr"
 qid: "12LA1"
 examiner: "Petr"
 topic: "Matice: součin, inverze, vlastní čísla, diagonalizace"
-readiness: nezačato
+readiness: in progress
 hot: true
 tags: [otázka, kurz/LA1, otázka/12, todo]
 ---
@@ -125,6 +125,8 @@ $$\lambda \in \sigma(A) \iff p_A(\lambda) = 0.$$
 
 *Idea:* člen nejvyššího stupně $(-1)^n\lambda^n$ pochází z diagonály $\prod_i(a_{ii} - \lambda)$. Podle základní věty algebry má $p_A$ (nad $\mathbb{C}$) právě $n$ kořenů včetně násobností, takže **každá komplexní matice má aspoň jedno vlastní číslo** a $\sum_{\lambda \in \sigma(A)} \nu_a(\lambda) = n$. (Reálná matice může mít nereálná vlastní čísla — např. rotace $\left(\begin{smallmatrix} 0 & -1 \\ 1 & 0 \end{smallmatrix}\right)$ má $\lambda = \pm i$.)
 
+**Koeficient u $\lambda^n$** (časté doptávání) je **$(-1)^n$** — tedy $+1$ pro sudé $n$ a $-1$ pro liché $n$ (řídí ho rozměr matice). Plyne z toho, že nejvyšší mocnina vzniká jen ze součinu diagonály $\prod_i(a_{ii}-\lambda)$, jehož vedoucí člen je $(-1)^n\lambda^n$.
+
 ### 4.3 Násobnosti
 
 - **Algebraická násobnost** $\nu_a(\lambda)$ = násobnost $\lambda$ jako kořene $p_A$;
@@ -139,7 +141,26 @@ Je-li $\nu_a(\lambda) = 1$, pak nutně $\nu_g(\lambda) = \nu_a(\lambda) = 1$.
 2. najdi kořeny $p_A$ — to jsou vlastní čísla; jejich násobnost jako kořene = $\nu_a$;
 3. pro každé $\lambda$ vyřeš homogenní soustavu $(A - \lambda E)x = \theta$ ([[Gaussova-eliminace|GEM]]) — nenulová řešení jsou vlastní vektory; $\nu_g$ = dimenze prostoru řešení.
 
-### 4.5 Podobné matice
+### 4.5 Výpočet determinantu (potřebný pro $p_A$)
+
+K sestavení $p_A(\lambda) = \det(A - \lambda E)$ je nutné umět počítat determinant — zkoušející se na to běžně doptávají. Hlavní metody:
+
+- **$2\times2$:** $\det\!\left(\begin{smallmatrix} a & b \\ c & d \end{smallmatrix}\right) = ad - bc$ (křížové pravidlo).
+- **$3\times3$ — Sarrusovo pravidlo:** součet tří „úhlopříčkových" součinů zleva dolů minus tři zprava dolů. **Platí pouze pro $3\times3$** (pro větší matice neplatí).
+- **GEM na trojúhelníkový tvar:** převeď $A$ na horní trojúhelníkovou maticí $B$; pak $\det B = \prod_i B_{ii}$ (součin diagonály). Složitost $O(n^3)$, výhodnější než z definice ($n!$ sčítanců).
+- **Rozvoj (Laplaceův) podle řádku/sloupce:** $\det A = \sum_k a_{k\ell}(-1)^{k+\ell}\det A^{k\ell}$ (subdeterminanty/algebraické doplňky); rekurzivně na menší matice.
+
+**Jak úpravy GEM mění determinant** (Důsledek 5.21 — oblíbené doptávání):
+
+| úprava | vliv na $\det$ |
+|---|---|
+| (G1) prohození dvou řádků/sloupců | $\det \mapsto -\det$ |
+| (G2) vynásobení řádku číslem $\alpha$ | $\det \mapsto \alpha\det$ |
+| (G3) přičtení násobku jiného řádku | $\det$ **se nezmění** |
+
+Kroky GEM mohou měnit hodnotu i znaménko, ale **zachovávají nenulovost** ($A \sim B \Rightarrow (\det A \neq 0 \iff \det B \neq 0)$) — proto je $\det A \neq 0$ ekvivalentní regularitě.
+
+### 4.6 Podobné matice
 
 **Definice (podobnost):** $A, B \in \mathbb{C}^{n,n}$ jsou **podobné**, pokud $A = P^{-1}BP$ pro nějakou regulární $P$. Podobnost je relace ekvivalence.
 
@@ -179,7 +200,9 @@ $$A = P D P^{-1}.$$
 Sloupce $P$ jsou vlastní vektory tvořící bázi, $D$ má na diagonále příslušná vlastní čísla **ve stejném pořadí** (každé tolikrát, kolik je jeho násobnost):
 $$P = (x_1 \mid \cdots \mid x_n), \qquad D = \operatorname{diag}(\lambda_1, \dots, \lambda_n), \qquad AP = PD.$$
 
-**Mocniny:** $A^k = P D^k P^{-1}$, kde $D^k = \operatorname{diag}(\lambda_1^k, \dots, \lambda_n^k)$ — efektivní výpočet mocnin.
+**Mocniny:** $A^k = P D^k P^{-1}$, kde $D^k = \operatorname{diag}(\lambda_1^k, \dots, \lambda_n^k)$ — efektivní výpočet mocnin. Při ústní zkoušce je dobré umět **explicitně říct, kde vznikne $P$ a $D$**: sloupce $P$ jsou vlastní vektory, na diagonále $D$ jsou příslušná vlastní čísla (Kalvoda to vyžaduje napsat).
+
+> *Doplnění nad rámec slidů:* na otázku „k čemu jsou vlastní čísla / diagonalizace dobrá" stačí zmínit **rychlé umocňování** $A^k = PD^kP^{-1}$ (analogicky odmocnina/obecné funkce matice, $e^A = Pe^DP^{-1}$ s $e^D = \operatorname{diag}(e^{\lambda_i})$) a typická použití (řešení diferenčních/diferenciálních rovnic, Markovovy řetězce, PCA). Skripta BI-LA1 detail $e^A$ neuvádějí, ale zkoušející (Klán, Chyský) se na „použití" ptají.
 
 **Příklad nediagonalizovatelné matice:** $A = \left(\begin{smallmatrix} 1 & 0 & 0 \\ 0 & 3 & 1 \\ 0 & 0 & 3 \end{smallmatrix}\right)$, $p_A(\lambda) = (1-\lambda)(3-\lambda)^2$. Pro $\lambda = 3$ je $\nu_a = 2$, ale $\nu_g = 1$, takže $A$ není diagonalizovatelná.
 
@@ -204,5 +227,16 @@ $$P = (x_1 \mid \cdots \mid x_n), \qquad D = \operatorname{diag}(\lambda_1, \dot
 
 ### Algoritmy
 - **Výpočet inverze:** $(A \mid E) \sim (E \mid A^{-1})$ Gaussovou–Jordanovou eliminací, $O(n^3)$; nulový řádek vlevo ⇒ singulární.
-- **Výpočet vlastních čísel:** kořeny $p_A(\lambda) = \det(A - \lambda E)$; vlastní vektory jako řešení $(A - \lambda E)x = \theta$.
+- **Výpočet determinantu:** $2\times2$ křížem, $3\times3$ Sarrus, obecně GEM na trojúhelník ($\det = \prod$ diagonály, $O(n^3)$) nebo Laplaceův rozvoj; pozor jak GEM mění $\det$.
+- **Výpočet vlastních čísel:** kořeny $p_A(\lambda) = \det(A - \lambda E)$; vlastní vektory jako řešení $(A - \lambda E)x = \theta$. Koeficient u $\lambda^n$ je $(-1)^n$.
 - **Diagonalizace:** $P$ = vlastní vektory ve sloupcích, $D$ = vlastní čísla na diagonále; mocnina $A^k = PD^kP^{-1}$.
+
+### Typické doplňující otázky (doptávání)
+
+- **Petr (Ivo Petr):** "Vlastní čísla a vektory, diagonalizace matic" — zúžení na vl. čísla, jejich výpočet a diagonalizaci → §4, §5.
+- **Kalvoda:** chce vlastní čísla, vektory, jejich **výpočet a souvislost s diagonalizovatelností**; nech si napsat, že z vlastních čísel poskládám $D$ a z vektorů $P$; doptává se "**jaký je koeficient u $\lambda^n$?**" → $(-1)^n$ (podle rozměru) → §4.2, §5.3.
+- **Štampach:** "Jaký je **stupeň** charakteristického polynomu?" → $n$ (rozměr matice); "vlastní vektor **nikdy není nulový**"; chce definici diagonalizovatelnosti (podobná diagonální) → §4.1, §4.2, §5.1.
+- **Zhouf / Šolcová / Standa:** "Jak **úpravy GEM mění determinant**?" → (G1) $\times(-1)$, (G2) $\times\alpha$, (G3) beze změny; Sarrusovo pravidlo pro $3\times3$ → §4.5.
+- **Rybníčková:** přesné značení prvků matice (jsou to **prvky**, ne koeficienty); uveď **příklad netriviální singulární matice** a výpočet inverze na příkladu → §1.1, §3.2.
+- **Dombek / Valdman:** souvislost regulární matice a vlastních čísel (matice je regulární $\iff 0 \notin \sigma(A)$ — *nad rámec běžné LIN*); podobnost matic a její vztah ke spektru → §2, §4.6.
+- **Klán / Chyský:** "K čemu jsou vlastní čísla dobrá?" → umocňování přes diagonalizaci, $e^A$, použití → §5.3. Pozor na výpočet pro konkrétní matici (často $\left(\begin{smallmatrix}0&1\\1&0\end{smallmatrix}\right)$, $\lambda = \pm1$).

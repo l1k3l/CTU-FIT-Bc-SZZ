@@ -36,7 +36,7 @@ Nezávisí na $f(a)$. **Jednostranná:** $\lim_{x\to a^\pm}$. Platí $\lim_{x\to
 - **Sevření (2 policajti):** $f\le g\le h$, $\lim f=\lim h=b\Rightarrow\lim g=b$.
 - **Složená funkce:** $\lim_a g=b$, $\lim_b f=c$ (+ podmínka $g\neq b$ na okolí, nebo $f$ spojitá v $b$) $\Rightarrow\lim_a f\circ g=c$.
 - **Podílové kritérium** (posl., $a_n>0$): $q=\lim\tfrac{a_{n+1}}{a_n}$; $q<1\Rightarrow\lim a_n=0$, $q>1\Rightarrow+\infty$.
-- **L'Hospital** (typ $\tfrac00$, $\tfrac\infty\infty$): $\lim\tfrac fg=\lim\tfrac{f'}{g'}$, existuje-li pravá (ověř předpoklady!).
+- **L'Hospital** (typ $\tfrac00$, $\tfrac\infty\infty$): $\lim\tfrac fg=\lim\tfrac{f'}{g'}$, existuje-li pravá (ověř předpoklady!). Past: $\tfrac{2x+\sin x}{x+\sin x}$ — $\lim\tfrac{f'}{g'}$ neexistuje (≠ závěr), správně $=2$ úpravou $/x$; „bludný kruh" $\tfrac{e^x+e^{-x}}{e^x-e^{-x}}$ se cyklí.
 
 **Známé limity:** $\frac{\sin x}{x}\to1$, $\frac{e^x-1}{x}\to1$, $\frac{\ln(1+x)}{x}\to1$, $(1+\tfrac1x)^x\to e$, $\sqrt[n]{n}\to1$, $\sqrt[n]{c}\to1$, $\sqrt[n]{n!}\to+\infty$, $a^n\to\{0/1/+\infty/\text{neex.}\}$ dle $|a|$. Tvar $f^g=e^{g\ln f}$.
 

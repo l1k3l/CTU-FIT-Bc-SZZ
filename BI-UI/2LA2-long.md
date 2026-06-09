@@ -189,3 +189,9 @@ Po odmocnění obou (nezáporných) stran dostáváme $\|x + y\| \le \|x\| + \|y
 - **Korektnost indukované normy** (axiomy 1–3 plynou z axiomů skalárního součinu).
 - **Schwarzova (Cauchyho–Schwarzova) nerovnost** $|\langle x\mid y\rangle| \le \|x\|\|y\|$ — důkaz volbou $\lambda = \langle y\mid x\rangle/\|y\|^2$ a pozitivní definitností; rovnost $\iff (x,y)$ LZ.
 - **Trojúhelníková nerovnost** $\|x+y\| \le \|x\| + \|y\|$ — z rozpisu $\|x+y\|^2$ a Schwarzovy nerovnosti.
+
+### Typické doplňující otázky (doptávání)
+Samostatně zadaná tato otázka v dochovaných BI-UI zkušenostech **není** — skalární součin a normu ale **doptává Dombek** uvnitř otázky o ortogonalitě ([[3LA2-long|3. okruh]], léto 2025), takže definice tu musí sedět:
+- **Dombek:** "Definuj **skalární součin**." (chtěl ji slyšet, i když ji student v přípravě nezmínil) → §1 (3 axiomy).
+- **Dombek:** "Jak se získají **souřadnice vektoru vůči ON / OG bázi**?" → přes skalární součin (Fourierovy koeficienty) — patří do [[3LA2-long#3.2 Fourierovy koeficienty — souřadnice vůči ON/OG bázi|3. okruhu]].
+- Skalární součin a norma jsou navíc základem celé numerické LA (QR, MNČ) — Schwarzova nerovnost se používá při definici úhlu variet a podmíněnosti.

@@ -277,3 +277,11 @@ Proto je QR **standardní numericky stabilní metodou** pro výpočet odhadu met
 - **Householderova triangularizace** — vynulování celého sloupce zrcadlením, $2mn^2 - \tfrac{2}{3}n^3$, vhodná pro plné matice.
 - **Givensova triangularizace** — vynulování jednoho prvku rotací, $\sim 3mn^2 - n^3$, vhodná pro řídké matice a paralelizaci.
 - **Výpočet odhadu MNČ:** $A = QR \to \hat{R}x = \hat{Q}^Tb \to$ zpětná substituce.
+
+### Typické doplňující otázky (doptávání)
+Otázku zkoušejí především **Klouda** (BI-UI 2023: „QR rozklad — definice, popište jeden z algoritmů výpočtu"; 2025: „QR + metoda nejmenších čtverců", A) a **Dombek** (2025: „QR: výpočet a využití při odhadu metodou nejmenších čtverců", bez zúžení, A).
+- **Klouda:** "Definice QR rozkladu." → §2.1. Stačí rozlišit **redukovaný** a **úplný** rozklad (oba studenti to vyjmenovali).
+- **Klouda:** "Popište jeden z algoritmů pro výpočet QR." → §3 — stačí **jeden** (studenti nejčastěji volí Gram–Schmidt §3.1), ale počítejte s tím, že **se doptá i na jiné algoritmy** → mít po ruce i Householder (§3.3) a Givens (§3.4) a umět říct, kdy se který hodí (§3.5).
+- **Dombek / Klouda:** "Jak QR využiju při odhadu metodou nejmenších čtverců?" → §5: $\hat{R}x = \hat{Q}^Tb$ + zpětná substituce; umět zdůvodnit přes projekci $Ax = \operatorname{proj}_{\operatorname{Im}A}b$ (§4.3).
+- **Možné doptání:** "Proč QR a ne normální rovnice?" → §5.2 ($\kappa(A^TA) = \kappa(A)^2$, QR pracuje jen s OG transformacemi, $\kappa_2(Q)=1$).
+- *Pozn.: „Lineární regrese – metoda nejmenších čtverců, geometrická interpretace, kolinearita" (Dedecius, Petr, Vašata 2025) je samostatná oborová ML otázka (pravděpodobnostní interpretace, RSS, intercept) — ne tato algebraická QR-MNČ otázka.*

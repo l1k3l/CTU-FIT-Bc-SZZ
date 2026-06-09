@@ -10,9 +10,9 @@ tags: [otázka, kurz/LA2, otázka/3, todo]
 
 # Ortogonalita a ortogonální báze
 
-> **Otázka SZZ:** Ortogonalita a ortogonální báze: definice a vlastnosti.
+> **Otázka SZZ:** Ortogonalita a ortogonální báze: definice, vlastnosti, využití při počítání vzdáleností lineárních variet.
 
-Zdroje: BI-LA2 (FIT ČVUT), kap. 5 (Skalární součin), sekce 5.6 (Ortogonalita), 5.7 (Vlastnosti OG/ON báze), 5.8 (Ortogonalizace); pro připomenutí 5.1–5.4 (skalární součin a norma). Tištěné strany 102–110.
+Zdroje: BI-LA2 (FIT ČVUT), kap. 5 (Skalární součin), sekce 5.6 (Ortogonalita), 5.7 (Vlastnosti OG/ON báze), 5.8 (Ortogonalizace); pro připomenutí 5.1–5.4 (skalární součin a norma); kap. 6 (Geometrie $\mathbb{R}^n$), sekce 6.2 (Vzdálenost), 6.3 (Vzdálenost bodu od podprostoru), 6.4 (vzdálenost pomocí OG báze), 6.5 (pomocí báze $P^\perp$), 6.6 (od nadroviny), 6.7 (Vzdálenost variet). Tištěné strany 102–110 a 114–124.
 
 Značení: $\mathcal{H} = (V, \langle \cdot \mid \cdot \rangle)$ je **prehilbertův prostor** (vektorový prostor se skalárním součinem nad $T = \mathbb{R}$ nebo $\mathbb{C}$), $\langle x \mid y \rangle$ je skalární součin, $\|x\| = \sqrt{\langle x \mid x \rangle}$ je norma indukovaná skalárním součinem, $\theta$ nulový vektor, $\hat{n} = \{1, \dots, n\}$. Vektory píšeme tučně/italikou.
 
@@ -173,6 +173,80 @@ Normalizací: $y_1 = \frac{1}{\sqrt{10}}(1,2,2,-1)$, $y_2 = \frac{1}{\sqrt{26}}(
 
 ---
 
+## 5. Využití ortogonality při počítání vzdáleností lineárních variet
+
+Toto je hlavní aplikace ortogonální projekce, kterou exam-otázka explicitně zmiňuje. Postup je vždy převedení obecné úlohy na úlohu, kterou už umíme: **vzdálenost vektoru od podprostoru** = délka ortogonální projekce do ortogonálního doplňku.
+
+Pracujeme v $\mathbb{R}^n$ se standardním skalárním součinem (norma = eukleidovská).
+
+### 5.1 Vzdálenost množin
+
+**Definice (vzdálenost množin).** Pro dvě množiny $M, N \subseteq \mathbb{R}^n$ definujeme
+$$d(M, N) := \inf\{\, \|x - y\| \mid x \in M, \ y \in N \,\}.$$
+(Pro jednoprvkovou množinu $M = \{v\}$ píšeme zkráceně $d(v, N)$.) V lineární algebře bychom vystačili s minimem, ale infimum je obecně bezpečnější.
+
+### 5.2 Vzdálenost bodu od podprostoru — klíčová věta
+
+**Tvrzení (o vlivu posunutí).** Posunutí o pevný vektor $v$ vzdálenost nemění:
+$$d(M, N) = d(v + M, v + N).$$
+Speciálně pro varietu $a + P$ a vektor $z$ platí $d(z, a + P) = d(z - a, P)$. **Důsledek:** úlohu „vzdálenost bodu od variety" převedeme posunutím o $-a$ na úlohu „vzdálenost bodu od podprostoru".
+
+**Věta (o vzdálenosti a kolmici).** Buď $x \in \mathbb{R}^n$ a $P$ podprostor. Existují-li $v \in P$ a $w \in P^\perp$ s rozkladem $x = v + w$, potom
+$$d(x, P) = \|w\|.$$
+
+**Důkaz.** $\|x - v\| = \|w\|$, takže $\|w\|$ je v množině $\{\|x-y\| \mid y \in P\}$. Pro libovolné $y \in P$ je $x - y = (x-v) - (y-v) = w + (v - y)$, kde $w \in P^\perp$ a $v - y \in P$ jsou kolmé, takže podle Pythagorovy věty
+$$\|x - y\|^2 = \|w\|^2 + \|v - y\|^2 \ge \|w\|^2.$$
+Minima je dosaženo pro $y = v$. $\square$
+
+Rozklad $x = v + w$ s $v \in P$, $w \in P^\perp$ existuje a je jednoznačný, neboť $\mathbb{R}^n = P \oplus P^\perp$ (viz §1.3). Vektor $v$ je **ortogonální projekce** $x$ na $P$, vektor $w = x - v$ se nazývá **ortogonální rejekce**.
+
+### 5.3 Výpočet 1 — pomocí OG/ON báze podprostoru
+
+**Definice (ortogonální projekce na podprostor).** Je-li $(y_1, \dots, y_k)$ **OG** báze podprostoru $P$, pak
+$$\operatorname{proj}_P(z) := \operatorname{proj}_{y_1}(z) + \dots + \operatorname{proj}_{y_k}(z) = \sum_{i=1}^k \frac{\langle y_i \mid z \rangle}{\langle y_i \mid y_i \rangle} y_i.$$
+(Ortogonalita báze je zde **klíčová** — pro neortogonální soubor součet projekcí na jednotlivé směry nedává projekci na podprostor.) Pak $v = \operatorname{proj}_P(z) \in P$, $w = z - \operatorname{proj}_P(z) \in P^\perp$ a vzdálenost je $d(z, P) = \|z - \operatorname{proj}_P(z)\|$.
+
+Postup: nemáme-li OG bázi $P$, vyrobíme ji Gram–Schmidtem (§4) — proto se vše opírá o ortogonalizaci.
+
+**Maticový zápis (ON báze).** Je-li $(y_1, \dots, y_k)$ **ON** báze $P$ a $B = (y_1 \mid \dots \mid y_k)$ matice s těmito vektory ve sloupcích, pak
+$$\operatorname{proj}_P(z) = B B^T z.$$
+
+### 5.4 Výpočet 2 — pomocí báze ortogonálního doplňku $P^\perp$
+
+Hledání OG báze je pracné (počet operací roste kvadraticky s $\dim P$). Pro podprostory větší dimenze je výhodnější najít bázi $P^\perp$.
+
+**Pozorování.** Je-li $(y_1, \dots, y_k)$ báze $P$, pak $x \in P^\perp \iff x$ je kolmé na všechny $y_i$. Hledání báze $P^\perp$ je tedy **řešení homogenní soustavy** $\sum$ s maticí, jejíž řádky jsou $y_i^T$:
+$$\begin{pmatrix} y_1^T \\ \vdots \\ y_k^T \end{pmatrix} x = 0.$$
+
+**Důsledek (dimenze).** $\dim P^\perp = n - \dim P$.
+
+Máme-li bázi $(z_1, \dots, z_\ell)$ doplňku $P^\perp$ (s $\ell = n - k$), spojený soubor $(y_1, \dots, y_k, z_1, \dots, z_\ell)$ je bází $\mathbb{R}^n$. Souřadnice vektoru $z$ v této bázi dají přímo rozklad $z = \underbrace{\sum \alpha_i y_i}_{v \in P} + \underbrace{\sum \beta_j z_j}_{w \in P^\perp}$ a vzdálenost je $\|w\|$ (koeficienty $\alpha_i$ nás přitom ani nezajímají).
+
+### 5.5 Vzdálenost od nadroviny — normálový vektor
+
+**Nadrovina** je varieta dimenze $n-1$, popsatelná jednou neparametrickou rovnicí $a_1 x_1 + \dots + a_n x_n = b$. Vektor $n_W := a = (a_1, \dots, a_n)$ je **normálový vektor** — tvoří bázi $P^\perp$ zaměření $P$ (tj. $P^\perp = \langle n_W \rangle$), je určen jednoznačně až na nenulový násobek.
+
+Pro podprostor $P$ dimenze $n-1$ s normálou $n_P$ se vzdálenost počítá jedním zlomkem:
+$$d(x, P) = \|\operatorname{proj}_{n_P}(x)\| = \frac{|\langle n_P \mid x \rangle|}{\|n_P\|}.$$
+(Obecnou nadrovinu, která není podprostorem, nejdřív posuneme dle Tvrzení o posunutí.)
+
+### 5.6 Vzdálenost dvou variet — redukce na bod a podprostor
+
+**Věta (o vzdálenosti variet).** Pro variety $M = a + \langle x_1, \dots, x_k \rangle$ a $N = b + \langle y_1, \dots, y_\ell \rangle$ platí
+$$d(M, N) = d\big(\, a - b,\ \langle x_1, \dots, x_k, y_1, \dots, y_\ell \rangle \,\big).$$
+
+**Důkaz.** $d(M,N) = \inf\{\|a + u - (b + v)\| \mid u \in \langle x_i \rangle, v \in \langle y_j \rangle\}$. Úpravou $\|(a-b) - (v - u)\|$ a položením $w = v - u \in \langle x_1,\dots,x_k,y_1,\dots,y_\ell\rangle$ dostaneme $\inf\{\|(a-b) - w\|\} = d(a-b, \langle x_1,\dots,x_k,y_1,\dots,y_\ell\rangle)$. $\square$
+
+**Geometrie:** vzdálenost dvou přímek v $\mathbb{R}^3$ tak spočteme jako vzdálenost vektoru $a-b$ od roviny generované oběma směry (viz vzdálenost bodu od nadroviny). Vzdálenost dvou variet se tedy vždy redukuje na §5.2.
+
+### 5.7 Vzájemné polohy a úhel (doplnění)
+
+**Polohy variet** $W, U$ se zaměřeními $Z(W), Z(U)$: **rovnoběžné** ($Z(W) \subseteq Z(U)$ nebo naopak), **různoběžné** (nerovnoběžné a $W \cap U \neq \emptyset$), **mimoběžné** (nerovnoběžné a $W \cap U = \emptyset$).
+
+**Úhel dvou vektorů:** $\arccos \dfrac{\langle x \mid y \rangle}{\|x\|\,\|y\|}$ — korektní díky Schwarzově nerovnosti $-1 \le \frac{\langle x \mid y \rangle}{\|x\|\|y\|} \le 1$; výsledek je z $\langle 0, \pi \rangle$. Pro přímky/nadroviny se počítá z $|\langle u \mid v\rangle|$ (resp. normálových vektorů), výsledek je z $\langle 0, \pi/2 \rangle$.
+
+---
+
 ## Co je potřeba na zkoušku znát
 
 ### Definice
@@ -189,3 +263,18 @@ Normalizací: $y_1 = \frac{1}{\sqrt{10}}(1,2,2,-1)$, $y_2 = \frac{1}{\sqrt{26}}(
 
 ### Algoritmus
 - **Gram–Schmidt:** $z_k = x_k - \sum_{i<k} \frac{\langle z_i \mid x_k \rangle}{\langle z_i \mid z_i \rangle} z_i$ (odečtení projekcí do již vytvořených směrů) → OG báze; normalizace $y_i = \frac{1}{\|z_i\|} z_i$ → ON báze. Zachovává lineární obaly $\langle x_1,\dots,x_k\rangle = \langle z_1,\dots,z_k\rangle$. Důsledek: každý konečnědimenzionální prostor má ON bázi.
+
+### Vzdálenosti variet (aplikace ortogonality — chce ji Dombek!)
+- **Vzdálenost bodu od podprostoru:** $x = v + w$, $v \in P$, $w \in P^\perp$ ⟹ $d(x, P) = \|w\|$ (délka kolmice = norma projekce do $P^\perp$).
+- **Projekce na $P$ (z OG báze):** $\operatorname{proj}_P(z) = \sum_i \frac{\langle y_i \mid z\rangle}{\langle y_i \mid y_i\rangle} y_i$; ON báze maticově $\operatorname{proj}_P(z) = BB^T z$. **Ortogonalita báze je nutná.**
+- **Přes $P^\perp$:** bázi $P^\perp$ najdu jako řešení homogenní soustavy s řádky $y_i^T$; $\dim P^\perp = n - \dim P$.
+- **Posunutí nemění vzdálenost:** $d(z, a+P) = d(z-a, P)$ — tak se bod-od-variety převede na bod-od-podprostoru.
+- **Nadrovina:** normálový vektor $n_W$ (báze $P^\perp$), $d(x, P) = \frac{|\langle n_P \mid x\rangle|}{\|n_P\|}$.
+- **Vzdálenost dvou variet** $M = a + \langle x_i\rangle$, $N = b + \langle y_j\rangle$: $d(M,N) = d(a-b, \langle x_1,\dots,x_k, y_1,\dots,y_\ell\rangle)$ — redukce na bod–podprostor.
+
+### Typické doplňující otázky (doptávání)
+- **Dombek:** "Jak definuješ vzdálenost dvou množin / dvou variet?" → §5.1, §5.6 (řada studentů se na definici vzdálenosti množin zasekla).
+- **Dombek:** chce i **definici skalárního součinu** (i když není v zadání) a **souřadnice vůči ON/OG bázi přes skalární součin** (Fourierovy koeficienty) → připomenutí nahoře + §3.2.
+- **Dombek:** "Co je ortogonální matice, uveď dvě vlastnosti?" (stačí: zachovává ortogonalitu a normu) → viz [[5LA2-long#QR rozklad|ortogonální matice]].
+- **Dombek / Knop:** "Jak se hledá ortogonální báze / proč ortogonalizaci děláme?" a **rozdíl OG vs ON souboru** → §1.2, §4.
+- **Obecně Dombek:** chce ověřit, že student **chápe princip**, ne jen papouškuje definice — u každé definice umět říct, co znamená a k čemu je.

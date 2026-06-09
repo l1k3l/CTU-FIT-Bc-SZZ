@@ -32,7 +32,7 @@ $S_0$ je **podprostor** $T^n$ ($\theta \in S_0$, uzavřený na $+$ a násobek), 
 
 **Struktura:** $S = \tilde{x} + S_0$ — partikulární řešení $+$ řešení homogenní soustavy. (Stačí jedno $\tilde{x}$ a báze $S_0$.) Nad $\mathbb{R}$: aspoň 2 řešení $\Rightarrow$ nekonečně.
 
-**[[Lineární-varieta]]:** $S = \tilde{x} + S_0$ je varieta se zaměřením $S_0$, $\dim S = n - h(A)$.
+**[[Lineární-varieta]]:** $S = \tilde{x} + S_0$ je varieta se zaměřením $S_0$, $\dim S = n - h(A)$. Operace = **vektor $+$ podprostor**: $\tilde{x}+S_0 = \{\tilde{x}+z : z\in S_0\}$ ($\tilde{x}$ posune $S_0$; není to podprostor).
 
 ## 4. Gaussova eliminace (GEM)
 
@@ -41,6 +41,8 @@ $S_0$ je **podprostor** $T^n$ ($\theta \in S_0$, uzavřený na $+$ a násobek), 
 **HST** (horní stupňovitý tvar): nulové řádky dole, indexy pivotů rostou $j_1 < \cdots < j_k$. Hlavní sloupce (vázané prom.) / vedlejší (volné prom.).
 
 **Algoritmus:** zleva najdi pivot, prohozením dej nahoru, (G3) vynuluj pod pivotem, opakuj. $O(n^3)$. (Gauss–Jordan navíc nuluje nad pivoty → rHST.)
+
+Každá úprava = **násobení regulární maticí zleva** ($PA$, $P$ reg.) → proto nemění hodnost ani $S$.
 
 **Čtení řešitelnosti z HST $(A\mid b)$:** poslední sloupec hlavní → bez řešení; jediný vedlejší → jedno; více vedlejších → $\infty$.
 
@@ -57,4 +59,6 @@ $S_0$ je **podprostor** $T^n$ ($\theta \in S_0$, uzavřený na $+$ a násobek), 
 - **Struktura:** $S = \tilde{x} + S_0$ (partikulární + homogenní), $S_0$ podprostor.
 - **Počet řešení:** $0$ / $1$ / $\infty$ podle $h(A)$, $h(A\mid b)$, $n$.
 - **GEM:** úpravy (G1)–(G3) nemění množinu řešení ani hodnost; převod na HST, $O(n^3)$.
-- **Geometrie:** množina řešení = lineární varieta dimenze $n - h(A)$.
+- **Geometrie:** množina řešení = lineární varieta dimenze $n - h(A)$ (vektor $+$ podprostor).
+- **Jinak než GEM** (regulární $A$): $x = A^{-1}b$; **Cramer** $x_i = \det A_i / \det A$ ($A_i$ = $A$ s $i$-tým sloupcem nahrazeným $b$).
+- **Související pojmy** (umět definovat): lin. kombinace → lin. (ne)závislost → báze → dimenze → hodnost; podprostor, HST, varieta.

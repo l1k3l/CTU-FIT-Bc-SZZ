@@ -46,6 +46,8 @@ $$f'\ge0\Rightarrow\text{rostoucí},\ f'>0\Rightarrow\text{ostře rost.},\ f'<0\
 
 **Globální extrém na $\langle a,b\rangle$ (spojitá):** existuje; nabývá se v krajních bodech, nebo kde $f'=0$/neexistuje ⇒ porovnej funkční hodnoty. (Uzavřenost podstatná.)
 
+*Hot příklad:* $f=x+\sin x$: $f'=1+\cos x\ge0$ (=0 jen izolovaně) ⇒ ostře rost. ⇒ **bez lok. extrémů**; $f''=-\sin x$ ⇒ inflexe $x=k\pi$.
+
 ## 5. Asymptoty
 
 **[[Asymptota]]:**
@@ -54,7 +56,7 @@ $$f'\ge0\Rightarrow\text{rostoucí},\ f'>0\Rightarrow\text{ostře rost.},\ f'<0\
 $$k=\lim_{x\to\pm\infty}\frac{f(x)}{x},\qquad q=\lim_{x\to\pm\infty}(f(x)-kx).$$
 $k=0$ ⇒ vodorovná. (Asymptota ≠ tečna.)
 
-**L'Hospital** (pro limity): typ $\tfrac00$, $\tfrac\infty\infty$ ⇒ $\lim\tfrac fg=\lim\tfrac{f'}{g'}$ (ověř předpoklady).
+**L'Hospital** (pro limity): typ $\tfrac00$, $\tfrac\infty\infty$ ⇒ $\lim\tfrac fg=\lim\tfrac{f'}{g'}$ (ověř předpoklady; $\lim\tfrac{f'}{g'}$ musí existovat — past $\tfrac{2x+\sin x}{x+\sin x}$).
 
 **Vyšetřování průběhu:** $D_f$ + symetrie → spojitost + asymptoty + limity v krajích → $f'$ (monotonie, extrémy) → $f''$ (konvexita, inflexe) → graf.
 
