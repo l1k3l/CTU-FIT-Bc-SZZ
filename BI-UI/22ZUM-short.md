@@ -34,3 +34,4 @@ $A^* $: expanduje $\arg\min_{OPEN}(g+h)$, prioritní fronta dle $f$. ($h\equiv0\
 - $h$: odhad zbývající ceny, $h(\text{cíl})=0$; **přípustná** $h\le h^*$, **konzistentní** $h(x)\le c(x,y)+h(y)$.
 - **greedy** $f=h$ (neoptimální), **A\*** $f=g+h$ (optimální při konzistentní $h$).
 - **dominance** $h_1\ge h_2$ ⇒ méně expanzí.
+- **Doptávání:** heuristika, která **přeceňuje** ($h>h^*$), je nepřípustná → A* ztrácí optimalitu (např. euklid. vzdálenost na čtvrtou v bludišti = nepřípustná). Monotónnost ⇒ přípustnost, ne naopak.

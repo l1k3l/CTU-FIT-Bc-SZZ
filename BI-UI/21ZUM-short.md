@@ -22,6 +22,8 @@ Kritéria: **úplnost, optimalita, čas, paměť** ($b$ = větvící faktor, $d$
 
 BFS expanduje „po patrech"; DFS se maximálně zanořuje. Stejný kód, jiná struktura `open`.
 
+**Doptávání:** BFS nepoužitelné kvůli **paměti** ($b^d$ uzlů na patro; $b{=}10,d{=}20 \to 10^{20}$). BFS = Dijkstra pro jednotkové ceny. DFS implementace: explicitní zásobník / rekurze (zásobník volání). Cíl se testuje při odebrání z `open`.
+
 ---
 
 ## Co odpovědět rychle

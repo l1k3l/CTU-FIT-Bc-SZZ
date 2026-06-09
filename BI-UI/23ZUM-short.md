@@ -28,4 +28,5 @@ Větší zhoršení / nižší $t$ → menší $P$. Vysoké $t$ = explorace, $t\
 - **Lokální prohledávání:** jeden kandidát + okolí, max $f$, cesta nezajímá.
 - **Hill climbing** uvázne v **lokálním optimu** (nedělá zhoršující krok).
 - **Simulované žíhání:** $P=e^{(f_{\text{new}}-f_{\text{curr}})/t}$, vysoké $t$ explorace.
-- **Tabu:** tabu list zakáže návrat → vynucený sestup.
+- **Tabu:** tabu list zakáže návrat → vynucený sestup; drží **víc stavů** (často s omez. délkou).
+- **Doptávání (Kordík trvá na vzorci žíhání!):** $P=e^{(f_{\text{new}}-f_{\text{curr}})/t}$. Lokální vs. globální: lokální = jen okolí 1 kandidáta (riziko lok. optima), globální/systematické (ot. 21–22) = celý prostor.

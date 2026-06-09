@@ -84,6 +84,10 @@ Triviální strategie: `open` je **neuspořádaná množina**, z níž se v kaž
 - **Úplné**; výsledná cesta má **nejmenší možný počet hran** (optimální při jednotkových cenách).
 - Nároky na **paměť i čas rostou exponenciálně** s délkou nejkratší cesty k cíli ($O(b^d)$) → pro praktické úlohy AI nepoužitelné.
 
+**Proč se v praxi nepoužívá, i když vždy najde nejkratší cestu?** Limitující je **paměť** — BFS musí současně držet v `open` celé jedno patro stromu (řádově $b^d$ uzlů). Pro větvící faktor $b = 10$ a hloubku cíle $d = 20$ je to $10^{20}$ uzlů — neuložitelné v paměti ani neprohledatelné v reálném čase. (Čas roste stejně rychle, ale binding constraint je paměť.)
+
+BFS je speciálním případem [[Dijkstra|Dijkstrova algoritmu]] (ot. 22) pro **jednotkové ceny hran** — fronta FIFO vydává uzly přesně v pořadí rostoucí vzdálenosti (= ceny) od $\mathcal{I}$.
+
 Pseudokód = společné schéma s `open = fronta`, `enqueue`/`dequeue`. *Příklad:* u problému $N$ dam BFS zbytečně expanduje všechny přípustné konfigurace $1, 2, \dots, N-1$ dam.
 
 ---
@@ -95,6 +99,7 @@ Pseudokód = společné schéma s `open = fronta`, `enqueue`/`dequeue`. *Příkl
 - **Paměťově nenáročné** (efektivně drží jen aktuální větev).
 - **Není optimální** — najde *nějakou*, často značně suboptimální cestu.
 - Úplnost: na konečném grafu (díky `closed`) ano; na nekonečném ne.
+- **Implementace:** buď **iterativně** s explicitním zásobníkem (`open = stack`, kód výše), nebo **rekurzivně** přes zásobník volání (zanoř se do prvního následníka, po návratu pokračuj dalším). Obě varianty jsou ekvivalentní.
 - Vhodné, kde nelze „bloudit" a je žádoucí se rychle vzdálit počátku — např. $N$ dam: DFS rychle skládá platné konfigurace a snaží se co nejdřív umístit $N$-tou dámu.
 
 **BFS vs. DFS:** stejný kód, jiná struktura `open`. Fronta ⇒ optimalita v počtu hran za cenu paměti; zásobník ⇒ úspora paměti za cenu optimality.
@@ -115,3 +120,11 @@ Pseudokód = společné schéma s `open = fronta`, `enqueue`/`dequeue`. *Příkl
 
 ### Návaznost
 - Ohodnocené hrany (cena cesty) + informované prohledávání ([[Dijkstra]], [[A-star|A*]]) → [[22ZUM-long|otázka 22]].
+
+### Typické doplňující otázky (doptávání)
+*(Atribuovaní zkoušející ze zkušeností 2021–2024 — Smítková Janků; otázku ale na komisi 2026 zadává Holeňa. Obsah je kanonický pro okruh.)*
+- **Smítková Janků:** „Jaká je podmínka zastavení algoritmu?" → cíl se testuje **při odebrání uzlu z `open`** (`if x ∈ G then return`), ne při jeho generování → §2.
+- **Smítková Janků:** „Proč se v reálu nepoužívá BFS, i když vždy najde nejkratší cestu? Našel by cíl v grafu s větvením 10 a hloubkou 20?" → exponenciální **paměť** $O(b^d)$; $10^{20}$ uzlů → ne v reálném čase ani paměti → §4.
+- **Smítková Janků:** „Jaká je spojitost Dijkstry a BFS?" → BFS = Dijkstra pro jednotkové ceny hran → §4.
+- **Smítková Janků:** „Jak se implementuje DFS — iterativně, nebo rekurzivně?" → explicitní zásobník vs. zásobník volání, ekvivalentní → §5.
+- **Smítková Janků:** „Definujte přesně stavový prostor / stavy uzlu" → $(S,A)$, FRESH/OPEN/CLOSED → §1–2.

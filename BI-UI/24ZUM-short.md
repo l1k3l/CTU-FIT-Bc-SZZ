@@ -34,3 +34,4 @@ ES notace: $(\mu+\lambda)$ elitní / $(\mu,\lambda)$ jen potomci; $(1+\lambda)\a
 - **Operátory:** selekce (ruletová/turnajová), křížení (1-/2-/n-bod/uniformní), mutace (bit-flip $p_m$).
 - **GA** = binární, **GP** = stromy/programy, **EP** = automaty (jen mutace), **ES** = reálné vektory (gauss + self-adapt $\sigma$).
 - **Explorace vs exploatace**, **předčasná konvergence**.
+- **Doptávání (ruletová podrobně):** kolo s výsečemi $\propto$ fitness, výběr přes kumulativní $P_i$, nezáporné fitness, dominance jedince → předčasná konvergence. Únik z lok. optima v GP: ↑mutace / niching / restart.

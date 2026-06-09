@@ -81,6 +81,8 @@ while ¬empty(open) do
 ### Přípustnost (admissibility)
 $h$ je **přípustná**, je-li $\forall s : h(s) \le h^*(s)$ — nikdy nepřeceňuje, je „optimistická". *Příklad:* vzdušná vzdálenost je přípustná (pozemní vzdálenost je vždy $\ge$ vzdušná).
 
+*Protipříklad (nepřípustná heuristika):* v bludišti s jednotkovými cenami je euklidovská vzdálenost přípustná, ale **euklidovská vzdálenost umocněná na čtvrtou** už nikoli — pro vzdálenější buňky odhad **přeceňuje** skutečnou cenu, takže A* může minout optimální cestu. Obecně: jakákoli heuristika, která někde vrátí $h(s) > h^*(s)$, je nepřípustná a ruší záruku optimality A*.
+
 ### Monotónnost / konzistence
 $h$ je **monotónní (konzistentní)**, je-li
 $$\forall (x, y) \in A : h(x) - c(x, y) \le h(y)$$
@@ -113,3 +115,9 @@ Pro přípustné $h_1, h_2$: $h_1$ **dominuje** $h_2$, je-li $\forall s : h_1(s)
 ### Klíčové vztahy
 - konzistence ⇒ přípustnost; A* s konzistentní $h$ + CLOSED = optimální.
 - dominance ⇒ méně expanzí, ne nutně rychleji.
+
+### Typické doplňující otázky (doptávání)
+*(Atribuovaní zkoušející ze zkušeností 2023 — Smítková Janků; na komisi 2026 zadává Holeňa. Obsah je kanonický pro okruh — Holeňa je matematik, na přesné podmínky se ptá rád.)*
+- **Smítková Janků:** „Co musí splňovat heuristika, aby A* našel optimální řešení?" → **přípustnost** $h \le h^*$ (resp. konzistence při použití CLOSED) → §5.
+- **Smítková Janků:** „Co znamená, že je heuristika přípustná a co monotónní, a jaký je mezi tím vztah?" → přípustná = nepřeceňuje; monotónní = trojúhelníková nerovnost; **monotónnost ⇒ přípustnost** (ne naopak) → §5.
+- **Smítková Janků:** „Když v bludišti vezmu heuristiku euklidovská vzdálenost na čtvrtou, je přípustná?" → **ne** — přeceňuje skutečnou cenu → §5 (protipříklad).

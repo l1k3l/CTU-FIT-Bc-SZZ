@@ -28,6 +28,8 @@ Speciální „snadné" třídy (nejmenší čtverce, lineární a konvexní pro
 
 Naivní metody: **brute-force** (systematické navzorkování — neúnosné ve vyšších dimenzích) a **náhodná optimalizace** (vzorkuje náhodné body) — obě neefektivní, neberou v potaz info o $f$.
 
+**Lokální vs. globální (systematické) prohledávání.** Lokální prohledávání udržuje **jediného aktuálního kandidáta** a zkoumá jen jeho **okolí** — neudržuje cesty ani systematické pokrytí prostoru. Je paměťově úsporné a rychlé, ale **může uváznout v lokálním optimu** (negarantuje globální optimum). Systematické prohledávání (BFS/DFS/A*, ot. 21–22) naopak prochází celý stavový strom a globální optimum najde, za cenu exponenciální paměti.
+
 ---
 
 ## 2. Hill climbing
@@ -87,6 +89,8 @@ return x
 
 **[[Tabu-prohledávání|Tabu prohledávání]]** brání oscilaci a nutí algoritmus opustit lokální optimum. Zavádí **tabu list** — popis částí prostoru, kam se kandidát nesmí vrátit. Vyšplhá-li algoritmus na vrchol, je nucen „dobytý vrchol" opustit a zahájit **vynucený sestup**; navštívené oblasti se postupně zakazují (tabu list roste a vytlačuje hledání do neprozkoumaných oblastí).
 
+Tabu list typicky obsahuje **více stavů / oblastí najednou** (ne jen poslední) — postupně se do něj přidávají navštívené stavy (v některých variantách i více než jeden za krok), často s **omezenou délkou** (po čase nejstarší zákazy expirují, jinak by hledání zamrzlo).
+
 Podoba tabu listu je daná podobností / metrikou na stavech: euklidovská či cosinová vzdálenost ($\mathbb{R}^n$), Hammingova vzdálenost ($\{0,1\}^n$), strukturální podobnost (grafy/stromy).
 
 **Žíhání vs. tabu:** žíhání uniká z lokálního optima *pravděpodobnostně* (občas přijme zhoršení), tabu *deterministicky* pomocí paměti (zakáže návrat).
@@ -109,3 +113,9 @@ Podoba tabu listu je daná podobností / metrikou na stavech: euklidovská či c
 
 ### Pointa
 Lokální minimum překonáme jen *dočasně zhoršujícím krokem* — žíhání ho připustí pravděpodobnostně, tabu ho vynutí pamětí.
+
+### Typické doplňující otázky (doptávání)
+*(Atribuovaní zkoušející ze zkušeností 2023–2025 — Kordík, Smítková Janků; na komisi 2026 zadává Holeňa. Okruh je v posledních letech častý a Kordík na vzorec žíhání trvá.)*
+- **Kordík:** „Napište vzoreček s pravděpodobností, že simulované žíhání zvolí horší stav." → $P = e^{(f_{\text{new}} - f_{\text{curr}})/t}$ (klasické $e^{-\Delta E/T}$) → §4. *(Doptával se na něj výslovně a studentovi ho nakonec nadiktoval — mít ho přesně.)*
+- **Kordík:** „Jaký je rozdíl mezi globálním a lokálním prohledáváním?" → lokální = okolí jednoho kandidáta, hrozí lokální optimum; globální/systematické (ot. 21–22) projde celý prostor → §1.
+- **Kordík:** „Přidává se do tabu listu víc stavů?" → ano, tabu list typicky drží více oblastí, často s omezenou délkou → §5.

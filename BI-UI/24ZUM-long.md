@@ -57,7 +57,7 @@ until ukončovací podmínka
 ## 3. Genetické operátory
 
 - **Selekce** (výběr rodičů podle fitness):
-  - **ruletová** (proporcionální): $P_i = f_i / \sum_{j=1}^{\mu} f_j$ — pravděpodobnost výběru úměrná fitness,
+  - **ruletová** (proporcionální): $P_i = f_i / \sum_{j=1}^{\mu} f_j$ — pravděpodobnost výběru úměrná fitness. **Mechanismus:** ruletové kolo rozdělené na výseče, jejichž velikost odpovídá fitness jedinců; jedním „roztočením" (náhoda z $[0,1]$ proti kumulativnímu součtu $P_i$) se vybere jeden rodič, kolo se točí pro každého rodiče zvlášť. Vyžaduje **nezáporné** fitness; je-li jeden jedinec výrazně lepší, zabere většinu kola a hrozí **předčasná konvergence** (proto se fitness často škáluje).
   - **turnajová**: vylosuj $k$ jedinců, vyber nejlepšího (necitlivá na konkrétní hodnoty fitness, jen na pořadí).
 - **Křížení (rekombinace):** výměna informace mezi dvěma rodiči — **jednobodové**, **dvoubodové**, **n-bodové**, **uniformní** (každý bit nezávisle od jednoho z rodičů). Lze i zcela vynechat.
 - **Mutace:** drobná náhodná změna genotypu — **bit-flip**: invertuj každý bit s malou pravděpodobností $p_m \approx 10^{-2}$.
@@ -122,3 +122,9 @@ Poměr řídí **selekční tlak** a **míra mutace**. Hlavní hrozba je **před
 
 ### Pointa
 **Explorace vs. exploatace**; hrozba **předčasné konvergence** = uvíznutí v lokálním optimu.
+
+### Typické doplňující otázky (doptávání)
+*(Atribuovaní zkoušející ze zkušeností 2021–2024 — Kordík, Smítková Janků, Čepek; na komisi 2026 zadává Holeňa, který se evolučními algoritmy přímo zabývá — čekej detailní matematické doptávání.)*
+- **Kordík:** „Podrobně popište zejména ruletovou selekci." → kolo s výsečemi úměrnými fitness, výběr přes kumulativní $P_i$, nezáporné fitness, riziko dominance jedince → §3.
+- **Kordík:** „Co dělat v genetickém programování, když uvázneme v lokálním extrému a fitness se nemění?" → **předčasná konvergence** → zvýšit míru mutace (dynamicky / se žíháním), niching, restart → §7.
+- **Kordík / Smítková Janků:** „Popište evoluční strategie / detailně mutace u různých přístupů." → ES = reálné vektory, gaussovská mutace + self-adaptace $\sigma$ (pravidlo 1/5); mutace dle paradigmatu (bit-flip / subtree / tabulka přechodů / gauss) → §6, §3–5.
