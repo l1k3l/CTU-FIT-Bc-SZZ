@@ -46,6 +46,8 @@ $$\max_{w,w_0}\ \min_i\ \frac{Y_i\big(w^T\varphi(x_i)+w_0\big)}{\lVert w\rVert}.
 $$Y_i\big(w^T\varphi(x_i)+w_0\big)\ge 1.$$
 Pak je minimální odstup $\frac1{\lVert w\rVert}$ a maximalizace $\lVert w\rVert^{-1}$ je ekvivalentní minimalizaci $\lVert w\rVert^2$.
 
+**Geometrie pásu odstupu.** Krajní nadroviny $w^T\varphi(x)+w_0=\pm1$ leží symetricky po obou stranách hranice ve vzdálenosti $\frac1{\lVert w\rVert}$, takže **celková šířka pásu odstupu** (od jedné krajní nadroviny ke druhé) je $\dfrac{2}{\lVert w\rVert}$. Maximalizovat odstup = maximalizovat $\frac{2}{\lVert w\rVert}$ = minimalizovat $\frac12\lVert w\rVert^2$.
+
 **Úloha trénování (hard-margin SVM):**
 $$\boxed{\ \min_{w,w_0}\ \tfrac12\lVert w\rVert^2\quad\text{za podmínek}\quad Y_i\big(w^T\varphi(x_i)+w_0\big)\ge 1\ \ \forall i.\ }$$
 Je to úloha **kvadratického programování** (konvexní kvadratická účelová funkce, lineární nerovnostní vazby) → jediné globální minimum.
@@ -65,6 +67,10 @@ $$\boxed{\ \min_{w,w_0,\xi}\ \tfrac12\lVert w\rVert^2+C\sum_{i=1}^N\xi_i\quad\te
 
 **Parametr $C$** řídí kompromis mezi šířkou pásu a počtem chyb (tolerovaných na trénovací množině). Pozor na intuici: **čím větší $C$, tím slabší regularizace** (model se brání používat $\xi_i$ → méně chyb, riziko přeučení); malé $C$ = silná regularizace (malé $\lVert w\rVert$, více tolerovaných chyb). Volba $C=\frac{1}{\nu N}$ dává tzv. **$\nu$-SVM**, kde $0<\nu\le1$ je akceptovatelný podíl chyb.
 
+> *Doplnění nad rámec slidů:* v optimu je $\xi_i=\max\{0,\,1-Y_i f(x_i)\}$, takže soft-margin SVM lze ekvivalentně zapsat jako **minimalizaci pantové (hinge) ztráty s regularizací**:
+> $$\min_{w,w_0}\ \sum_{i=1}^N \max\{0,\,1-Y_i f(x_i)\}+\tfrac{1}{2C}\lVert w\rVert^2.$$
+> Člen $\frac12\lVert w\rVert^2$ je tedy $L_2$-regularizace a hinge loss penalizuje porušení odstupu (lineárně, nulová mimo pás). To je obvyklý úhel pohledu, na který se Holeňa rád doptává.
+
 ---
 
 ## 4. Duální formulace a jádrový trik
@@ -72,6 +78,8 @@ $$\boxed{\ \min_{w,w_0,\xi}\ \tfrac12\lVert w\rVert^2+C\sum_{i=1}^N\xi_i\quad\te
 Pomocí **Lagrangeových multiplikátorů** a **duality** lze úlohu převést na ekvivalentní **Lagrangeův duální problém** — maximalizovat vzhledem k $a_1,\dots,a_N$:
 $$\tilde L(a)=\sum_{i=1}^N a_i-\frac12\sum_{i,j=1}^N a_i a_j Y_i Y_j\,k(x_i,x_j)\quad\text{za}\quad 0\le a_i\le C,\ \ \sum_{i=1}^N a_i Y_i=0,$$
 kde $k(x_i,x_j)=\varphi(x_i)^T\varphi(x_j)$ je **[[Jádrová-funkce|jádrová funkce]]**.
+
+> *Doplnění nad rámec slidů:* slidy uvádějí pouze „s využitím Lagrangeových multiplikátorů a duality lze ukázat…“. Klíčem je **KKT podmínka komplementární uvolněnosti** $a_i\big(Y_i f(x_i)-1+\xi_i\big)=0$: buď $a_i=0$, nebo je vazba aktivní. Odtud plyne **řídkost** — bod mimo pás odstupu má neaktivní vazbu, tedy $a_i=0$, a **podpůrné vektory jsou právě body s $a_i>0$**, tj. ty na hraně pásu nebo uvnitř/chybně klasifikované. KKT také vysvětlují tři režimy: $a_i=0$ (mimo pás), $0<a_i<C$ (na hraně, $\xi_i=0$), $a_i=C$ (uvnitř/chyba, $\xi_i>0$).
 
 Klíčové: v duálu se body vyskytují **pouze ve skalárních součinech** $\varphi(x_i)^T\varphi(x_j)$ → můžeme provést **[[Jádrová-funkce|jádrový trik]]** a nahradit je jádrem $k$. Tím SVM klasifikuje **nelineárně** (např. Gaussovským/RBF jádrem) bez explicitního výpočtu $\varphi$.
 
@@ -109,3 +117,8 @@ a predikce $\hat Y(x)=\operatorname{sgn} f(x)$.
 ### Idea / algoritmus
 - **Princip největšího odstupu** + normalizace škály ($Y_j f(x_j)=1$ pro nejbližší) → minimalizace $\lVert w\rVert^2$.
 - **Jádrový trik:** body jen ve skalárních součinech → záměna za jádro $k$ → nelineární klasifikace ([[Jádrová-funkce]]).
+
+### Typické doplňující otázky (doptávání)
+- **Holeňa (komise, předseda, LS2021):** „Bázové funkce, jádrová regrese, SVM — **zaměřte se na SVM**" (zúžil celou zkoušku jen na SVM — jeho oblíbené téma). → celá §1–§5
+
+> *Konkrétní doptání u SVM nemáme ze zkušeností zaznamenané (jediný doložený záznam je výše uvedené zúžení).* Vzhledem k tomu, že SVM je Holeňovo téma a jako předseda ho rád zužuje, buď připraven(a) pohotově na celé jádro otázky — pravděpodobné směry: geometrie odstupu a **šířka pásu** $\tfrac{2}{\lVert w\rVert}$ (§2); **podpůrné vektory** a řídkost řešení (KKT, $a_i>0$ jen pro aktivní vazby — §4–§5); **jádrový trik** a proč je možný (body jen ve skalárních součinech v duálu — §4); role parametru $C$ a **soft margin / hinge loss** (větší $C$ = slabší regularizace — §3).

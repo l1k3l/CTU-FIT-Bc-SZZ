@@ -14,7 +14,7 @@ Hranice $w^Tx+w_0=0$ = nadrovina → **lineární klasifikátor** ($-w_0$ = prá
 
 **Věta o konvergenci:** lineárně separabilní data s odstupem $\gamma$ ($\lVert\tilde w^*\rVert=1$) a $\lVert\tilde x_i\rVert\le R$ → nejvýše $R^2/\gamma^2$ chyb.
 
-Perceptron **neumí XOR** → potřeba vícevrstvé sítě.
+Perceptron **neumí XOR** (není lin. separabilní) → nutná ≥1 skrytá vrstva, **min. topologie 2–2–1**.
 
 ## 2. Vícevrstvá síť (MLP)
 
@@ -28,7 +28,7 @@ Dopředná síť = složení vrstev $f=f^{(l)}\circ\dots\circ f^{(1)}$, neuron $
 
 **Výstupní:**
 - regrese → identita $g(z)=z$;
-- binární → **sigmoida** $\sigma(z)=\frac1{1+e^{-z}}$, $\hat p=\sigma(w^Th+w_0)$;
+- binární → **sigmoida** $\sigma(z)=\frac1{1+e^{-z}}$, $\hat p=\sigma(w^Th+w_0)$ (**1 sigmoidní neuron = [[Logistická-regrese|logistická regrese]]**, táž cross-entropy = MLE);
 - $c$ tříd → **softmax** $\frac{e^{z_i}}{\sum_j e^{z_j}}$, $\hat Y=\arg\max_i$.
 
 ## 4. Ztrátové / účelové funkce
@@ -45,6 +45,8 @@ $J(w)=\frac1N\sum_i L(Y_i,f(x_i;w))$.
 Min. $J$ [[Gradient|gradientním]] sestupem. **Řetězové pravidlo** $\frac{\partial(f\circ g)}{\partial x_j}=\sum_i\frac{\partial f}{\partial g_i}\frac{\partial g_i}{\partial x_j}$.
 - **Forward pass:** spočti $f(x;w)$, $J$.
 - **Backward pass:** derivace zpět vrstvami (od výstupu ke vstupu) = **backprop**; reprezentace **výpočetním grafem**.
+
+Gradient 1 váhy (regrese, kvadr. ztráta): výstupní $\frac{\partial J}{\partial w_1^{(2)}}=\frac1N\sum 2(Y-f)(-1)\,g(\cdot)$; skrytá $\frac{\partial J}{\partial w_{1,1}^{(1)}}=\frac1N\sum 2(Y-f)(-1)\,w_1^{(2)}g'(\cdot)\,x_1$ (hlubší váha → delší řetěz $g'$).
 
 ## 6. Trénování hlubokých sítí
 

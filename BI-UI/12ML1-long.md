@@ -32,8 +32,8 @@ Přestože se metoda **[[Logistická-regrese|logistická regrese]]** jmenuje tak
 ### 1.2 Cíl: predikovat pravděpodobnost místo třídy
 
 Logistická regrese stojí na triku, který z **diskrétního** problému dělá **spojitý**: místo hodnoty $Y \in \{0,1\}$ se snažíme predikovat **pravděpodobnost**, že $Y$ má hodnotu $1$, tj. číslo z intervalu $[0,1]$. Hledáme tedy funkční předpis, který pro dané hodnoty příznaků $x$ a koeficientů $w$ vrátí číslo
-$$\mathrm{P}(Y = 1 \mid x, w) \in [0,1],$$
-což je odhad pravděpodobnosti, že daný datový bod patří do třídy $1$. Protože součet pravděpodobností obou tříd musí být $1$, stačí najít model pro $\mathrm{P}(Y=1 \mid x, w)$ a druhou pravděpodobnost dopočítat:
+$$\hat{p} = \mathrm{P}(Y = 1 \mid x, w) \in [0,1],$$
+což je **odhad pravděpodobnosti**, že daný datový bod patří do třídy $1$ (to je „$\hat p$“ resp. „$P$“ v celém modelu — viz §2.4 a §2.3, kde právě tento odhad vystupuje v gradientu i ve ztrátové funkci). Protože součet pravděpodobností obou tříd musí být $1$, stačí najít model pro $\mathrm{P}(Y=1 \mid x, w)$ a druhou pravděpodobnost dopočítat:
 $$\mathrm{P}(Y = 0 \mid x, w) = 1 - \mathrm{P}(Y = 1 \mid x, w).$$
 
 ### 1.3 Lineární kombinace a sigmoida
@@ -44,7 +44,7 @@ $$\sigma(z) = \frac{e^z}{1 + e^z} = \frac{1}{1 + e^{-z}}.$$
 **Vlastnosti sigmoidy.**
 
 - definiční obor $\mathbb{R}$ (lze dosadit libovolné $w^T x$);
-- obor hodnot **otevřený** interval $(0,1)$ — nikdy nenastane jistý jev (pravděpodobnost $1$) ani nemožný jev (pravděpodobnost $0$);
+- obor hodnot **otevřený** interval $(0,1)$ — nikdy nenastane jistý jev (pravděpodobnost $1$) ani nemožný jev (pravděpodobnost $0$). **Pozor na rozdíl:** sama pravděpodobnost obecně žije na **uzavřeném** $[0,1]$, ale sigmoida (a tedy model LR) nabývá jen hodnot z **otevřeného** $(0,1)$ — model proto nikdy nepřiřadí pravděpodobnost přesně $0$ ani přesně $1$, krajní hodnoty bere jen v limitě $w^T x \to \pm\infty$;
 - $\sigma$ je ostře rostoucí na $\mathbb{R}$, tedy **prostá**, s inverzí $\sigma^{-1}(x) = \ln \frac{x}{1-x}$;
 - $\lim_{z\to-\infty}\sigma(z) = 0$, $\lim_{z\to+\infty}\sigma(z) = 1$, $\sigma(0) = \tfrac12$, funkce $\sigma(z) - \tfrac12$ je lichá;
 - pro doplňkovou třídu platí $1 - \sigma(z) = \dfrac{1}{1 + e^{z}}$.
@@ -120,13 +120,17 @@ je **binární křížová entropie** (angl. *binary cross-entropy*) jednoho bod
 $$\text{binární křížová entropie} = -\,\ell(w),$$
 takže **maximalizace věrohodnosti je ekvivalentní minimalizaci binární křížové entropie** — což je obvyklá účelová funkce (loss) trénování klasifikátorů.
 
+> *Doplnění nad rámec slidů:* handout BI-ML1-07 zavádí pouze (log-)věrohodnostní funkci $\ell(w)$ a její maximalizaci; pojmenování $-\ell(w)$ jako **binární křížové entropie** (loss minimalizovaný např. v neuronových sítích) ve slidech není, je to standardní ekvivalence napříč ML. Examinátoři ji ale chtějí slyšet jako odpověď na „jaká je ztrátová funkce logistické regrese“.
+
 ### 2.4 Gradient log-věrohodnosti
 
 Maximum hledáme stejně jako u lineární regrese pomocí **[[Gradient|gradientu]]** — vektoru parciálních derivací podle všech $w_0,\dots,w_p$:
 $$\frac{\partial \ell}{\partial w_j}(w) = \sum_{i=1}^N x_{i;j}\big(Y_i - p_1(x_i, w)\big), \qquad j = 0, 1, \dots, p.$$
 Maticovým zápisem (s vektorem predikovaných pravděpodobností $\boldsymbol{P} = (p_1(x_1,w),\dots,p_1(x_N,w))^T$):
 $$\boxed{\;\nabla\ell(w) = \mathbf{X}^T\big(\boldsymbol{Y} - \boldsymbol{P}\big)\;}.$$
-Reziduum $\boldsymbol{Y} - \boldsymbol{P}$ (rozdíl skutečných hodnot a predikovaných pravděpodobností) je váženo příznaky — formálně stejný tvar jako u lineární regrese, jen $\boldsymbol{P}$ skrývá sigmoidy.
+Reziduum $\boldsymbol{Y} - \boldsymbol{P}$ (rozdíl skutečných hodnot a predikovaných pravděpodobností $\hat p_i = p_1(x_i,w)$) je váženo příznaky — formálně stejný tvar jako u lineární regrese, jen $\boldsymbol{P}$ skrývá sigmoidy.
+
+> *Doplnění nad rámec slidů (odvození gradientu):* slidy uvádějí derivaci členu „trocha čarování", explicitní odvození ale examinátoři chtějí. Derivujeme $\ell(w) = \sum_i (Y_i\, w^T x_i - \ln(1+e^{w^T x_i}))$ podle $w_j$: člen $Y_i w^T x_i$ dá $Y_i x_{i;j}$; člen $-\ln(1+e^{w^T x_i})$ dá $-\dfrac{e^{w^T x_i}}{1+e^{w^T x_i}} x_{i;j} = -p_1(x_i,w)\,x_{i;j} = -\hat p_i x_{i;j}$ (využita $\frac{d}{dz}\ln(1+e^z)=\sigma(z)$). Sečtením: $\frac{\partial\ell}{\partial w_j} = \sum_i x_{i;j}(Y_i - \hat p_i)$. Klíčový krok je $\sigma'(z) = \sigma(z)(1-\sigma(z))$, díky čemuž $\frac{d}{dz}\ln(1+e^z)=\sigma(z)$.
 
 ### 2.5 Optimalizace — proč není uzavřené řešení
 
@@ -134,18 +138,30 @@ Reziduum $\boldsymbol{Y} - \boldsymbol{P}$ (rozdíl skutečných hodnot a predik
 $$\nabla\ell(w) = \mathbf{X}^T(\boldsymbol{Y} - \boldsymbol{P}) = 0.$$
 Na rozdíl od lineární regrese ale **neumíme najít explicitní (uzavřené) řešení** — neexistuje vzorec, do kterého bychom dosadili data a vypadly by koeficienty $w$ (pod $\boldsymbol{P}$ se skrývají exponenciály sigmoid, rovnice je nelineární).
 
-**Konvexnost a jednoznačnost maxima.** Účelová funkce trénování (záporná log-věrohodnost = křížová entropie) je **[[Konvexní-funkce|konvexní]]** v $w$. Funkce $\ell(w)$ proto nemá více lokálních maxim: pokud lokální maximum existuje, je **jediné** a je to hledané **globální** maximum. (Maximum ovšem nemusí existovat vždy — neexistuje právě v případě **lineárně separabilních** tříd, kdy lze $w$ škálovat tak, že $w^T x_i > 0$ pro všechny body třídy $1$ a $w^T x_i < 0$ pro třídu $0$, a věrohodnost roste nade všechny meze.)
+**Jednoznačnost maxima.** Slidy (poznámka pod čarou) uvádějí: pro logistickou regresi platí, že **pokud lokální maximum $\ell(w)$ existuje, je jediné a je to hledané globální maximum** — funkce tedy nemá více různých lokálních maxim. Maximum ovšem **nemusí existovat vždy** — neexistuje **právě tehdy, když jsou třídy lineárně separabilní**, tj. existuje $w$ takové, že $w^T x_i > 0$ pro všechny body třídy $1$ ($Y_i=1$) a $w^T x_i < 0$ pro třídu $0$ ($Y_i=0$); pak lze $w$ škálovat a věrohodnost roste nade všechny meze.
+
+> *Doplnění nad rámec slidů:* hlubší důvod jednoznačnosti je, že záporná log-věrohodnost (= binární křížová entropie) je **[[Konvexní-funkce|konvexní]]** funkce $w$ — proto má nejvýše jedno (globální) minimum. Slidy mluví jen o „jediném lok. maximu = globálním", slovo *konvexní* v nich není.
 
 **Numerické metody.** Protože uzavřené řešení neexistuje, je nutné použít **numerické aproximativní metody**, které konstruují posloupnost $w^{(0)}, w^{(1)}, w^{(2)}, \dots$ konvergující k maximu:
 
-- **vícerozměrná Newtonova metoda** (v této úloze ekvivalentní **IRLS** — iteratively reweighted least squares);
+- **vícerozměrná Newtonova metoda**;
 - **gradientní vzestup** (angl. *gradient ascent*).
+
+> *Doplnění nad rámec slidů:* Newtonova metoda aplikovaná na log-věrohodnost LR je ekvivalentní **IRLS** (*iteratively reweighted least squares* — iterovaná vážená metoda nejmenších čtverců); tento název ve slidech BI-ML1-07 není, ale je to standardní pojmenování.
 
 **Algoritmus (gradientní vzestup).** Začneme počáteční hodnotou $w^{(0)}$ a iterujeme ve směru nejvyššího růstu (gradient ukazuje směrem nejvyššího růstu):
 $$w^{(i+1)} = w^{(i)} + \alpha\,\nabla\ell\big(w^{(i)}\big) = w^{(i)} + \alpha\,\mathbf{X}^T\big(\boldsymbol{Y} - \boldsymbol{P}(w^{(i)})\big),$$
 kde $\alpha$ je **učící parametr** (angl. *learning rate*), který může záviset na $i$ (adaptivní verze). I když globální maximum existuje, konvergence může být pomalá a pro nevhodné $\alpha$ nemusí konvergovat.
 
 *Poznámka.* Logistická regrese je přímým použitím metod parametrické statistiky (viz BI-PST). Celá metoda stojí na předpokladu, že chování dat lze zachytit sigmoidou aplikovanou na lineární kombinaci $w^T x$; zda tato volnost (daná parametry $w$) stačí k přiblížení skutečnosti, je třeba mít na paměti. Model lze rozšířit odvozenými příznaky (mocniny, součiny příznaků apod.), čímž lze získat i nelineární rozhodovací hranice.
+
+### 2.6 Vztah k perceptronu / neuronu se sigmoidou
+
+Model $\hat p = \sigma(w^T x)$ je přesně **jeden neuron** (perceptron) s váhami $w$, biasem $w_0$ (intercept $x_0=1$) a **sigmoidovou aktivační funkcí**: neuron spočítá vážený součet vstupů $w^T x$ a protlačí ho aktivační funkcí. Pro sigmoidovou aktivaci je výstup neuronu roven odhadu pravděpodobnosti třídy $1$, takže
+
+$$\text{logistická regrese} = \text{jeden neuron se sigmoidou trénovaný minimalizací (binární) křížové entropie.}$$
+
+Neuronová síť s jediným sigmoidovým výstupním neuronem a bez skryté vrstvy je tedy přesně logistická regrese; klasický **perceptron** Rosenblatta se liší aktivační funkcí (skoková/threshold místo spojité sigmoidy) a způsobem učení (viz [[19ML2-long|Q19 Neuronové sítě]]).
 
 ---
 
@@ -169,3 +185,10 @@ kde $\alpha$ je **učící parametr** (angl. *learning rate*), který může zá
 - **MLE odhad** $\hat w$: maximalizuj věrohodnost = data nejpravděpodobnější (myšlenka: minci $\hat p_{\mathrm{MLE}}=\tfrac{7}{10}$).
 - **Gradientní vzestup:** $w^{(i+1)} = w^{(i)} + \alpha\,\mathbf{X}^T(\boldsymbol{Y}-\boldsymbol{P}(w^{(i)}))$, $\alpha$ = learning rate, kroky ve směru nejvyššího růstu.
 - **Newtonova metoda / IRLS** — alternativní numerická metoda (rychlejší konvergence).
+
+### Typické doplňující otázky (doptávání)
+- **Klouda (2019, 2023):** „Jaký je obor hodnot sigmoidy — uzavřený, nebo otevřený?" → otevřený $(0,1)$, ačkoli pravděpodobnost obecně žije na uzavřeném $[0,1]$; model nikdy nepřiřadí přesně $0$ ani $1$ → §1.3
+- **Klouda (2023):** „Co je $P$ (resp. $\hat p$) ve vašem modelu?" → odhadovaná pravděpodobnost třídy $1$, $\hat p = \mathrm{P}(Y=1\mid x,w) = \sigma(w^T x)$ → §1.2, §2.4
+- **Klouda (2023):** „Jak vypadá gradient po zderivování věrohodnostní funkce?" → odvodit $\nabla\ell(w) = \mathbf{X}^T(\boldsymbol{Y}-\boldsymbol{P})$, klíč $\sigma' = \sigma(1-\sigma)$, tj. $\frac{d}{dz}\ln(1+e^z)=\sigma(z)$ → §2.4
+- **Klouda (2023):** „Jaká je ztrátová funkce?" → log-věrohodnost $\ell(w)$; její záporná hodnota $=$ binární křížová entropie (cross-entropy), max. věrohodnosti $\iff$ min. cross-entropy → §2.3
+- **Smítková (2023, v NN otázce):** „Jak souvisí perceptron se sigmoidou s logistickou regresí?" → LR $=$ jeden neuron se sigmoidou (cross-link [[19ML2-long|Q19 Neuronové sítě]]) → §2.6

@@ -15,8 +15,9 @@ Supervizované učení $Y \approx f(X_1,\dots,X_p)$; klasifikace (málo hodnot $
 **Budování (shora dolů, hladově).** Optimální strom je **NP-úplný** problém → hladový algoritmus (**ID3 → C4.5/C5 → CART**): rekurzivně vyber příznak (a práh) maximalizující dělicí kritérium, rozděl $\mathcal{D}$ na $\mathcal{D}_L,\mathcal{D}_R$, opakuj na obou; konec při **zastavovací podmínce** (max hloubka, málo dat, nízký zisk). Hladový ≠ optimální. Složitost konstrukce polynomiální v $N, p$.
 
 ### Dělicí kritéria
-Míra neuspořádanosti množiny $\mathcal{D}$, $p_i$ = rel. četnost $i$-té hodnoty $Y$:
+Míra neuspořádanosti množiny $\mathcal{D}$; $p_i$ = rel. četnost $i$-té hodnoty $Y$ = **odhad pravděpodobnosti** třídy z dat (ne skutečná pravděpodobnost):
 $$H(\mathcal{D}) = -\sum_i p_i \log p_i \qquad GI(\mathcal{D}) = 1 - \sum_i p_i^2 = \sum_i p_i(1-p_i).$$
+Vlastnosti $H$: nezáporná, $0$ pro čistou množinu, max pro $p_0=p_1=\tfrac12$, rostoucí na $[0,\tfrac12]$ / klesající na $[\tfrac12,1]$.
 **Informační zisk:** $IG(\mathcal{D},X_i) = H(\mathcal{D}) - t_0 H(\mathcal{D}_0) - t_1 H(\mathcal{D}_1)$, $t_j = \#\mathcal{D}_j/\#\mathcal{D}$. Vyber příznak s **max** $IG$.
 
 | | Entropie $H$ | Gini index $GI$ |
@@ -43,7 +44,7 @@ Predikce listu = **průměr** $Y$. Kritérium místo entropie = **MSE** $=\tfrac
 **Bootstrap** = výběr řádků **s opakováním** (datasety $\mathcal{D}_1,\dots,\mathcal{D}_n$ velikosti $\approx\#\mathcal{D}$).
 
 **Náhodný les:** na každém $\mathcal{D}_i$ nauč strom $T_i$ jen na **náhodné podmnožině příznaků** (velikost $\sqrt{p}$); stromy = podmodely (*base learners*). Agregace:
-- klasifikace → **majority vote** (většinové hlasování);
+- klasifikace → **majority vote** (většinové hlasování); lze vrátit i **podíl hlasů** / `sklearn` průměruje pravděpodobnosti tříd $\hat p=\tfrac1n\sum_i\hat p_i$;
 - regrese → **průměr** $\hat{Y} = \tfrac1n\sum_i\hat{Y}_i$.
 
 **Hyperparametry:** `n_estimators` (počet stromů), `max_depth`, `max_features` ($=\sqrt{p}$).

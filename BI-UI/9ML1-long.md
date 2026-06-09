@@ -12,7 +12,7 @@ tags: [otázka, kurz/ML1, otázka/9, todo]
 
 > **Otázka SZZ:** Metrika - definice a příklady. Metoda nejbližších sousedů pro klasifikaci i regresi. Aglomerativní hierarchické shlukování.
 
-Zdroje: BI-ML1 (FIT ČVUT), přednáška 3 — *kNN a metriky* (sekce 11 kNN: popis metody, Definice 11.1 metrika; sekce 12 normalizace dat a nominální příznaky; sekce 13 prokletí dimenzionality); přednáška 11 — *nesupervizované učení* (sekce 42 shluková analýza, Definice 42.1 metrika; sekce 43 hierarchické shlukování). Z přednášky 11 zde čerpáme **pouze** aglomerativní hierarchické shlukování; k-means a obecné principy nesupervizovaného učení patří k otázce 14.
+Zdroje: BI-ML1 (FIT ČVUT), přednáška 3 — *kNN a metriky* (sekce 11 kNN: popis metody, Definice 11.1 metrika, $L_q$/eukleidovská/manhattanská; sekce 12 normalizace dat a nominální příznaky; sekce 13 prokletí dimenzionality); přednáška 11 — *nesupervizované učení* (sekce 42 shluková analýza, Definice 42.1 metrika + příklady včetně **Čebyševovy** $L_\infty$ a Levenštejnovy; sekce 43 hierarchické shlukování). Z přednášky 11 zde čerpáme **pouze** aglomerativní hierarchické shlukování; k-means a obecné principy nesupervizovaného učení patří k otázce 14. (Tvar jednotkových koulí $L_q$ na slidech není — viz doplnění v §1.2.)
 
 Značení: $\mathcal{X}$ množina (prostor možných hodnot příznaků, typicky $\mathbb{R}^p$), $p$ počet příznaků, $\boldsymbol{x} = (x_1,\dots,x_p)^T$ vektor příznaků (jedna realizace náhodného vektoru $\boldsymbol{X}$), $Y$ vysvětlovaná proměnná, $N$ počet trénovacích dvojic $(\boldsymbol{x}_i, Y_i)$, $d(\cdot,\cdot)$ metrika (vzdálenost dvou bodů), $D(\cdot,\cdot)$ vzdálenost dvou shluků, $k$ počet sousedů resp. shluků, $\hat{y}$ predikce.
 
@@ -38,6 +38,8 @@ Dvojice $(\mathcal{X}, d)$ se nazývá **metrický prostor**.
 2. Vzdálenost bodu $x$ od $y$ je stejná jako vzdálenost $y$ od $x$.
 3. Přímá vzdálenost mezi dvěma body je vždy menší nebo rovna vzdálenosti vedoucí přes nějaký třetí bod.
 
+> Pozor na záměnu axiomů (častá chyba u zkoušky): druhý axiom je **symetrie**, *nikoli* asociativita (asociativita se vzdálenosti vůbec netýká). Stejně tak nejde o „pozitivní semidefinitnost" — správně je nezápornost spojená s totožností: $d(x,y) \ge 0$ a $d(x,y) = 0 \iff x = y$. Vzdálenost tedy nikdy nemůže být záporná.
+
 > Pozor: tato metrika je pojem *metrického prostoru* (vzdálenostní funkce na množině), a je **odlišná** od grafové vzdálenosti (délka nejkratší cesty) z předmětu AG1.
 
 ### 1.2 Příklady metrik
@@ -56,6 +58,13 @@ $$d_\infty(\boldsymbol{x}, \boldsymbol{y}) = \|\boldsymbol{x} - \boldsymbol{y}\|
 Všechny tři jsou speciálními případy **$L_q$ metriky** (Minkowského $q$-metrika, $q$-norma) pro $q = 1, 2, \dots$:
 $$d_q(\boldsymbol{x}, \boldsymbol{y}) = \|\boldsymbol{x} - \boldsymbol{y}\|_q = \sqrt[q]{\sum_{i=1}^p |x_i - y_i|^q}.$$
 Eukleidovská vzdálenost je $q = 2$, manhattanská $q = 1$, Čebyševova je limitní případ $q \to \infty$. Tyto metriky jsou přímo podporovány v `scikit-learn`.
+
+> *Doplnění nad rámec slidů:* Tvar **jednotkové koule** (množina bodů ve vzdálenosti $1$ od počátku, $\{\boldsymbol{x} : d(\boldsymbol{0}, \boldsymbol{x}) = 1\}$) názorně odlišuje jednotlivé $L_q$ metriky a examinátoři ho rádi nechávají kreslit. Ve $\mathbb{R}^2$:
+> - **$L_2$ (eukleidovská):** **kružnice** (resp. kruh u uzavřené koule) — $x_1^2 + x_2^2 = 1$.
+> - **$L_1$ (manhattanská):** **kosočtverec** (čtverec postavený „na špičku", vrcholy v $(\pm1,0),(0,\pm1)$) — $|x_1| + |x_2| = 1$. (Pozor: **není to** osově orientovaný čtverec.)
+> - **$L_\infty$ (Čebyševova):** **čtverec** se stranami rovnoběžnými s osami, vrcholy v $(\pm1,\pm1)$ — $\max(|x_1|,|x_2|) = 1$.
+>
+> S rostoucím $q$ se kosočtverec ($q=1$) „nafukuje" přes kružnici ($q=2$) až k osovému čtverci ($q\to\infty$); proto pro $q \ge 1$ platí $d_\infty \le d_2 \le d_1$. Pro $0 < q < 1$ už $L_q$ **není metrika** (porušuje trojúhelníkovou nerovnost — jednotková „koule" je nekonvexní hvězdice).
 
 **Hammingova / „shodná–různá" vzdálenost.** Pro nominální (kategoriální) příznak nemá smysl měřit číselný rozdíl. Lze metriku modifikovat tak, aby pro daný příznak vracela $0$ při shodné hodnotě a $1$ při různé hodnotě (rozlišuje jen dva stavy). Podobný efekt dává one-hot encoding s dummy příznaky.
 
@@ -223,6 +232,8 @@ Z dendrogramu lze získat konkrétní shlukování několika způsoby:
 - **Kvalita** dendrogramu (z pohledu zachování párových vzdáleností originálních dat) se měří např. pomocí *cophenetic correlation*.
 - Existuje i **divizní** hierarchické shlukování (shora-dolů): vychází z jednoho shluku a opakovaně dělí.
 - **Složitost.** V jednom kroku aglomerativního algoritmu je třeba provést $\tfrac{m(m-1)}{2}$ porovnání, kde $m$ je aktuální počet shluků — celkem $\mathcal{O}(N^3)$. Pro single nebo complete linkage lze dosáhnout $\mathcal{O}(N^2)$. (Pro srovnání: divizní algoritmus dělá v kroku $2^{m-1}$ porovnání, tedy $\mathcal{O}(2^N)$.) Hierarchické shlukování se proto **příliš nehodí pro velké datové soubory**.
+- **Co je výpočetně nejdražší a jak to zrychlit.** Drahé není samotné spojování, ale **opakované hledání nejbližší dvojice shluků**, tj. **výpočet vzdáleností** mezi všemi dvojicemi. Klíčové zrychlení: **předpočítat matici párových vzdáleností** $d(x,y)$ jednou na začátku (symetrická matice $N \times N$, $\tfrac{N(N-1)}{2}$ hodnot) a v dalších krocích už jen vzdálenosti vyhledávat / aktualizovat (např. Lance–Williamsovými rekurentními vzorci), místo aby se počítaly znovu. Single/complete linkage navíc umožňují udržovat strukturu, která ze $\mathcal{O}(N^3)$ udělá $\mathcal{O}(N^2)$.
+- **Hierarchické vs. k-means (výpočetní náročnost).** Hierarchické aglomerativní shlukování je **výpočetně náročnější** než k-means: $\mathcal{O}(N^2)$–$\mathcal{O}(N^3)$ a paměť $\mathcal{O}(N^2)$ na matici vzdáleností, zatímco jedna iterace k-means stojí jen $\mathcal{O}(N k p)$ (lineárně v počtu bodů). Proto se k-means hodí na velká data, hierarchické shlukování spíše na menší (a dává navíc dendrogram + nevyžaduje $k$ předem).
 
 ---
 
@@ -242,3 +253,13 @@ Z dendrogramu lze získat konkrétní shlukování několika způsoby:
 ### Algoritmy
 - **kNN predikce:** spočti vzdálenosti k všem $N$ bodům, vyber $k$ nejbližších, hlasuj/průměruj. Líné učení (data = model), náročná predikce, zrychlení indexací. Hyperparametry $k$, metrika, váhy. Data nutno normalizovat (min-max, standardizace).
 - **Aglomerativní hierarchické shlukování:** $N$ jednoprvkových shluků → opakovaně spoj dva nejbližší (dle linkage) → po $N-1$ krocích jeden shluk. Výstup dendrogram, rozříznutí dle $k$ / výšky. Složitost $\mathcal{O}(N^3)$, pro single/complete $\mathcal{O}(N^2)$.
+
+### Typické doplňující otázky (doptávání)
+- **Dedecius (komise, léto 2024):** „Jaké podmínky / axiomy splňuje metrika?" — pozor: **symetrie**, NE asociativita; nezápornost+totožnost ($d\ge0$, $=0\iff x=y$), trojúhelníková nerovnost (NE „pozitivní semidefinitnost"). → §1.1
+- **Dedecius (komise, léto 2024):** „Co je dendrogram a k čemu slouží?" — strom spojení; výška = vzdálenost spojených shluků; rozříznutím se získá konkrétní shlukování. → §3.4, §3.5
+- **Dedecius (komise, léto 2020):** „Jak vypadají body ve vzdálenosti 1 (jednotková koule) pro $L_1$ / $L_2$ / $L_\infty$?" — $L_2$ kružnice, $L_1$ **kosočtverec** (ne čtverec!), $L_\infty$ čtverec. → §1.2
+- **Dedecius (komise, léto 2020):** „kNN — co/jak/proč, metriky, hyperparametry a jejich volba?" — model = trénovací data, drahá predikce; hyperparametry $k$/metrika/váhy a jak je volit. → §2
+- **Čepek (2025):** „Co je u shlukování výpočetně náročné a jak to zrychlit?" — hledání nejbližších bodů / výpočet vzdáleností; zrychlení = **předpočítat matici vzdáleností**. → §3.6
+- **Vašata (léto 2024):** „Může být vzdálenost záporná?" — **NE** (axiom $d \ge 0$). „Co je náročnější, k-means nebo hierarchické shlukování?" — **hierarchické** ($\mathcal{O}(N^2)$–$\mathcal{O}(N^3)$ vs. $\mathcal{O}(Nkp)$/iteraci). → §1.1, §3.6
+- **Klouda:** „Nakreslete dendrogram." / „Váhy jako hyperparametr kNN — jak je nastavit?" — klesající se vzdáleností, např. $w_i = 1/d$. → §3.4, §2.2–§2.3
+- **Friedjungová:** „Výhody kNN?" (jednoduchost, žádná fáze učení, libovolná metrika) / „Volba $k$ u k-means (elbow)." → §2, §3.6

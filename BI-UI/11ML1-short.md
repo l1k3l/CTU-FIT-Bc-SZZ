@@ -9,8 +9,10 @@ tags: [otázka, kurz/ML1, otázka/11, todo]
 Varianta [[Lineární-regrese|lineární regrese]] s penalizací velkých koeficientů (řeší **kolinearitu** / přeučení). Minimalizujeme **regularizovaný RSS**:
 $$\operatorname{RSS}_\lambda(w) = \|Y - \mathbf{X}w\|^2 + \lambda\sum_{i=1}^p w_i^2 = \|Y - \mathbf{X}w\|^2 + \lambda\,w^T\mathbf{I}'w, \qquad \lambda \ge 0.$$
 
+- **Penalizace se PŘIČÍTÁ** (znaménko $+$), je úměrná **kvadrátu** $L_2$-normy ($\sum w_i^2$, ne $\sum|w_i|$ = Lasso). Záporné znaménko → bez minima, nesmysl.
 - $\lambda = 0$ → obyčejná [[Metoda-nejmenších-čtverců|MNČ]] (OLS). $\lambda > 0$ → **smršťování** koeficientů. $\lambda\uparrow$ → silnější.
 - **Intercept $w_0$ se NEpenalizuje** (suma od $i=1$): $\mathbf{I}'$ = jednotková matice s $0$ na pozici $(0,0)$.
+- **Motivace = kolinearita** (otázka 10): $\mathbf{X}^T\mathbf{X}$ singulární → $+\lambda\mathbf{I}'$ ji zregularizuje.
 
 **Gradient:** $\nabla\operatorname{RSS}_\lambda(w) = -2\mathbf{X}^T(Y - \mathbf{X}w) + 2\lambda\mathbf{I}'w$.
 

@@ -28,6 +28,11 @@ Značení: $\mathcal{X}$ prostor příznaků (možných hodnot), $X = (X_1,\dots
 
 Motivace: naměřená data se obvykle **nevyskytují v celém prostoru stejně pravděpodobně**, ale bývají více či méně **lokalizována** — tvoří shluky, vyskytují se v méně-dimenzionálních oblastech apod. Porozumění této lokalizaci přináší důležitou informaci o vnitřní struktuře dat.
 
+> *Doplnění nad rámec slidů (zkoušející se ptal na zařazení mezi paradigmata):* tři základní paradigmata strojového učení se liší tím, jaké vodítko (zpětnou vazbu) má model k dispozici:
+> - **supervizované učení** — každý trénovací bod nese **označení** (cílovou proměnnou); učíme se predikovat (klasifikace, regrese);
+> - **nesupervizované učení** — data **bez označení**; učíme se vnitřní strukturu (shlukování, redukce dimenzionality, odhad hustoty);
+> - **posílené učení** (angl. *reinforcement learning*) — není pevný dataset s odpověďmi; agent **interaguje s prostředím**, koná akce a dostává **odměnu** (zpožděnou, řídkou) a učí se strategii (politiku) maximalizující kumulativní odměnu.
+
 ### 1.2 Pravděpodobnostní pohled — odhad hustoty
 
 Z pohledu teorie pravděpodobnosti a statistiky (viz BI-PST) chápeme pozorovaná data jako **realizace [[Náhodný-vektor|náhodného vektoru]]** $X = (X_1,\dots,X_p)^T$. Označme $\mathcal{X}$ prostor možných výsledků (volba $\mathcal{X}$ je součástí volby modelu):
@@ -69,7 +74,7 @@ Klíčovým pojmem, na němž shlukování stojí, je vzdálenost. Pracujeme v *
 2. $d(x,y) = d(y,x)$ (symetrie);
 3. $d(x,y) \le d(x,z) + d(z,y)$ (trojúhelníková nerovnost).
 
-Na $\mathbb{R}^p$ se nejčastěji používá eukleidovská ($L_2$) vzdálenost $d_2(x,y) = \sqrt{\sum_{i=1}^p (x_i - y_i)^2}$, dále manhattanská ($L_1$) $d_1(x,y) = \sum_i |x_i - y_i|$ a Čebyševova ($L_\infty$) $d_\infty(x,y) = \max_i |x_i - y_i|$.
+Na $\mathbb{R}^p$ se nejčastěji používá eukleidovská ($L_2$) vzdálenost $d_2(x,y) = \sqrt{\sum_{i=1}^p (x_i - y_i)^2}$, dále manhattanská ($L_1$) $d_1(x,y) = \sum_i |x_i - y_i|$ a Čebyševova ($L_\infty$) $d_\infty(x,y) = \max_i |x_i - y_i|$. (Metrika je hlavním tématem **otázky 9** — tam i příklady $L_q$, Levenštejnova vzdálenost a aglomerativní hierarchické shlukování.)
 
 **Vstupy** shlukování: metrický prostor $\mathcal{X}$ se vzdáleností $d$, množina dat $\mathcal{D} \subset \mathcal{X}$, obvykle požadovaný počet shluků $k$.
 
@@ -143,8 +148,9 @@ Výsledek významně závisí na inicializační části. Obvykle se počátečn
 
 Na rozdíl od hierarchického shlukování (kde počet shluků určíme až z dendrogramu) je u k-means nutné **stanovit $k$ dopředu**. Univerzální automatický způsob neexistuje; používané heuristiky:
 
-- **Metoda lokte (elbow).** Vykreslíme hodnotu účelové funkce v závislosti na $k$. Je-li $k^\*$ optimální počet, pro $k < k^\*$ funkce klesá prudce, pro $k \ge k^\*$ se pokles výrazně zmírní. Optimální $k$ detekujeme jako „loket" v grafu. Je to subjektivní a pro některá data prakticky nepoužitelné.
-- **Silhouette skóre** (viz sekce 3.6) — robustnější kvantitativní kritérium.
+- **Metoda lokte (elbow).** Vykreslíme hodnotu účelové funkce (WCSS) v závislosti na $k$. Je-li $k^\*$ optimální počet, pro $k < k^\*$ funkce klesá prudce, pro $k \ge k^\*$ se pokles výrazně zmírní. Optimální $k$ detekujeme jako „loket" (zlom) v grafu. Je to subjektivní a pro některá data prakticky nepoužitelné (slidy ukazují příklad, kde loket dá $k=2$, ač data vznikla jako směs **tří** normálních rozdělení).
+- **Silhouette skóre** (viz sekce 3.7) — robustnější kvantitativní kritérium: $k$ volíme tak, aby průměrné $s$ bylo maximální.
+- Někdy je $k$ **dáno typem úlohy / předem známé** (víme, kolik shluků očekáváme — např. počet tříd, segmentů), pak jej nemusíme odhadovat z dat.
 
 ### 2.6 Vlastnosti a omezení k-means
 
@@ -226,7 +232,7 @@ výstup: shluky C_1, ..., C_k a šum N
 
 **Výhody:**
 
-- **shluky libovolného (nekonvexního) tvaru** — DBSCAN nepředpokládá sférické shluky, najde i protáhlé/zatočené struktury (na rozdíl od k-means);
+- **shluky libovolného (nekonvexního) tvaru** — DBSCAN nepředpokládá sférické shluky, najde i protáhlé/zatočené **nelineární struktury** (na rozdíl od k-means). Protože pracuje pouze s **hustotou bodů** (počty v $\varepsilon$-okolí), spojí body i podél zakřivené nadplochy — typický „učebnicový" příklad je tzv. **švýcarská rolka** (angl. *Swiss roll*), tj. spirálovitě stočená 2D plocha v $\mathbb{R}^3$, kterou k-means rozseká, kdežto hustotní metoda ji vrátí jako jeden shluk;
 - **detekce šumu** — snížená citlivost na odlehlé hodnoty, ty jsou označeny jako šum;
 - **nevyžaduje zadat počet shluků** $k$ dopředu — počet shluků vyplyne z dat.
 
@@ -273,3 +279,11 @@ Průměr přes celé shlukování $s = \frac{1}{|\mathcal{D}|}\sum_{x \in \mathc
 ### Algoritmy
 - **k-means (Lloyd):** inicializace $k$ centroidů → přiřazení bodů nejbližšímu centroidu → přepočet centroidů → opakuj do konvergence. Lokální minimum, citlivost na inicializaci (k-means++), volba $k$ (loket/silhouette). Iterace $\mathcal{O}(Nkp)$. Sférické shluky, nutno zadat $k$.
 - **DBSCAN:** najdi klíčové body → spoj přímo dosažitelné klíčové do zárodků → zařaď okrajové k sousednímu klíčovému, ostatní = šum. $\mathcal{O}(N^2)$ (až $\mathcal{O}(N\log N)$ s indexem). Libovolný tvar shluků, detekce šumu, nezadává se $k$; citlivý na $\varepsilon$.
+
+### Typické doplňující otázky (doptávání)
+- **Friedjungová (2025):** „Jak se volí $k$ u k-means?" (metoda lokte / elbow nad WCSS; nebo silhouette; nebo $k$ dáno typem úlohy / předem známé) → §2.5
+- **Friedjungová (2025):** „Co k-means optimalizuje?" (účelovou funkci = vnitroshlukový součet kvadrátů vzdáleností od centroidů, WCSS; iterativně, $G$ neroste → konverguje k lokálnímu minimu; zastavení, když se $G$ téměř nemění) → §2.2, §2.3
+- **Friedjungová (2025):** „Jaký je rozdíl mezi supervizovaným, nesupervizovaným a posíleným učením?" (označená data / bez označení / interakce s prostředím + odměna) → §1.1
+- **Friedjungová (2025):** „Na čem pracuje DBSCAN a jaké struktury odhalí?" (na hustotě bodů; odhalí nelineární / nekonvexní struktury — „švýcarská rolka") → §3.1, §3.6
+- **Friedjungová (2025):** „Vyjmenujte pojmy DBSCAN." (klíčový/core bod, $\varepsilon$-okolí, šum, dosažitelný, spojený) → §3.2, §3.3
+- **Friedjungová (2025):** „Proč je těžké nastavit parametry DBSCAN?" ($\varepsilon$ a MinPts se ladí těžko, zvláště při různé hustotě shluků — jediné $\varepsilon$ nestačí) → §3.6

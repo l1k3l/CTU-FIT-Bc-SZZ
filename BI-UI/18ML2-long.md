@@ -31,7 +31,7 @@ Klasifikaci $\hat Y=\arg\max_y\mathrm P(Y=y\mid X=x)$ (tzv. **MAP odhad**, *maxi
 
 Chceme $\mathrm P(Y=y\mid X=x)$. Generativně použijeme **[[Bayesova-věta|Bayesovu větu]]**:
 $$\mathrm P(Y=y\mid X=x)=\frac{\mathrm P(X=x\mid Y=y)\,\mathrm P(Y=y)}{\mathrm P(X=x)},\qquad \mathrm P(X=x)=\sum_{y\in\mathcal Y}\mathrm P(X=x\mid Y=y)\,\mathrm P(Y=y).$$
-Jmenovatel $\mathrm P(X=x)$ **nezávisí na $y$**, proto pro MAP odhad odpadá:
+Jmenovatel $\mathrm P(X=x)$ je **normalizační konstanta** — **nezávisí na $y$** (sčítá se přes všechna $y$), proto ji lze při $\arg\max_y$ ignorovat (změní jen měřítko, ne pořadí). Pro MAP odhad tedy odpadá:
 $$\mathrm P(Y=y\mid X=x)\propto \mathrm P(X=x\mid Y=y)\,\mathrm P(Y=y),\qquad \boxed{\ \hat Y=\arg\max_{y\in\mathcal Y}\mathrm P(X=x\mid Y=y)\,\mathrm P(Y=y).\ }$$
 Odhad $\mathrm P(Y=y)$ je triviální (podíl tříd); problém je odhadnout $\mathrm P(X=x\mid Y=y)$ ve vysoké dimenzi.
 
@@ -65,7 +65,11 @@ Marginálu $\mathrm P(X_i\mid Y=y)$ modelujeme podle typu příznaku; parametry 
 
 **Bayesovský odhad (řešení kolapsu).** Místo frekventistického odhadu zavedeme **apriorní rozdělení** parametru (znalost před daty), např. **Beta** pro Bernoulliho. Bayesovou větou získáme **aposteriorní rozdělení** $f_p(p\mid x)\propto \mathrm P(X=x\mid p)f_p(p)$ a bodový odhad jako jeho střední hodnotu. Pro rovnoměrné apriori (Beta(1,1)) vyjde
 $$\hat p_y=\frac{N_{1,y}+1}{N_{1,y}+N_{0,y}+2}\quad(\textbf{add-one / Laplaceovo vyhlazení}),$$
-které na kolaps netrpí. U spojitého příznaku se nejčastěji bere **Gaussovo** rozdělení (GaussianNB).
+které na kolaps netrpí.
+
+**Spojité příznaky → gaussovský naivní Bayes (GaussianNB).** U spojitého příznaku je $\mathrm P(X_i=x_i\mid Y=y)=0$ pro každé $x_i$, takže místo pravděpodobnosti dosadíme do součinu **podmíněnou hustotu** $f_{X_i\mid y}(x_i)$. Nejčastěji se bere **[[Normální-rozdělení|normální (Gaussovo)]] rozdělení** $N(\mu_y,\sigma_y^2)$ s MLE odhady $\hat\mu_y,\hat\sigma_y^2$ (viz tabulka). MAP pro **smíšené** příznaky (prvních $\ell$ diskrétních, zbytek spojitých):
+$$\hat Y=\arg\max_{y\in\mathcal Y}\ \mathrm P(Y=y)\prod_{i=1}^{\ell}\mathrm P(X_i=x_i\mid Y=y)\prod_{i=\ell+1}^{p}f_{X_i\mid y}(x_i).$$
+*Příklad (Iris):* 4 spojité příznaky, 3 třídy → každou ze 4 marginál $X_i\mid Y=y$ modelujeme Gaussovo $N(\hat\mu_{i,y},\hat\sigma_{i,y}^2)$ (parametry odhadnuté zvlášť pro každou třídu a příznak), součin přes 4 hustoty × $\hat\pi_y$. *Příklad (výška mužů/žen):* spojitý příznak „výška" → dvě Gaussovy hustoty $N(\hat\mu_{\text{muž}},\hat\sigma^2)$, $N(\hat\mu_{\text{žena}},\hat\sigma^2)$; predikce = třída s vyšší hodnotou $f_{X\mid y}(x)\,\hat\pi_y$.
 
 *Aplikace — klasifikace textů (bag-of-words).* Dokument = vektor četností slov ze slovníku $D$; třídu modeluje **multinomické** rozdělení s $\hat p_{j,y}=\frac{N_{j,y}}{N_y}$ (resp. add-one $\frac{N_{j,y}+1}{N_y+|D|}$). Numericky se počítá v logaritmech (součin → součet log) a normalizace se řeší **log-sum-exp trikem** $\log\sum_y e^{-b_y}=-B+\log\sum_y e^{B-b_y}$, $B=\min_y b_y$, proti podtečení.
 
@@ -127,3 +131,13 @@ což je **shodné** s LDA (neboť $S_W=N\hat\Sigma$). To dává LDA optimalizač
 - **NB marginály (MLE + add-one):** Bernoulli, kategorické, Gaussovo; kolaps $N_{j,y}=0$ → Laplaceovo vyhlazení $\frac{N_{j,y}+1}{\cdots+k}$.
 - **QDA/LDA MLE:** $\hat\pi_y=N_y/N$, $\hat\mu_y$ = třídní průměr, $\hat\Sigma$ (sdílená pro LDA).
 - **log-sum-exp** proti podtečení; **FLDA** pro více tříd = redukce dimenze ($\le C-1$ příznaků, lepší než PCA pro klasifikaci).
+
+### Typické doplňující otázky (doptávání)
+> Naivní Bayes je historicky **nejčastější** téma z VZD/ML2 (~12 zkušeností). Spojité/gaussovské příznaky a „proč zanedbáme $\mathrm P(x)$" jsou nejdrilovanější doptání.
+
+- **Dedecius (komise, LS2022):** „Naivní Bayesův klasifikátor, modely podmíněných pravděpodobností." → §3, §4
+- **Vašata (léto2019):** „Proč můžeme jednu část zanedbat?" — jmenovatel $\mathrm P(x)$ je **normalizační konstanta nezávislá na třídě**, při $\arg\max_y$ ji lze ignorovat. → §2
+- **Vašata (léto2019):** „Jak upravit vzoreček pro Bernoulliho podmíněnou pravděpodobnost?" — $\mathrm P(X_i=x_i\mid Y=y)=p_y^{x_i}(1-p_y)^{1-x_i}$, odhad $\hat p_y=\frac{N_{1,y}}{N_{1,y}+N_{0,y}}$ (MLE), resp. add-one $\frac{N_{1,y}+1}{N_{1,y}+N_{0,y}+2}$. → §4
+- **Kordík (LS2019):** „Zaměřit se na **spojité příznaky**." — místo pravděpodobnosti dosadíme hustotu, nejčastěji Gaussovu → **gaussovský naivní Bayes**. → §4
+- **Kordík (léto2021):** „Jak použít NB na dataset Iris (4 spojité příznaky, 3 třídy)?" — každou marginálu $X_i\mid Y=y$ modelovat $N(\hat\mu_{i,y},\hat\sigma_{i,y}^2)$, součin 4 hustot × $\hat\pi_y$, $\arg\max$ přes 3 třídy. → §4
+- **Jiřina (léto2020):** „Praktický příklad — rozdělení pravděpodobnosti **výšky** u mužů a žen." — spojitý/gaussovský příznak: dvě Gaussovy hustoty, predikce dle vyššího $f_{X\mid y}(x)\,\hat\pi_y$. → §4

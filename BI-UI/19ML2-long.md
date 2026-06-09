@@ -32,7 +32,7 @@ $$\tilde w^{k+1}=\begin{cases}\tilde w^k+(2Y_{i(k)}-1)\tilde x_{i(k)} & \text{pr
 
 *Idea důkazu.* Při $n$-té chybě roste průmět $(\tilde w^{k_n+1})^T\tilde w^*\ge n\gamma$ (každá oprava přidá $\ge\gamma$), takže ze Schwarzovy nerovnosti $\lVert\tilde w^{k_n+1}\rVert\ge n\gamma$. Současně norma roste pomalu: $\lVert\tilde w^{k_n+1}\rVert^2\le nR^2$ (protože při chybě je $(2Y-1)\tilde x^T\tilde w^k<0$). Dohromady $n^2\gamma^2\le nR^2$, tedy $n\le R^2/\gamma^2$. $\blacksquare$
 
-**Problém XOR.** Perceptron umí jen **lineárně separabilní** úlohy; **XOR** neumí (Minsky, Papert 1969 → „AI winter“). XOR řeší až **vícevrstvá síť** (kombinace neuronů), ale algoritmus trénování jednoho perceptronu nelze snadno rozšířit — řešením byl až **gradientní sestup** + **zpětné šíření chyby** (80. léta).
+**Problém XOR.** Perceptron umí jen **lineárně separabilní** úlohy; **XOR** neumí (Minsky, Papert 1969 → „AI winter“) — žádná jediná nadrovina nerozdělí body $(0,0),(1,1)$ (třída 0) od $(0,1),(1,0)$ (třída 1). XOR řeší až **vícevrstvá síť**: dle slidů stačí dva perceptrony realizující **AND** a **NOR**, na jejichž výstup se aplikuje třetí perceptron (**NOR**) — tj. **minimální topologie 2–2–1** (2 vstupy, **1 skrytá vrstva** se 2 neurony, 1 výstup). Algoritmus trénování jednoho perceptronu ale nelze snadno rozšířit na propojené neurony — řešením byl až **gradientní sestup** + **zpětné šíření chyby** (80. léta).
 
 ---
 
@@ -59,7 +59,7 @@ $$f=f^{(l)}\circ f^{(l-1)}\circ\dots\circ f^{(1)}.$$
 
 ### 3.2 Výstupní vrstva (podle typu úlohy)
 - **Regrese:** identita $g(z)=z$, $\hat Y=w^Th+w_0$.
-- **Binární klasifikace:** **sigmoida** $\sigma(z)=\frac1{1+e^{-z}}$, $\hat{\mathrm P}(Y=1\mid x)=\sigma(w^Th+w_0)$, $\hat Y=\mathbb 1[\hat p>0{,}5]$.
+- **Binární klasifikace:** **sigmoida** $\sigma(z)=\frac1{1+e^{-z}}$, $\hat{\mathrm P}(Y=1\mid x)=\sigma(w^Th+w_0)$, $\hat Y=\mathbb 1[\hat p>0{,}5]$. **Jeden neuron se sigmoidou = [[Logistická-regrese|logistická regrese]]**: počítá tutéž $\sigma(w^Th+w_0)$ nad příznaky $h$ (u perceptronu naučenými skrytými vrstvami, u logistické regrese ručně danými) a trénuje se minimalizací téže binární cross-entropy = MLE; rozhodovací hranice $w^Th+w_0=0$ je nadrovina. Perceptron se skokovou aktivací je „tvrdá“ varianta téhož.
 - **Klasifikace do $c$ tříd:** **softmax** $\operatorname{softmax}_i(z)=\dfrac{e^{z_i}}{\sum_j e^{z_j}}$, $\hat{\mathrm P}(Y=i\mid x)=\operatorname{softmax}_i$, $\hat Y=\arg\max_i$ (diferencovatelná aproximace argmax / one-hot).
 
 ---
@@ -89,6 +89,14 @@ Síť je složení vrstev → gradient podle parametru $w_j$ se počítá postup
 - **Zpětný chod (backward pass):** propaguje derivace zpět vrstvami — odtud **zpětné šíření chyby**. Násobí derivaci ztráty podle vstupu s derivací sítě podle parametrů.
 
 Výpočet se efektivně reprezentuje **výpočetním grafem** (vrcholy = proměnné, hrany = elementární operace), který umožňuje automatické derivování.
+
+**Gradient jedné konkrétní váhy (řetízkové pravidlo).** Mějme regresní síť: dva neurony 1. vrstvy s aktivací $g$ a váhami $w_i^{(1)},w_{0,i}^{(1)}$, jejichž výstupy jdou do výstupního neuronu bez aktivace s váhami $w_1^{(2)},w_2^{(2)},w_0^{(2)}$:
+$$f(x;w)=w_1^{(2)}\,g\!\big(x^Tw_1^{(1)}+w_{0,1}^{(1)}\big)+w_2^{(2)}\,g\!\big(x^Tw_2^{(1)}+w_{0,2}^{(1)}\big)+w_0^{(2)}.$$
+Při kvadratické ztrátě $J(w)=\frac1N\sum_i(Y_i-f(x_i;w))^2$. Gradient podle **váhy 2. vrstvy** $w_1^{(2)}$ (poslední článek řetězu — derivace výstupu podle ní je výstup 1. neuronu):
+$$\frac{\partial J}{\partial w_1^{(2)}}=\frac1N\sum_i 2\big(Y_i-f(x_i;w)\big)\cdot(-1)\cdot g\!\big(x_i^Tw_1^{(1)}+w_{0,1}^{(1)}\big).$$
+Gradient podle **váhy 1. vrstvy** $w_{1,1}^{(1)}$ (řetízek prochází navíc přes $w_1^{(2)}$ a derivaci aktivace $g'$):
+$$\frac{\partial J}{\partial w_{1,1}^{(1)}}=\frac1N\sum_i 2\big(Y_i-f(x_i;w)\big)\cdot(-1)\cdot w_1^{(2)}\cdot g'\!\big(x_i^Tw_1^{(1)}+w_{0,1}^{(1)}\big)\cdot x_{i;1}.$$
+Čím hlubší váha, tím delší součin parciálních derivací (a tím i původ **mizejícího/explodujícího gradientu**).
 
 ---
 
@@ -136,3 +144,9 @@ Výpočet se efektivně reprezentuje **výpočetním grafem** (vrcholy = proměn
 - **Backpropagation:** forward pass → $J$; backward pass = řetězové pravidlo od výstupu ke vstupu (výpočetní graf).
 - **Optimalizace:** SGD (+ momentum), AdaGrad, RMSProp, **Adam**; dávkové učení (batch, epocha, shuffle), learning rate.
 - **Regularizace:** L1/L2, early stopping, dropout, batch normalization.
+
+### Typické doplňující otázky (doptávání)
+- **Kordík (léto 2021):** „Spočtěte gradient jedné konkrétní váhy" — explicitní vzorec $\partial J/\partial w$ řetízkovým pravidlem (váha 2. vs. 1. vrstvy, role $g'$) → §5.
+- **Kordík (LS 2016):** „Minimální topologie pro XOR" — XOR není lineárně separabilní ⇒ nutná aspoň 1 skrytá vrstva, topologie 2–2–1 → §1, §2.
+- **Smítková (léto 2023):** „Jak souvisí perceptron se sigmoidou s logistickou regresí?" — jeden sigmoidní neuron = logistická regrese (táž $\sigma(w^Th+w_0)$, táž binární cross-entropy = MLE) → §3.2.
+- **Jiřina (LS 2016):** NN v kombinaci s kombinováním modelů a shlukovou analýzou (přesah do dalších otázek) → §6 (dropout ≈ bagging).

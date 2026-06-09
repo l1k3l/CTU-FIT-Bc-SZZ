@@ -16,7 +16,7 @@ $$f(x)=w^T\varphi(x)+w_0,\qquad \hat Y(x)=\operatorname{sgn}f(x).$$
 
 Pro lineárně separabilní data vyber nadrovinu s **největším odstupem** (margin = vzdálenost k nejbližšímu bodu).
 $$\max_{w,w_0}\min_i \frac{Y_i(w^T\varphi(x_i)+w_0)}{\lVert w\rVert}.$$
-Normalizace škály: pro nejbližší bod $Y_j f(x_j)=1$ → $\forall i:\ Y_i f(x_i)\ge1$, odstup $=\frac1{\lVert w\rVert}$.
+Normalizace škály: pro nejbližší bod $Y_j f(x_j)=1$ → $\forall i:\ Y_i f(x_i)\ge1$, odstup $=\frac1{\lVert w\rVert}$, **šířka pásu** $=\frac{2}{\lVert w\rVert}$ (krajní nadroviny $f=\pm1$).
 
 **Úloha (QP):** $\displaystyle\min_{w,w_0}\tfrac12\lVert w\rVert^2$ za $Y_i(w^T\varphi(x_i)+w_0)\ge1\ \forall i$. Konvexní → globální optimum.
 
@@ -36,7 +36,7 @@ $$\max_a\ \sum_i a_i-\tfrac12\sum_{i,j}a_ia_jY_iY_j\,k(x_i,x_j),\quad 0\le a_i\l
 $w=\sum_j a_jY_j\varphi(x_j)$ → **jádrový model**
 $$f(x)=\sum_{j}a_jY_j\,k(x,x_j)+w_0,\qquad \hat Y=\operatorname{sgn}f(x).$$
 
-**Vlastnosti:** řešení **řídké** ($a_j=0$ pro správně klasifikované mimo pás); podpůrné vektory = $a_j>0$ ($0<a_j<C$ na hraně pásu, $a_j=C$ uvnitř/chyba). Větší $C$ → řidší.
+**Vlastnosti:** řešení **řídké** ($a_j=0$ pro správně klasifikované mimo pás); podpůrné vektory = $a_j>0$ ($0<a_j<C$ na hraně pásu, $a_j=C$ uvnitř/chyba). Větší $C$ → řidší. Řídkost plyne z **KKT komplementarity** $a_i(Y_if(x_i)-1+\xi_i)=0$. Soft margin = hinge ztráta: $\xi_i=\max\{0,1-Y_if(x_i)\}$.
 
 ---
 

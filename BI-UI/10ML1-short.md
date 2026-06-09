@@ -10,9 +10,11 @@ Vysvětlovaná proměnná $Y$, příznaky $X_1,\dots,X_p$, vektor vah $w$. [[Lin
 $$Y = w_0 + w_1 x_1 + \dots + w_p x_p + \varepsilon, \qquad \mathrm{E}\,\varepsilon = 0,$$
 $w_0$ = **intercept**. S umělým příznakem $X_0 = 1$, $x = (1,x_1,\dots,x_p)^T$, $w = (w_0,\dots,w_p)^T$:
 $$Y = w^T x + \varepsilon.$$
-Trénovací data ($N$ párů $(Y_i,x_i)$), matice příznaků $\mathbf{X} \in \mathbb{R}^{N,p+1}$ (řádky $x_i^T$, 1. sloupec jedničky):
+Trénovací data = **náhodný výběr** z modelu ($N$ párů $(Y_i,x_i)$), matice příznaků $\mathbf{X} \in \mathbb{R}^{N,p+1}$ (řádky $x_i^T$, 1. sloupec jedničky):
 $$\mathbf{Y} = \mathbf{X}w + \varepsilon, \qquad \mathrm{E}\,\varepsilon = 0.$$
 **Predikce:** $\hat Y = x^T\hat w$. Z $\mathrm{E}\,\varepsilon = 0$ je $\mathrm{E}\,Y = w^Tx$, takže $\hat Y$ = bodový odhad $\mathrm{E}\,Y$.
+
+**Pravděpodobnostní interpretace (doptávají Petr i Dedecius!):** $\varepsilon$ = náhodná veličina; $\mathrm{E}\,\varepsilon=0$ ⇒ žádný systematický posun (bias). $\varepsilon_i$ i.i.d., **nejčastěji normální** $\varepsilon \sim N(0,\sigma^2)$ ⇒ $Y\mid x \sim N(w^Tx,\sigma^2)$ a OLS = MLE *(nad rámec slidů)*. **Intercept** $w_0$ = výchozí hodnota $Y$ při nulových příznacích; geometricky posouvá nadrovinu mimo počátek.
 
 ## 2. Metoda nejmenších čtverců
 
@@ -22,7 +24,7 @@ Trénování = optimalizace = hledání minima funkce více proměnných (nutná
 
 **Gradient a normální rovnice:**
 $$\nabla\,\mathrm{RSS} = -2\,\mathbf{X}^T(\mathbf{Y} - \mathbf{X}w) = 0 \;\Longleftrightarrow\; \boxed{\mathbf{X}^T\mathbf{X}\,w = \mathbf{X}^T\mathbf{Y}}.$$
-*(Idea: parc. derivace RSS podle $w_j$, složky do vektoru.)*
+*(Idea: parc. derivace RSS podle $w_j$, složky do vektoru.)* Rozměry: $\mathbf{X}^T\mathbf{X}\in\mathbb{R}^{p+1,p+1}$ čtvercová, $\mathbf{X}^T\mathbf{Y}\in\mathbb{R}^{p+1}$ (transpozice $\mathbf{X}^T$ kvůli navázání rozměrů).
 
 **[[Hessova-matice|Hessova matice]]** $\mathbf{H}_{\mathrm{RSS}} = 2\mathbf{X}^T\mathbf{X}$ (nezávisí na $w$). $s^T\mathbf{X}^T\mathbf{X}s = \|\mathbf{X}s\|^2 \ge 0$ ⇒ PSD ⇒ RSS [[Konvexní-funkce|konvexní]] ⇒ každé řešení normální rovnice je **globální minimum**.
 

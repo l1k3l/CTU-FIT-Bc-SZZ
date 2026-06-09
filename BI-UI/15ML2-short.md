@@ -16,7 +16,7 @@ tags: [otázka, kurz/ML2, otázka/15, todo]
 
 **Model:** $Y=w^T\varphi(x)+\varepsilon$ — **lineární v $w$**, nelineární v $x$.
 
-**Odhad** (design matrix $\boldsymbol\Phi_{ij}=\varphi_j(x_i)$): min $\lVert\boldsymbol Y-\boldsymbol\Phi w\rVert^2+\lambda w^Tw$ →
+**Matice návrhu (design matrix)** $\boldsymbol\Phi\in\mathbb R^{N,M}$, $\boldsymbol\Phi_{ij}=\varphi_j(x_i)$ — řádky = transf. body $\varphi(x_i)^T$, sloupce = bázové funkce. **Odhad:** min $\lVert\boldsymbol Y-\boldsymbol\Phi w\rVert^2+\lambda w^Tw$ →
 $$\hat w_\lambda=(\boldsymbol\Phi^T\boldsymbol\Phi+\lambda I)^{-1}\boldsymbol\Phi^T\boldsymbol Y,\qquad \hat Y=\hat w_\lambda^T\varphi(x).$$
 
 Volby: $x_i$ (lineární), $x_i^2,x_kx_\ell$ (polynom.), $\log x_i,\sqrt{x_i}$, indikátory, RBF $h(\lVert x-x_i\rVert)$. Nevýhoda: $M$ velké → inverze $M\times M$ je $O(M^3)$.

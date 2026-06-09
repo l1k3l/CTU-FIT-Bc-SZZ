@@ -26,7 +26,7 @@ Značení: $\mathbf{X} \in \mathbb{R}^{N,p+1}$ matice příznaků (řádky = poz
 
 Připomeňme model **[[Lineární-regrese|lineární regrese]]**: hodnota cílové veličiny v bodě $x$ je
 $$Y = w_0 + w_1 x_1 + \dots + w_p x_p + \varepsilon = x^T w + \varepsilon, \qquad \operatorname{E}\varepsilon = 0.$$
-Obyčejná **[[Metoda-nejmenších-čtverců|metoda nejmenších čtverců]]** (OLS) hledá $\hat{w}^{\mathrm{OLS}} = (\mathbf{X}^T\mathbf{X})^{-1}\mathbf{X}^TY$. Jsou-li sloupce $\mathbf{X}$ téměř lineárně závislé (kolinearita), je $\mathbf{X}^T\mathbf{X}$ špatně podmíněná až **singulární** — odhad je nestabilní, koeficienty nabývají velkých hodnot a model přeučuje (overfitting). Hřebenová regrese tento problém řeší tím, že velké koeficienty penalizuje.
+Obyčejná **[[Metoda-nejmenších-čtverců|metoda nejmenších čtverců]]** (OLS) hledá $\hat{w}^{\mathrm{OLS}} = (\mathbf{X}^T\mathbf{X})^{-1}\mathbf{X}^TY$. Jsou-li sloupce $\mathbf{X}$ téměř lineárně závislé (**kolinearita** — viz otázka 10, lineární regrese), je $\mathbf{X}^T\mathbf{X}$ špatně podmíněná až **singulární** — odhad je nestabilní, koeficienty nabývají velkých hodnot a model přeučuje (overfitting). Právě kolinearita je hlavní **motivace** hřebenové regrese: problém řeší tím, že velké koeficienty penalizuje (přičtením $\lambda$ na diagonálu se $\mathbf{X}^T\mathbf{X}+\lambda\mathbf{I}'$ stane regulární).
 
 ### 1.2 Regularizovaný reziduální součet čtverců
 
@@ -34,6 +34,7 @@ Minimalizujeme **regularizovaný reziduální součet čtverců**
 $$\operatorname{RSS}_\lambda(w) = \|Y - \mathbf{X}w\|^2 + \lambda \sum_{i=1}^p w_i^2,$$
 který závisí na parametru $\lambda \ge 0$. Pozorování:
 
+- **Znaménko a tvar penalizace.** Penalizační člen $+\lambda\sum_{i=1}^p w_i^2$ se k datovému členu $\|Y-\mathbf{X}w\|^2$ **přičítá** (znaménko $+$). Je to nutné: minimalizujeme-li $\operatorname{RSS}_\lambda$, kladný člen $+\lambda\|w\|^2$ minimum **trestá** za velké koeficienty, takže je tlačí k nule (smršťování). Záporné znaménko ($-\lambda\|w\|^2$) by naopak velké koeficienty odměňovalo a úloha by ztratila smysl (neměla by minimum). Penalizace je úměrná **kvadrátu** $L_2$-normy $w$ (suma druhých mocnin, nikoli např. absolutních hodnot — to by bylo Lasso).
 - **Pro $\lambda = 0$** dostáváme $\operatorname{RSS}_0(w) = \operatorname{RSS}(w)$ — tj. obyčejnou metodu nejmenších čtverců.
 - **Pro $\lambda > 0$** se v minimu míří na takové vektory $w$, které mají co nejmenší složky → koeficienty se **smršťují** (shrinkage) k nule. Čím větší $\lambda$, tím silnější smršťování.
 - **Intercept $w_0$ se NEpenalizuje** (suma běží od $i=1$, ne od $0$). Jedná se totiž pouze o vertikální posun zajišťující předpoklad $\operatorname{E}\varepsilon = 0$ modelu, a je tedy vhodné ho neomezovat.
@@ -217,3 +218,9 @@ Důsledkem je nestrannost predikce: $\operatorname{E}\hat{Y} = x^T\operatorname{
 - **Výpočet hřebenového odhadu:** sestav $\mathbf{X}^T\mathbf{X} + \lambda\mathbf{I}'$ a $\mathbf{X}^TY$ → vyřeš (vždy regulární pro $\lambda > 0$) → $\hat{w}_\lambda$.
 - **Volba $\lambda$:** minimalizace odhadu MSE na validační množině, $\operatorname{MSE} = \frac1n\sum_{i=1}^n (Y'_i - {x'_i}^T\hat{w}_\lambda)^2$, případně přes [[Křížová-validace|cross-validaci]]; před regularizací standardizovat příznaky.
 - **Modely bázových funkcí:** nahraď $\mathbf{X} \to \mathbf{\Phi}$ (transformované příznaky $\varphi$), pak $\hat{w}_\lambda = (\mathbf{\Phi}^T\mathbf{\Phi} + \lambda\mathbf{I}')^{-1}\mathbf{\Phi}^TY$.
+
+### Typické doplňující otázky (doptávání)
+- **Vašata (léto 2024, BI-VZD/BI-ML1):** „Jaké znaménko a tvar má regularizační člen?" — penalizace se **přičítá** ($+\lambda\sum_{i=1}^p w_i^2$), je úměrná **kvadrátu** $L_2$-normy a **vynechává intercept** (suma od $i=1$). Záporné znaménko by nedávalo smysl (úloha bez minima). → §1.2
+- **Klouda (v otázce o geom. interpretaci lin. regrese):** motivace ridge = **kolinearita** příznaků (sloupce $\mathbf{X}$ téměř lin. závislé → $\mathbf{X}^T\mathbf{X}$ singulární); přidání $\lambda\mathbf{I}'$ matici „zregularizuje". → §1.1, cross-link na otázku 10
+- **Časté doptání na rozklad chyby:** umět vyjmenovat **tři** složky očekávané chyby — neredukovatelná (Bayesovská) $\sigma^2$, kvadrát vychýlení $(\operatorname{bias}\hat{Y})^2$, rozptyl $\operatorname{var}\hat{Y}$ — a vědět, který člen jde ovlivnit modelem (MSE) a který ne ($\sigma^2$). → §2.3–2.5
+- **Bias–variance vs. $\lambda$:** s rostoucím $\lambda$ **vychýlení roste, rozptyl klesá**; OLS ($\lambda=0$) je nestranný ($\operatorname{bias}=0$, viz §3.2), ale má vysoký rozptyl. → §2.5

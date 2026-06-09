@@ -11,7 +11,7 @@ tags: [otázka, kurz/ML1, otázka/9, todo]
 2. $d(x,y)=d(y,x)$ — **symetrie**,
 3. $d(x,y)\le d(x,z)+d(z,y)$ — **trojúhelníková nerovnost**.
 
-$(\mathcal{X},d)$ = **metrický prostor**. (Pozor: jiný pojem než grafová vzdálenost z AG1.)
+$(\mathcal{X},d)$ = **metrický prostor**. (Pozor: druhý axiom je **symetrie**, NE asociativita; vzdálenost nikdy záporná. Jiný pojem než grafová vzdálenost z AG1.)
 
 **Příklady** (body $\boldsymbol{x},\boldsymbol{y}\in\mathbb{R}^p$):
 
@@ -25,6 +25,8 @@ $(\mathcal{X},d)$ = **metrický prostor**. (Pozor: jiný pojem než grafová vzd
 | kosinová | $\dfrac{\boldsymbol{x}\cdot\boldsymbol{y}}{\|\boldsymbol{x}\|_2\|\boldsymbol{y}\|_2}$ | — |
 
 Nominální příznak: vzdálenost $0$ (shoda) / $1$ (různé). Vzdálenost lze definovat libovolně (jen jednoznačné číslo dvěma bodům).
+
+**Jednotková koule** ($\{d(\boldsymbol0,\boldsymbol x)=1\}$ v $\mathbb{R}^2$): $L_2$ = **kružnice/kruh**; $L_1$ = **kosočtverec** („na špičku", NE čtverec!); $L_\infty$ = **čtverec** (osově orientovaný).
 
 ## 2. Metoda nejbližších sousedů (kNN)
 
@@ -50,6 +52,8 @@ Supervizované učení: pro nový bod $\boldsymbol{x}$ najdi $k$ nejbližších 
 [[Shluková-analýza|Shlukování]] = [[Nesupervizované-učení|nesupervizované učení]]: roztřiď data do shluků (blízké body spolu, vzdálené zvlášť). Rozklad $C=(C_1,\dots,C_k)$, disjunktní, $\bigcup C_i=\mathcal{D}$.
 
 **Algoritmus (zdola-nahoru), idea:** začni s $N$ jednoprvkovými shluky; opakovaně najdi dva **nejbližší** shluky a **spoj** je; po $N-1$ krocích jeden shluk. Vstup: vzdálenost bodů + kritérium spojování (linkage). Výstup: **dendrogram**. **Složitost** $\mathcal{O}(N^3)$, pro single/complete $\mathcal{O}(N^2)$ — nevhodné pro velká data.
+
+**Náročnost a zrychlení:** drahé = opakované **hledání nejbližší dvojice / výpočet vzdáleností** → **předpočítat matici vzdáleností** ($N\times N$). Náročnější než **k-means** ($\mathcal{O}(Nkp)$/iteraci).
 
 **Kritéria spojování (linkage)** — vzdálenost shluků $D(A,B)$ z bodové $d$:
 

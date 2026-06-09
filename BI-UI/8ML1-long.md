@@ -269,3 +269,14 @@ ADABOOST(D, n_estimators, learning_rate):
 - **Spojité příznaky:** setřiď hodnoty, zkoušej prahy $X \le (x_{i-1}+x_i)/2$, vyber dle informačního zisku.
 - **Náhodný les:** $n$× bootstrap + strom na náhodné podmnožině příznaků; agregace majority vote / průměr; hyperparametr `n_estimators`, `max_features` $=\sqrt{p}$.
 - **AdaBoost:** rovnoměrné váhy → opakuj (nauč strom s vahami, spočti $e^{(m)}$, $\alpha^{(m)}$, zvyš váhy chybných bodů, normalizuj) → finální vážené hlasování.
+
+### Typické doplňující otázky (doptávání)
+- **Dedecius (komise, 2022):** „Upřesněte algoritmus ID3 (hladovou konstrukci)." → §1.3
+- **Dedecius (komise, 2022):** „Jak ladíte hyperparametr (např. hloubku stromu)?" → odpověď: na trénovací množině naučit, vybrat dle **validační** množiny (ne testovací!) → §1.7
+- **Dedecius (komise, 2022):** „Ve vzorci entropie — co je $p$?" → $p_i$ je **odhad pravděpodobnosti / relativní četnost (podíl)** $i$-té třídy v $\mathcal{D}$ z dat (ne skutečná pravděpodobnost) → §1.4
+- **Dedecius (komise, 2022):** „Entropie a její vlastnosti." → nezáporná, $0$ pro čistou množinu, maximum pro $p_0=p_1=\tfrac12$, rostoucí na $[0,\tfrac12]$ / klesající na $[\tfrac12,1]$ → §1.4
+- **Vašata (2023):** „Jak se dělá boosting?" (student nevěděl — AdaBoost je SOUČÁST otázky a examiner ho chce) → §3
+- **Jiřina (2020):** „Kolik příznaků se vybírá na jeden strom v náhodném lese?" → `max_features` $=\sqrt{p}$ (náhodný podvýběr) → §2.4
+- **Jiřina (2020):** „Co je v listech u regrese vs. klasifikace?" → klasifikace = majoritní třída (hlasování), regrese = **průměr** $Y$ → §1.2, §1.6
+- **Jiřina (2020):** „Jak funguje hlasování — lze vrátit i podíl prvků/stromů hlasujících pro danou hodnotu?" → ano: kromě tvrdého ANO/NE lze vrátit **podíl hlasů** resp. ve `sklearn` zprůměrované pravděpodobnosti tříd $\hat p=\tfrac1n\sum_i\hat p_i$ → §2.3
+- **Kordík / Starosta / Klouda (2019–2020):** konstrukce + hyperparametry, zacházení s nominálními (one-hot) / ordinálními (očíslovat) / spojitými (prahy) příznaky → §1.3, §1.5

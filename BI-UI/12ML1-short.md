@@ -6,11 +6,11 @@ tags: [otázka, kurz/ML1, otázka/12, todo]
 
 ## 1. Sestavení modelu pro binární klasifikaci
 
-[[Logistická-regrese]] je metoda pro **klasifikaci** (ne regresi). Binární: $Y \in \{0,1\}$. Místo třídy predikujeme **pravděpodobnost** $\mathrm{P}(Y=1\mid x,w) \in [0,1]$.
+[[Logistická-regrese]] je metoda pro **klasifikaci** (ne regresi). Binární: $Y \in \{0,1\}$. Místo třídy predikujeme **pravděpodobnost** $\hat p = \mathrm{P}(Y=1\mid x,w) \in [0,1]$ (to je „$\hat p$"/„$P$" v modelu = odhad pravděpodobnosti třídy 1).
 
 Rozhodnutí stavíme na **lineární kombinaci** $w^T x = w_0 + w_1 x_1 + \dots + w_p x_p$ (intercept $x_0=1$), protlačené **sigmoidou** (analogie [[Lineární-regrese|lineární regrese]]).
 
-**Sigmoida:** $\sigma(z) = \dfrac{e^z}{1+e^z} = \dfrac{1}{1+e^{-z}}$ — obor hodnot $(0,1)$, ostře rostoucí (prostá), $\sigma(0)=\tfrac12$, $\sigma^{-1}(x)=\ln\frac{x}{1-x}$, $1-\sigma(z)=\frac{1}{1+e^z}$.
+**Sigmoida:** $\sigma(z) = \dfrac{e^z}{1+e^z} = \dfrac{1}{1+e^{-z}}$ — obor hodnot **otevřený** $(0,1)$ (pozor: pravděpodobnost obecně na uzavřeném $[0,1]$, model ale nikdy nedá přesně 0 ani 1), ostře rostoucí (prostá), $\sigma(0)=\tfrac12$, $\sigma^{-1}(x)=\ln\frac{x}{1-x}$, $1-\sigma(z)=\frac{1}{1+e^z}$, $\sigma'=\sigma(1-\sigma)$.
 
 **Model:**
 $$\mathrm{P}(Y=1\mid x,w) = \sigma(w^T x) = \frac{e^{w^T x}}{1+e^{w^T x}}, \qquad \mathrm{P}(Y=0\mid x,w) = \frac{1}{1+e^{w^T x}}.$$
@@ -37,7 +37,7 @@ $$\ell(w) = \ln L(w) = \sum_{i=1}^N \big(Y_i \ln p_1 + (1-Y_i)\ln p_0\big) = \su
 
 **Křížová entropie:** binární cross-entropy $= -\ell(w)$ → **max. věrohodnosti $\iff$ min. cross-entropy**.
 
-**Gradient:**
+**Gradient** (odvození: $\frac{d}{dz}\ln(1+e^z)=\sigma(z)$, neboť $\sigma'=\sigma(1-\sigma)$):
 $$\frac{\partial\ell}{\partial w_j} = \sum_{i=1}^N x_{i;j}(Y_i - p_1(x_i,w)), \qquad \nabla\ell(w) = \mathbf{X}^T(\boldsymbol{Y} - \boldsymbol{P}),$$
 kde $\boldsymbol{P} = (p_1(x_1,w),\dots,p_1(x_N,w))^T$.
 
@@ -57,3 +57,4 @@ kde $\boldsymbol{P} = (p_1(x_1,w),\dots,p_1(x_N,w))^T$.
 - **Trénink = MLE:** maximalizuj věrohodnost $L(w)=\prod_i \hat p_i^{Y_i}(1-\hat p_i)^{1-Y_i}$ = data nejpravděpodobnější.
 - **Log-věrohodnost** $\ell(w)=\sum_i(Y_i w^Tx_i - \ln(1+e^{w^Tx_i}))$; $-\ell$ = binární cross-entropy.
 - **Gradient** $\nabla\ell(w)=\mathbf{X}^T(\boldsymbol{Y}-\boldsymbol{P})$; konvexní, bez uzavřeného řešení → gradientní vzestup / Newton (IRLS).
+- **Perceptron ↔ LR:** LR = jeden neuron se sigmoidou (trénovaný min. cross-entropy); NN bez skryté vrstvy s 1 sigmoidovým výstupem = LR ([[19ML2-long|Q19]]).

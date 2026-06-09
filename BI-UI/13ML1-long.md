@@ -42,7 +42,9 @@ $$\hat p = \hat{\mathrm P}(Y=1 \mid \boldsymbol X = \boldsymbol x).$$
 $$\hat Y = \begin{cases} 1 & \text{když } \hat p > 1/2, \\ 0 & \text{jinak.}\end{cases}$$
 Typickou ztrátovou funkcí je **binární křížová entropie** (angl. *binary cross-entropy loss*)
 $$L(Y,\hat p) = -Y\log\hat p - (1-Y)\log(1-\hat p),$$
-což reálně znamená $L(1,\hat p) = -\log\hat p$ a $L(0,\hat p) = -\log(1-\hat p)$.
+což reálně znamená $L(1,\hat p) = -\log\hat p$ a $L(0,\hat p) = -\log(1-\hat p)$. Binární cross-entropy lze použít jen pro modely, které **odhadují pravděpodobnost** $\hat p \in (0,1)$ (typicky **[[Logistická-regrese|logistická regrese]]**, neuronové sítě, rozhodovací stromy s pravděpodobnostmi v listech), nikoli pro modely vracející jen tvrdou třídu $\hat Y\in\{0,1\}$ bez skóre.
+
+> *Rozdíl metrika vs. ztrátová funkce (loss).* **Ztrátová funkce** se používá při **trénování** — minimalizuje se (typicky gradientním sestupem) přes parametry modelu, takže musí být (po částech) diferencovatelná a hladká. **Metrika** je míra výkonnosti, kterou až **po natrénování** vyhodnocujeme (typicky na testovacích datech) a kterou nemusíme umět optimalizovat (např. accuracy, AUC). Tytéž ztrátové funkce ale můžeme použít i jako metriku k měření **testovací chyby**, pokud pro nás dávají smysl (MSE/MAE jsou současně loss i regresní metrika; cross-entropy lze měřit i na test setu). Pojmem „**testovací chyba**" rozumíme hodnotu zvolené **metriky vyčíslenou nad TEST setem** (ne nad trénovacím).
 
 ### 1.3 Trénovací chyba a proč podhodnocuje
 
@@ -58,6 +60,8 @@ $$\mathcal L = -\frac{1}{N}\sum_{i=1}^N \Big[ Y_i\log\hat p(\boldsymbol x_i) + (
 > **Poznámka (vztah ke maximální věrohodnosti).** Až na mínus před sumou se jedná přesně o **logaritmus věrohodnostní funkce**, který se maximalizuje u **[[Logistická-regrese|logistické regrese]]**. S mínusem a minimalizací jde tedy o **totožnou úlohu** (minimalizace cross-entropy = maximalizace **[[Maximální-věrohodnost|věrohodnosti]]**).
 
 Při procesu **učení modelu** se zafixovanými hyperparametry hledáme hodnoty parametrů, které minimalizují trénovací chybu. U některých modelů (např. lineární regrese) lze toto řešení najít *explicitně*; pro většinu modelů ale ne a používají se iterativní metody (typicky založené na gradientním sestupu) hledající lokální minimum. **Trénovací chyba je optimisticky vychýlený (podhodnocený) odhad chyby na nových datech**: model je laděn právě na trénovacích datech, takže se k nim přizpůsobí — v krajním případě je *přeučí* (overfitting) a na trénovacích datech vykáže nízkou chybu, která ale neodráží skutečnou schopnost generalizace.
+
+**Detekce přeučení (overfitting).** Přeučení poznáme z **rozdílu mezi trénovací a testovací chybou**: trénovací chyba je **malá** (model si data „zapamatoval"), zatímco testovací chyba je **velká** (na nových datech selhává). Naopak malá trénovací i testovací chyba značí dobrou generalizaci. **Otestovat model „jako v produkci"** = vyčíslit zvolené metriky na **odděleném test setu**, který model při tréninku ani výběru nikdy neviděl — to simuluje příchod nových, dosud neviděných dat.
 
 ### 1.4 Testovací chyba a její odhad
 
@@ -92,7 +96,7 @@ Protože výběr modelu spadá do procesu trénování (vybíráme model, který
 
 **Časté chyby.** Validační část je správně použita k ladění hyperparametrů *v rámci jedné třídy* modelů. Pokud se ale modely s nejlepšími hyperparametry z různých tříd (např. KNN a rozhodovací strom) porovnávají *na základě testovacích dat*, je finální ohodnocení příliš optimistické (výběr nejlepšího modelu je součást trénování). **Testovací množinu musíme vždy oddělit co nejdříve** (ještě před předzpracováním) a držet ji striktně bokem pouze pro finální evaluaci.
 
-**Rizika.** Evaluace dává rozumné výsledky jen pokud trénovací, validační i testovací data **pocházejí ze stejného rozdělení** a nejsou tam procesně vnesené odlišnosti. U *nestacionárních* jevů (např. ceny na burze) data v čase vyvíjejí — pak je dobré, aby testovací (a případně validační) data správně **reflektovala chronologické řazení** (data před rozdělením nemíchat). U vícekrokového modelování (doplňování chybějících hodnot, výběr příznaků) musíme validační a testovací data oddělit *již na začátku* a všechny kroky „naučené“ na trénovacích datech na ně až poté aplikovat.
+**Rizika.** Evaluace dává rozumné výsledky jen pokud trénovací, validační i testovací data **pocházejí ze stejného rozdělení** a nejsou tam procesně vnesené odlišnosti. Tři části proto musí být **navzájem disjunktní** (žádný bod ve dvou částech) a vybrané **náhodně** (data před rozdělením náhodně permutovat, aby se nepřenesla umělá uspořádanost). **Výjimka — chronologická data:** u *nestacionárních* jevů (např. ceny na burze), kde se sledovaný systém v čase vyvíjí, data před rozdělením **nepermutujeme** a testovací (případně validační) data správně **reflektují chronologické řazení** (test = nejnovější data), aby odhad chyby reálně ukázal posun v čase. U vícekrokového modelování (doplňování chybějících hodnot, výběr příznaků) musíme validační a testovací data oddělit *již na začátku* a všechny kroky „naučené“ na trénovacích datech na ně až poté aplikovat.
 
 ---
 
@@ -237,6 +241,8 @@ Pro rostoucí $\tau$ jsou TPR$_\tau$ i FPR$_\tau$ **neklesající** funkce $\tau
 - dokonalý model → AUC = 1,
 - většina modelů má AUC mezi 0.5 a 1.
 
+> *Doplnění nad rámec slidů (význam AUC = 1):* AUC = 1 znamená, že ROC křivka prochází levým horním rohem (TPR = 1 a FPR = 0 současně). Ekvivalentně: **existuje práh** $\tau$, pro který model **přesně klasifikuje všechny body** datasetu (žádné FP ani FN) — tj. odhadnutá pravděpodobnost $\hat p$ **dokonale odděluje** třídy 0 a 1 (všechny body třídy 1 mají vyšší $\hat p$ než kterýkoli bod třídy 0).
+
 ---
 
 ## Co je potřeba na zkoušku znát
@@ -262,3 +268,14 @@ Pro rostoucí $\tau$ jsou TPR$_\tau$ i FPR$_\tau$ **neklesající** funkce $\tau
 - **Hold-out:** odděl testovací data co nejdříve; trénovací → modely, validační → výběr hyperparametrů/modelu, testovací → finální ohodnocení.
 - **$k$-fold CV:** rozděl na $k$ částí, $k$krát trénuj na $k-1$ a měř na vynechané; $\hat e = \frac1k\sum e_i$; vyber hyperparametry s min. $\hat e$ a přetrénuj na celém $\mathcal D$ ($k = 5$–$10$; LOO pro $k=N$).
 - **ROC/AUC:** měň práh $\tau$, vykresli TPR$_\tau$ vs. FPR$_\tau$, vyhodnoť plochou pod křivkou.
+
+### Typické doplňující otázky (doptávání)
+- **Friedjungová (2025):** „Jaký je rozdíl mezi metrikou a ztrátovou funkcí (loss)?" (loss → trénink / gradientní sestup; metrika → vyhodnocení po tréninku) → §1.2
+- **Friedjungová (2025):** „Lze tutéž loss použít i pro měření testovací chyby?" (ano, pokud pro nás dává smysl — MSE/MAE i cross-entropy) → §1.2
+- **Friedjungová (2025):** „Co přesně znamená ‚testovací chyba'?" (hodnota metriky vyčíslená nad TEST setem) → §1.2, §1.4
+- **Friedjungová (2025):** „Jaké podmínky musí splňovat train/test/val rozdělení?" (disjunktní, náhodně vybrané; výjimka chronologická data) → §1.5
+- **Friedjungová (2025):** „Jak otestovat model tak, jak se chová v produkci?" (vyhodnotit metriky na odděleném test setu) → §1.3, §1.5
+- **Friedjungová (2025):** „Jak poznáte přeučení (overfitting)?" (trénovací chyba malá, testovací velká) → §1.3
+- **Friedjungová (2025):** „Načrtněte / vysvětlete křížovou validaci." (ilustrace $k$-fold) → §2.2
+- **Klouda (2023):** „Pro které modely lze použít binary cross-entropy?" (modely odhadující pravděpodobnost — např. logistická regrese) → §1.2
+- **Klouda (2023):** „Co znamená AUC = 1?" (existuje práh $\tau$, pro který model přesně klasifikuje všechny body datasetu) → §4.5

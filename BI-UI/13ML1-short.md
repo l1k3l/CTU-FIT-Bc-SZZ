@@ -8,9 +8,11 @@ tags: [otázka, kurz/ML1, otázka/13, todo]
 
 $Y$ vysvětlovaná, $\boldsymbol X$ příznaky, $\hat Y(\boldsymbol X)$ predikce, $\hat p = \hat{\mathrm P}(Y=1\mid\boldsymbol X)$. **Ztrátová funkce** $L(Y,\hat Y)$:
 - regrese: kvadratická $L = (Y-\hat Y)^2$, absolutní $L_1 = |Y-\hat Y|$;
-- bin. klasifikace: cross-entropy $L(Y,\hat p) = -Y\log\hat p - (1-Y)\log(1-\hat p)$, predikce $\hat Y = \mathbb 1_{\hat p > 1/2}$.
+- bin. klasifikace: cross-entropy $L(Y,\hat p) = -Y\log\hat p - (1-Y)\log(1-\hat p)$, predikce $\hat Y = \mathbb 1_{\hat p > 1/2}$. Cross-entropy jen pro modely odhadující $\hat p\in(0,1)$ (logistická regrese, NN, stromy).
 
-**Trénovací chyba** $\overline{\mathrm{err}}_{\mathrm{train}} = \frac1N\sum_{i=1}^N L(Y_i,\hat Y(\boldsymbol x_i))$ — průměr ztráty na trénu. Je **optimisticky vychýlená** (model laděn na trénu → overfitting → podhodnocuje generalizační chybu).
+**Metrika vs. loss:** loss = pro **trénink** (minimalizace, grad. sestup, hladká); metrika = vyhodnocení **po tréninku** (nemusí jít optimalizovat: accuracy, AUC). Tutéž loss lze použít i jako metriku, pokud dává smysl. **„Testovací chyba" = hodnota metriky nad TEST setem.**
+
+**Trénovací chyba** $\overline{\mathrm{err}}_{\mathrm{train}} = \frac1N\sum_{i=1}^N L(Y_i,\hat Y(\boldsymbol x_i))$ — průměr ztráty na trénu. Je **optimisticky vychýlená** (model laděn na trénu → overfitting → podhodnocuje generalizační chybu). **Přeučení poznám:** trénovací chyba malá, testovací velká. Test „jako v produkci" = metriky na odděleném test setu.
 
 Bin. klasif. trénovací ztráta = $-\frac1N\sum [Y_i\log\hat p_i + (1-Y_i)\log(1-\hat p_i)]$ = mínus log-věrohodnost maximalizovaná [[Logistická-regrese|logistickou regresí]] → minimalizace cross-entropy ↔ maximalizace [[Maximální-věrohodnost|věrohodnosti]] (totožná úloha).
 
@@ -25,7 +27,7 @@ Dostatek dat → **trénovací / validační / testovací**:
 - **validační** — výběr hyperparametrů a nejlepšího modelu (= *výběr modelu*);
 - **testovací** — finální odhad testovací chyby (= *ohodnocení modelu*).
 
-Pravidlo: stejná data nesmí sloužit k výběru i ohodnocení modelu. Testovací množinu oddělit **co nejdříve** (před předzpracováním), držet striktně bokem. Data musí pocházet ze stejného rozdělení (u nestacionárních jevů respektovat chronologii).
+Pravidlo: stejná data nesmí sloužit k výběru i ohodnocení modelu. Tři části **disjunktní** a vybrané **náhodně** (před rozdělením permutovat); musí pocházet ze stejného rozdělení. Testovací množinu oddělit **co nejdříve** (před předzpracováním), držet striktně bokem. **Výjimka — chronologická data** (nestacionární jevy, burza): nepermutovat, test = nejnovější data.
 
 ## 3. Křížová validace
 
@@ -68,7 +70,7 @@ TP/TN správně, FP/FN špatně (FP = type I, FN = type II). Odvozené míry:
 | ACC (přesnost) | $\frac{\mathrm{TP}+\mathrm{TN}}{N}$ | nevhodná pro nevyvážené datasety |
 | $F_1$ | $2\,\frac{\mathrm{PPV}\cdot\mathrm{TPR}}{\mathrm{PPV}+\mathrm{TPR}}$ | harm. průměr precision a recall |
 
-**Práh $\tau$:** $\hat Y_\tau = \mathbb 1_{\hat p(\boldsymbol X) > \tau}$ ($\hat Y = \hat Y_{0.5}$). **ROC křivka** = graf TPR$_\tau$ vs. FPR$_\tau$; diagonála = náhodná predikce. **AUC** = plocha pod ROC: náhoda 0.5, dokonalý 1, typicky 0.5–1.
+**Práh $\tau$:** $\hat Y_\tau = \mathbb 1_{\hat p(\boldsymbol X) > \tau}$ ($\hat Y = \hat Y_{0.5}$). **ROC křivka** = graf TPR$_\tau$ vs. FPR$_\tau$; diagonála = náhodná predikce. **AUC** = plocha pod ROC: náhoda 0.5, dokonalý 1, typicky 0.5–1. **AUC = 1** ⇔ existuje práh $\tau$, který přesně klasifikuje všechny body ($\hat p$ dokonale odděluje třídy).
 
 ---
 
@@ -80,4 +82,6 @@ TP/TN správně, FP/FN špatně (FP = type I, FN = type II). Odvozené míry:
 - **k-fold CV:** $k$ částí, $k$× trénuj na $k-1$, měř na vynechané, průměruj $\hat e$; vyber min, přetrénuj na celém $\mathcal D$. LOO = $k=N$. ($k=5$–$10$.)
 - **Regrese:** MSE, RMSE (jednotky $Y$), MAE (méně citlivá), $R^2=1-\mathrm{RSS}/\mathrm{SST}$.
 - **Klasifikace:** matice záměn (TP/FP/FN/TN) → ACC, precision (PPV), recall (TPR), $F_1$; ROC (TPR vs. FPR) + AUC. ACC selhává na nevyvážených datech.
-- Cross-entropy = mínus log-věrohodnost logistické regrese.
+- Cross-entropy = mínus log-věrohodnost logistické regrese; použitelná jen pro modely odhadující $\hat p$.
+- **Metrika vs. loss:** loss → trénink (minimalizace), metrika → vyhodnocení po tréninku; tutéž loss lze měřit i na test setu. „Testovací chyba" = metrika nad TEST setem.
+- **AUC = 1** ⇔ existuje práh, který přesně klasifikuje všechny body.

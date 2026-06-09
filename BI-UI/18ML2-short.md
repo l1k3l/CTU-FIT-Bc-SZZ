@@ -11,7 +11,7 @@ tags: [otázka, kurz/ML2, otázka/18, todo]
 
 ## 2. Bayes + MAP
 
-[[Bayesova-věta|Bayesova věta]]: $\mathrm P(Y=y\mid X=x)\propto\mathrm P(X=x\mid Y=y)\mathrm P(Y=y)$ (jmenovatel $\mathrm P(X=x)$ na $y$ nezávisí).
+[[Bayesova-věta|Bayesova věta]]: $\mathrm P(Y=y\mid X=x)\propto\mathrm P(X=x\mid Y=y)\mathrm P(Y=y)$ (jmenovatel $\mathrm P(X=x)$ = **normalizační konstanta nezávislá na $y$** → při $\arg\max_y$ odpadá).
 $$\hat Y=\arg\max_y\ \mathrm P(X=x\mid Y=y)\,\mathrm P(Y=y)\quad(\text{MAP}).$$
 
 ## 3. Naivní Bayes
@@ -20,7 +20,9 @@ $$\hat Y=\arg\max_y\ \mathrm P(X=x\mid Y=y)\,\mathrm P(Y=y)\quad(\text{MAP}).$$
 $$\hat Y=\arg\max_y\ \mathrm P(Y=y)\prod_{i=1}^p\mathrm P(X_i=x_i\mid Y=y).$$
 Marginály se odhadují **separátně** → odolnost vůči prokletí dimenzionality. Předpoklad bývá nepravdivý, ale MAP často přesto správný.
 
-**Marginály (MLE):** Bernoulli $\hat p_y=\frac{N_{1,y}}{N_{1,y}+N_{0,y}}$; kategorické $\hat p_{j,y}=\frac{N_{j,y}}{\sum_l N_{l,y}}$; spojité $N(\mu_y,\sigma_y^2)$ s MLE $\hat\mu_y,\hat\sigma_y^2$.
+**Marginály (MLE):** Bernoulli $\mathrm P(X_i=x_i\mid y)=p_y^{x_i}(1-p_y)^{1-x_i}$, $\hat p_y=\frac{N_{1,y}}{N_{1,y}+N_{0,y}}$; kategorické $\hat p_{j,y}=\frac{N_{j,y}}{\sum_l N_{l,y}}$; **spojité → Gaussovský NB**: dosadíme hustotu $N(\mu_y,\sigma_y^2)$ s MLE $\hat\mu_y,\hat\sigma_y^2$ místo pravděpodobnosti.
+
+**Spojité příznaky (GaussianNB):** každou marginálu modeluje Gauss $N(\hat\mu_{i,y},\hat\sigma_{i,y}^2)$ zvlášť pro třídu+příznak; MAP = $\arg\max_y \hat\pi_y\prod_i f_{X_i\mid y}(x_i)$. *(Iris: 4 spojité příznaky, 3 třídy; výška mužů/žen: 2 Gaussovy hustoty.)*
 
 **Kolaps** ($N_{j,y}=0\Rightarrow$ odhad 0 → třída nikdy nepredikována). Řešení = **Bayesovský odhad** (apriori Beta) = **add-one / Laplace**: $\hat p_y=\frac{N_{1,y}+1}{N_{1,y}+N_{0,y}+2}$ (kategoricky $\frac{N_{j,y}+1}{\sum_l N_{l,y}+k}$).
 
